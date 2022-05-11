@@ -3,8 +3,15 @@ import {MenuItem} from "primeng/api";
 
 @Component({
   selector: 'app-side-menu',
-  templateUrl: './side-menu.component.html',
-  styleUrls: ['./side-menu.component.scss']
+  styleUrls: ['./side-menu.component.scss'],
+  template: `
+    <div class="side-menu-bar">
+      <p-panelMenu [model]="sideMenuItems"
+                   [multiple]="false"
+                   styleClass="side-menu-bar">
+      </p-panelMenu>
+    </div>
+  `
 })
 export class SideMenuComponent implements OnInit {
   sideMenuItems: MenuItem[] = [];
