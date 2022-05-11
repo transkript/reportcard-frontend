@@ -1,0 +1,79 @@
+@import "mixins.scss";
+@import "variables.scss";
+
+/**
+ * Dashboard Header
+ */
+app-dashboard {
+  header {
+
+  }
+
+  main {
+    height: content-box;
+  }
+}
+
+/**
+ * Dashboard Main
+ */
+app-dashboard {
+  background-color: #838383;
+}
+
+/**
+ * Navigation menus
+ */
+// Top menu bar
+.top-menu-bar {
+  @include rc-box-shadow(0px, 2px, 24px, 0px, rgba(0, 0, 0, 0.32));
+
+  padding: 24px 16px;
+  color: white;
+  border-radius: 0;
+  border-width: 0;
+  background: $rc-secondary-color;
+  background: linear-gradient(140deg, $rc-secondary-color 0%, $rc-primary-color 60%);
+
+  button {
+    border-radius: 4px;
+    background-color: white;
+    color: $rc-primary-color;
+    margin-right: 4px;
+    margin-left: 4px;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+
+    :hover {
+      background-color: $rc-primary-color;
+      color: white;
+    }
+  }
+}
+
+// Side menu bar
+.side-menu-bar {
+  .p-panelmenu-panel {
+    margin-bottom: 32px;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    .p-highlight {
+      .p-panelmenu-header-link {
+        background-color: $rc-primary-color;
+
+        span {
+          color: white;
+        }
+      }
+    }
+
+    .p-panelmenu-header-link {
+      @include rc-box-shadow(0px, 0px, 24px, 0px, rgba(123, 130, 251, 0.1));
+
+      border-width: 0;
+      background-color: $rc-tertiary-color;
+      span { color: $rc-dark-color; }
+    }
+  }
+}
