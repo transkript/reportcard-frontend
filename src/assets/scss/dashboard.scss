@@ -60,8 +60,8 @@ app-dashboard {
 
     .p-highlight {
       .p-panelmenu-header-link {
-        background-color: $rc-primary-color;
-
+        background-color: $rc-primary-color !important;
+        border-width: 0 !important;
         span {
           color: white;
         }
@@ -69,11 +69,65 @@ app-dashboard {
     }
 
     .p-panelmenu-header-link {
-      @include rc-box-shadow(0px, 0px, 24px, 0px, rgba(123, 130, 251, 0.1));
+      @include rc-box-shadow(0px, 0px, 24px, 0px, rgba(123, 130, 251, 0.16));
 
       border-width: 0;
       background-color: $rc-tertiary-color;
-      span { color: $rc-dark-color; }
+      span {
+        color: $rc-dark-color;
+      }
+
     }
   }
 }
+
+.rc-home {
+  .home-card {
+    padding: 1em;
+
+    .p-card-body, .p-card-content {
+      padding: 0;
+      text-align: center;
+    }
+  }
+  .home-stats-card {
+    background-color: $rc-primary-color;
+    color: white;
+
+    a {
+      color: white;
+    }
+    .home-stats-value {
+      font-size: 4rem;
+    }
+  }
+  .home-extras-card {
+    @include rc-box-shadow(0, 2px, 16px, 0px, $rc-tertiary-color);
+
+    .home-recent-actions-body {
+      padding: 2em;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
