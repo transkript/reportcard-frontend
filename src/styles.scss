@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/scss/dashboard";
-// light: 'node_modules/primeng/resources/themes/lara-light-indigo/theme.css';
-// dark: 'node_modules/primeng/resources/themes/lara-dark-indigo/theme.css';
-
+@import "assets/scss/variables.scss";
 
 .spacer {
   flex: 1 0 auto;
@@ -10,8 +8,22 @@
 
 html, body, main {
   height: 100%;
+  overflow: hidden;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: $rc-dark-color
+}
+html::-webkit-scrollbar {
+  width: 8px;
 }
 
+html::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: $rc-primary-color;
+  border-radius: 25px;
+}
 body {
   background-color: #e2e2e2;
 }
