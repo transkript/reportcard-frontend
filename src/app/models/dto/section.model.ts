@@ -2,7 +2,7 @@ export interface Section {
     id: number;
     name: string;
     category: string;
-    nuberOfClassLevels: number;
+    numberOfClassLevels: number;
     schoolId: number;
     numberOfSubjects: number;
 }
