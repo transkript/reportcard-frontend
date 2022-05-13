@@ -1,11 +1,54 @@
-<div class="container">
+<div class="rc-home">
+  <div class="row py-4 px-2 mx-2 intro">
+    <div class="col-9 d-flex">
+      <span class="h4 font-weight-bold align-self-center">Lorem Ipsum</span>
+    </div>
+    <div class="col-3 ">
+      <button pButton type="button" label="Settings" icon="pi pi-cog" class="mr-0"></button>
+    </div>
+  </div>
+  <!-- Home Stats -->
+  <div class="row py-4 px-2">
+    <div class="col-md-3" *ngFor="let stat of homeStats">
+      <p-card styleClass="home-card home-stats-card">
+        <ng-template pTemplate="header">
+          <div class="d-flex">
+            <i class="{{stat.icon}}"></i>&nbsp;
+            <span class="h6">{{stat.title}}</span>
+            <span class="spacer"></span>
+            <a routerLink="#"><span class="pi pi-arrow-right"></span></a>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="body">
+          <span class="home-stats-value">{{homeStatsValueDisplay(stat.value)}}</span>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
 
-  <div class="row">
-    <div class="col-9">
-      <span class="h4 text-primary text-capitalize">Lorem Ipsum</span>
+  <!-- Extras -->
+  <div class="row py-2 px-2">
+    <div class="col-md-6">
+      <p-card styleClass="home-card home-extras-card">
+        <ng-template pTemplate="header">
+          <span class="h5">Recent Activities</span>
+        </ng-template>
+        <ng-template pTemplate="body">
+          <div class="p-2 home-recent-actions-body">
+            <div class="p-1" *ngFor="let i of [1, 2, 3, 4, 5]">
+              <div class="d-flex align-items-center">
+                <span class="pi pi-check"></span>&nbsp;
+                <span class="">Action #1 done by @user</span>
+                <span class="spacer"></span>
+                <span class="pi pi-clock"></span>&nbsp;
+                <span class="">12/05/22 | 12:50</span>
+              </div>
+              <p-divider [style]="{'margin-top':'0.5em', 'margin-bottom':'0.5em'}"></p-divider>
+            </div>
+          </div>
+        </ng-template>
+      </p-card>
     </div>
-    <div class="col-3">
-      <button pButton type="button" label="Settings" icon="pi pi-cog"></button>
-    </div>
+    <div class="col-md-6"></div>
   </div>
 </div>
