@@ -4,10 +4,11 @@
 
 .side-menu-container {
   background-color: white;
+
 }
 
 app-top-menu {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 1;
@@ -16,8 +17,8 @@ app-top-menu {
 footer {
   background-color: #7a81f9;
   color: white;
-  padding: 8px 12px;
-  position: absolute;
+  padding: 0.8em 1.2em;
+  position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 1;
