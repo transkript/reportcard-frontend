@@ -20,6 +20,7 @@ import { RcStudentsComponent } from './components/rc-students/rc-students.compon
 import { RcClassesComponent } from './components/rc-classes/rc-classes.component';
 import { RcClasslistsComponent } from './components/rc-classlists/rc-classlists.component';
 import { RcSettingsComponent } from './components/rc-settings/rc-settings.component';
+import { RcBodyIntroComponent } from './components/rc-body-intro/rc-body-intro.component';
 
 
 
@@ -35,7 +36,8 @@ import { RcSettingsComponent } from './components/rc-settings/rc-settings.compon
     RcStudentsComponent,
     RcClassesComponent,
     RcClasslistsComponent,
-    RcSettingsComponent
+    RcSettingsComponent,
+    RcBodyIntroComponent
   ],
     imports: [
         CommonModule,
