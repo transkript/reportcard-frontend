@@ -1,15 +1,14 @@
 <div class="rc-home">
-  <div class="row py-4 px-2 mx-2 intro">
-    <div class="col-9 d-flex">
-      <span class="h4 font-weight-bold align-self-center">Lorem Ipsum</span>
-    </div>
-    <div class="col-3 ">
-      <button pButton type="button" label="Settings" icon="pi pi-cog" class="mr-0"></button>
-    </div>
-  </div>
+  <app-rc-body-intro
+    [title]="'Home'"
+    [buttonLabel]="'Settings'"
+    [buttonIcon]="'pi pi-cog'"
+    [buttonLink]="'#'">
+  </app-rc-body-intro>
+
   <!-- Home Stats -->
-  <div class="row py-4 px-2">
-    <div class="col-md-3" *ngFor="let stat of homeStats">
+  <div class="row py-4">
+    <div class="col-md-3 p-2" *ngFor="let stat of homeStats">
       <p-card styleClass="home-card home-stats-card">
         <ng-template pTemplate="header">
           <div class="d-flex">
@@ -26,9 +25,9 @@
     </div>
   </div>
 
-  <!-- Extras -->
-  <div class="row py-2 px-2">
-    <div class="col-md-6">
+  <div class="row py-2">
+    <!-- recent activities -->
+    <div class="col-md-6 p-2">
       <p-card styleClass="home-card home-extras-card">
         <ng-template pTemplate="header">
           <span class="h5">Recent Activities</span>
@@ -51,4 +50,6 @@
     </div>
     <div class="col-md-6"></div>
   </div>
+
+
 </div>
