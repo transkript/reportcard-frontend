@@ -8,8 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class RcHomeComponent implements OnInit {
   title: string = 'Home';
   homeStats: {title: string; icon: string; value: number; link: string}[] = [];
+  user: {name: string; email: string; role: string; avatar: string};
 
-  constructor() { }
+  constructor() {
+    this.user = {
+      name: 'John Doe',
+      email: 'johndoe@gmail.com',
+      role: 'Admin',
+      avatar: 'assets/images/avatars/avatar-'
+    };
+  }
 
   ngOnInit(): void {
     this.homeStats = [
@@ -33,4 +41,12 @@ export class RcHomeComponent implements OnInit {
     return valueDisplay;
   }
 
+  updateUser() {
+
+  }
+
+  openSettings() {
+    alert("Settings has been clicked");
+    return undefined;
+  }
 }

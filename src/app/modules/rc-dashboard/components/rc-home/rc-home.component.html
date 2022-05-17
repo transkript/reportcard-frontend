@@ -48,7 +48,45 @@
         </ng-template>
       </p-card>
     </div>
-    <div class="col-md-6"></div>
+
+    <!-- account information -->
+    <div class="col-md-6 p-2">
+      <p-card styleClass="home-card">
+        <ng-template pTemplate="header">
+          <span class="h5">Account Information</span>
+        </ng-template>
+        <ng-template pTemplate="body">
+          <div class="p-2 home-account-info-body">
+            <!-- TODO setup this form -->
+            <form>
+              <div class="p-fluid">
+                <div class="p-inputgroup p-1">
+                  <span class="p-inputgroup-addon">
+                    <i class="pi pi-user"></i>
+                  </span>
+                  <input type="text" pInputText placeholder="Username" value="{{user.name}}" />
+                </div>
+                <div class="p-inputgroup p-1">
+                  <span class="p-inputgroup-addon">
+                    <i class="pi pi-envelope"></i>
+                  </span>
+                  <input type="text" pInputText placeholder="Email" value="{{user.email}}" />
+                </div>
+                <div class="p-inputgroup p-1">
+                  <span class="p-inputgroup-addon">
+                    <i class="pi pi-key"></i>
+                  </span>
+                  <input type="text" pInputText placeholder="Password" value="{{user.role}}" readonly/>
+                </div>
+                <div class="p-inputgroup p-1">
+                  <button pButton type="button" label="Save" style="width: 50%; margin: auto" class="rc-button" (click)="updateUser()"></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 
 
