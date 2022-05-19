@@ -1,14 +1,14 @@
 <div class="rc-home">
   <app-rc-body-intro
-    [title]="'Home'"
-    [buttonLabel]="'Settings'"
     [buttonIcon]="'pi pi-cog'"
-    [buttonLink]="'#'">
+    [buttonLabel]="'Settings'"
+    [buttonLink]="'#'"
+    [title]="'Home'">
   </app-rc-body-intro>
 
   <!-- Home Stats -->
   <div class="row py-4">
-    <div class="col-md-3 p-2" *ngFor="let stat of homeStats">
+    <div *ngFor="let stat of homeStats" class="col-md-3 p-2">
       <p-card styleClass="home-card home-stats-card">
         <ng-template pTemplate="header">
           <div class="d-flex">
@@ -34,7 +34,7 @@
         </ng-template>
         <ng-template pTemplate="body">
           <div class="p-2 home-recent-actions-body">
-            <div class="p-1" *ngFor="let i of [1, 2, 3, 4, 5]">
+            <div *ngFor="let i of [1, 2, 3, 4, 5]" class="p-1">
               <div class="d-flex align-items-center">
                 <span class="pi pi-check"></span>&nbsp;
                 <span class="">Action #1 done by @user</span>
@@ -64,22 +64,23 @@
                   <span class="p-inputgroup-addon">
                     <i class="pi pi-user"></i>
                   </span>
-                  <input type="text" pInputText placeholder="Username" value="{{user.name}}" />
+                  <input pInputText placeholder="Username" type="text" value="{{user.name}}"/>
                 </div>
                 <div class="p-inputgroup p-1">
                   <span class="p-inputgroup-addon">
                     <i class="pi pi-envelope"></i>
                   </span>
-                  <input type="text" pInputText placeholder="Email" value="{{user.email}}" />
+                  <input pInputText placeholder="Email" type="text" value="{{user.email}}"/>
                 </div>
                 <div class="p-inputgroup p-1">
                   <span class="p-inputgroup-addon">
                     <i class="pi pi-key"></i>
                   </span>
-                  <input type="text" pInputText placeholder="Password" value="{{user.role}}" readonly/>
+                  <input pInputText placeholder="Password" readonly type="text" value="{{user.role}}"/>
                 </div>
                 <div class="p-inputgroup p-1">
-                  <button pButton type="button" label="Save" style="width: 50%; margin: auto" class="rc-button" (click)="updateUser()"></button>
+                  <button (click)="updateUser()" class="rc-button" label="Save" pButton style="width: 50%; margin: auto"
+                          type="button"></button>
                 </div>
               </div>
             </form>

@@ -21,7 +21,8 @@ export class RcBodyIntroComponent implements OnInit {
   @Input() buttonIcon = "";
   @Input() buttonLink = "";
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

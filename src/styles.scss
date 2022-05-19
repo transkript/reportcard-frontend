@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/scss/dashboard";
+@import "assets/scss/auth";
 @import "assets/scss/variables.scss";
 
 .spacer {
   flex: 1 0 auto;
 }
+
 
 html, body, main {
 
@@ -22,9 +24,9 @@ html::-webkit-scrollbar-thumb {
   background: $rc-primary-color;
   border-radius: 25px;
 }
-body {
-  background-color: #e2e2e2;
-}
 
+body {
+  background-color: #7164F2;
+}
 
 

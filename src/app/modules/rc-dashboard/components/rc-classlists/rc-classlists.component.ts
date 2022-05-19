@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-rc-classlists',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RcClasslistsComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

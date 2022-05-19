@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RcSubjectsComponent } from './rc-subjects.component';
+import {RcSubjectsComponent} from './rc-subjects.component';
 
 describe('RcSubjectsComponent', () => {
   let component: RcSubjectsComponent;
@@ -8,9 +8,9 @@ describe('RcSubjectsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RcSubjectsComponent ]
+      declarations: [RcSubjectsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

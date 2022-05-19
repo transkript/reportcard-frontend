@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-rc-home',
@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RcHomeComponent implements OnInit {
   title: string = 'Home';
-  homeStats: {title: string; icon: string; value: number; link: string}[] = [];
-  user: {name: string; email: string; role: string; avatar: string};
+  homeStats: { title: string; icon: string; value: number; link: string }[] = [];
+  user: { name: string; email: string; role: string; avatar: string };
 
   constructor() {
     this.user = {
@@ -30,11 +30,11 @@ export class RcHomeComponent implements OnInit {
 
   homeStatsValueDisplay(value: number): string {
     let valueDisplay: string = value.toString();
-    if(valueDisplay.length > 3) {
+    if (valueDisplay.length > 3) {
       valueDisplay = '999+'
     } else {
       const zeros = 3 - valueDisplay.length;
-      for(let i = 0; i < zeros; i++) {
+      for (let i = 0; i < zeros; i++) {
         valueDisplay = '0' + valueDisplay;
       }
     }

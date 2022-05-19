@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TopMenuComponent } from './top-menu.component';
+import {TopMenuComponent} from './top-menu.component';
 
 describe('TopMenuComponent', () => {
   let component: TopMenuComponent;
@@ -8,9 +8,9 @@ describe('TopMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopMenuComponent ]
+      declarations: [TopMenuComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

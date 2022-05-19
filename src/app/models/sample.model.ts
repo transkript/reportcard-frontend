@@ -1,2 +1,6 @@
-export interface Sample.Model {
+export interface Sample
+
+.
+Model
+{
 }

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RcClassesComponent } from './rc-classes.component';
+import {RcClassesComponent} from './rc-classes.component';
 
 describe('RcClassesComponent', () => {
   let component: RcClassesComponent;
@@ -8,9 +8,9 @@ describe('RcClassesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RcClassesComponent ]
+      declarations: [RcClassesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
