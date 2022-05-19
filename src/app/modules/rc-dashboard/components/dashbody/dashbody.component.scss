@@ -1,12 +1,9 @@
 .dash-body {
-  padding: 10% 2em;
-  height: 100%;
+  padding: 10% 1.2em;
+
+  height: 80%;
 }
 .dash-body-content {
-  height: 48rem;
-  overflow-y: scroll;
-  overflow-x: hidden;
   overscroll-behavior: contain;
   overflow-wrap: anywhere;
-
 }

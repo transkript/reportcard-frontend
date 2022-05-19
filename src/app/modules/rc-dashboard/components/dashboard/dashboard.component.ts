@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api";
 
 @Component({
@@ -10,10 +10,10 @@ import {MenuItem} from "primeng/api";
     </header>
     <main>
       <div class="dashboard-container row no-gutters">
-        <div class="col-xl-2 col-lg-3 side-menu-container">
+        <div class="col-xl-2 col-lg-2 d-none d-lg-block side-menu-container">
           <app-side-menu></app-side-menu>
         </div>
-        <div class="col-xl-10 col-lg-9 dashbody-container">
+        <div class="col-xl-10 col-lg-10 col-md-12 dashbody-container">
           <app-dashbody></app-dashbody>
         </div>
       </div>
@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
         label: 'Logout',
         icon: 'pi pi-fw pi-power-off',
       }
-    ]
+    ];
   }
 
 }

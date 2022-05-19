@@ -12,4 +12,8 @@ export class RcSubjectsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addSubject() {
+    alert("Subjects");
+    return undefined;
+  }
 }
