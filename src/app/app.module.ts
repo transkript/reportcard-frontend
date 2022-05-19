@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SampleComponent } from './components/sample/sample.component';
 import { RcAuthModule } from './modules/rc-auth/rc-auth.module';
 import {RcDashboardModule} from "./modules/rc-dashboard/rc-dashboard.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 
@@ -17,12 +18,13 @@ import {RcDashboardModule} from "./modules/rc-dashboard/rc-dashboard.module";
   declarations: [
     AppComponent,
     SampleComponent,
-   
+
   ],
   imports: [
     RcDashboardModule,
     RcAuthModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
   ],
   providers: [],
