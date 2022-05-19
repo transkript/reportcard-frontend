@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -15,13 +15,14 @@ export class HomeComponent implements OnInit {
   loginForm!: FormGroup;
 
 
-  constructor( private fb : FormBuilder) {
+  constructor(private fb: FormBuilder) {
 
-   }
+  }
 
   ngOnInit() {
     this.initLogForm();
   }
+
   initLogForm() {
     this.loginForm = this.fb.group({
       phone: ["", Validators.required],

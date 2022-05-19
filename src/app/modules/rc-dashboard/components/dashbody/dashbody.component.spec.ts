@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DashbodyComponent } from './dashbody.component';
+import {DashbodyComponent} from './dashbody.component';
 
 describe('DashbodyComponent', () => {
   let component: DashbodyComponent;
@@ -8,9 +8,9 @@ describe('DashbodyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashbodyComponent ]
+      declarations: [DashbodyComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

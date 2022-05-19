@@ -5,6 +5,7 @@ import {RcHomeComponent} from "./rc-dashboard/components/rc-home/rc-home.compone
 const routes: Routes = [
   {component: RcHomeComponent, path: 'home'}
 ]
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

@@ -1,5 +1,5 @@
 export interface School {
-    id: number;
-    name: string;
-    numberOfSection: number;
+  id: number;
+  name: string;
+  numberOfSection: number;
 }

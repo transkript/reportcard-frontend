@@ -1,3 +1,3 @@
 export interface ClassLevelSub {
-    id: number;
+  id: number;
 }

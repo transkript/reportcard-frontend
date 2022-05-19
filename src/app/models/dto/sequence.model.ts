@@ -1,5 +1,5 @@
 export interface Sequence {
-    id: number;
-    name: string;
-    term: number;
+  id: number;
+  name: string;
+  term: number;
 }

@@ -3,27 +3,30 @@
     <div class="col-md-6 flex align-items-center justify-content-center">
       <span class="text-center welcome-text">
         <h1 class="login-text">Welcome To School Report Card Management System</h1>
-        <img [src]="imageSrc" [alt]="imageAlt"  width="80"/>
+        <img [alt]="imageAlt" [src]="imageSrc" width="80"/>
       </span>
     </div>
     <div class="cad col-md-6">
-      <form class="col-12 p-6 font-bold mb-1" [formGroup]="loginForm"  >
+      <form [formGroup]="loginForm" class="col-12 p-6 font-bold mb-1">
         <div class="shadow-4 p-6 border-round-sm bg-white">
-          <p-avatar image="assets/images/Avata.png" styleClass="mr-2" size="xlarge"  id="p-avatar" shape="circle"></p-avatar>
+          <p-avatar id="p-avatar" image="assets/images/Avata.png" shape="circle" size="xlarge"
+                    styleClass="mr-2"></p-avatar>
           <h1 class="header" style="text-align: center">Welcome Admin</h1>
           <span class="p-input-icon-right w-full py-2">
               <i class="pi pi-envelope"></i>
-              <input type="text" class="w-full p-inputtext" pInputText placeholder="john@doe.com" [formControlName]="'username'">
+              <input [formControlName]="'username'" class="w-full p-inputtext" pInputText placeholder="john@doe.com"
+                     type="text">
           </span>
           <span class="p-input-icon-right w-full py-2">
               <i class="pi pi-eye"></i>
-              <input type="password" class="w-full p-inputtext" pInputText placeholder="Password" [formControlName]="'password'">
+              <input [formControlName]="'password'" class="w-full p-inputtext" pInputText placeholder="Password"
+                     type="password">
           </span>
           <div class="class">
             <a id="a-tag">Forget Password?</a>
           </div>
           <div class="p-inputgroup p-1">
-            <button type="button" pButton class="p-button w-full" label="Login" ></button>
+            <button class="p-button w-full" label="Login" pButton type="button"></button>
           </div>
         </div>
       </form>

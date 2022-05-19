@@ -1,46 +1,53 @@
 @import "variables";
 
-#p-avatar{
+#p-avatar {
   margin-left: 40%;
 }
-.grid{
+
+.grid {
   margin: auto;
   width: 100%;
 }
+
 //text
 // span{
 //     margin-top: 10%;
 // }
 //card content
-.cad{
+.cad {
   margin: auto;
 }
 
 
-.header{
+.header {
   margin-bottom: 10%;
   color: #7C83FD;
 }
+
 //button
-#btn{
-  background:#7C83FD;
-  margin-left:auto;
+#btn {
+  background: #7C83FD;
+  margin-left: auto;
   border: #7C83FD;
 }
+
 //a tag
-.class{
-  color:#7C83FD;
+.class {
+  color: #7C83FD;
   margin-top: 5%;
   margin-bottom: 5%;
 }
-div.field1{
+
+div.field1 {
   padding: 0%;
 }
-.field2{
+
+.field2 {
   padding-top: 5%;
-  padding-bottom:8%;
+  padding-bottom: 8%;
 }
-form{
+
+form {
   width: 100%;
 }
 

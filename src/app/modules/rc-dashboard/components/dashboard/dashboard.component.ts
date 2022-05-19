@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api";
 
 @Component({
@@ -26,7 +26,8 @@ import {MenuItem} from "primeng/api";
 export class DashboardComponent implements OnInit {
   menuItems: MenuItem[] = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.menuItems = [

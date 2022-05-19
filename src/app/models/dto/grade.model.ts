@@ -1,3 +1,3 @@
 export interface Grade {
-    id: number;
+  id: number;
 }
