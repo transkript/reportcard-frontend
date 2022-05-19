@@ -1,46 +1,34 @@
-
-    <div class="grid">
-        <div class="col-6 flex flex align-items-center justify-content-center m-auto">
-          <span class="text-center">
-            <h1 class="text-white font-size-relative ">Welcome To School Report Card Management System</h1>
-            <img [src]="imageSrc" [alt]="imageAlt"  width="80"/>
-          </span>
-        </div>
-        <div class="cad">
-          <form class="col-12 p-6 font-bold mb-1" [formGroup]="loginForm"  >
-              <div class="shadow-4 p-6 border-round-sm bg-white">
-                <p-avatar image="assets/images/Avata.png" styleClass="mr-2" size="xlarge"  id="p-avatar" shape="circle"></p-avatar>
-                <h1 class="header">Welcome Admin</h1>
-                <div class="field1" >
-                  <span class="p-input-icon-right w-full" >
-                    <i class="pi pi-phone"></i>
-                  <input id="phonenum" type="phone" name="Phonenum"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                    placeholder="Phone Number" 
-                    formControlName="phone"
-                    >
-                    </span>
-                </div>
-                <div class="field2">
-                  <span class="p-input-icon-right w-full" >
-                  <i class="pi pi-compass"></i>
-                  <input id="password" type="password" name="password"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                    placeholder="Input Password"
-                    formControlName="password"
-                    >
-                  </span>
-                </div>
-                <div class="class">
-                    <a linkURL ="" id="a-tag">Forget Password?</a>
-                </div>
-                <button type="button"
-                  class="text-white  shadow-4 py-2 px-5 text-base  border-round cursor-pointer transition-all transition-duration-200 hover:bg-primary-600 hover:border-primary-600 active:bg-primary-700 active:border-primary-700 w-full" id="btn"
-                  [disabled]="!loginForm.valid"
-                  >Log in</button>
-              </div>
-            </form>
-          </div>
-          
+<div class="home-container">
+  <div class="grid">
+    <div class="col-md-6 flex align-items-center justify-content-center">
+      <span class="text-center welcome-text">
+        <h1 class="login-text">Welcome To School Report Card Management System</h1>
+        <img [src]="imageSrc" [alt]="imageAlt"  width="80"/>
+      </span>
     </div>
+    <div class="cad col-md-6">
+      <form class="col-12 p-6 font-bold mb-1" [formGroup]="loginForm"  >
+        <div class="shadow-4 p-6 border-round-sm bg-white">
+          <p-avatar image="assets/images/Avata.png" styleClass="mr-2" size="xlarge"  id="p-avatar" shape="circle"></p-avatar>
+          <h1 class="header" style="text-align: center">Welcome Admin</h1>
+          <span class="p-input-icon-right w-full py-2">
+              <i class="pi pi-envelope"></i>
+              <input type="text" class="w-full p-inputtext" pInputText placeholder="john@doe.com" [formControlName]="'username'">
+          </span>
+          <span class="p-input-icon-right w-full py-2">
+              <i class="pi pi-eye"></i>
+              <input type="password" class="w-full p-inputtext" pInputText placeholder="Password" [formControlName]="'password'">
+          </span>
+          <div class="class">
+            <a id="a-tag">Forget Password?</a>
+          </div>
+          <div class="p-inputgroup p-1">
+            <button type="button" pButton class="p-button w-full" label="Login" ></button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
 
