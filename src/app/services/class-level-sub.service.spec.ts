@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ClassLevelSubService } from './class-level-sub.service';
+import {ClassLevelSubService} from './class-level-sub.service';
 
 describe('ClassLevelSubService', () => {
   let service: ClassLevelSubService;

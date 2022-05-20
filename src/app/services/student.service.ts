@@ -9,7 +9,8 @@ import {Student} from "../models/dto/student.model";
 })
 export class StudentService {
 
-  constructor(private http: HttpClient, @Inject(RC_STUDENT_API_URL) private studentApiUrl: string) { }
+  constructor(private http: HttpClient, @Inject(RC_STUDENT_API_URL) private studentApiUrl: string) {
+  }
 
   getStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(this.studentApiUrl);

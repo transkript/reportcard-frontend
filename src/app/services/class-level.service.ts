@@ -10,7 +10,8 @@ import {EntityResponse} from "../models/dto/entity.response";
 })
 export class ClassLevelService {
 
-  constructor(private http: HttpClient, @Inject(RC_CLASS_LEVEL_API_URL) private classLevelApiUrl: string) { }
+  constructor(private http: HttpClient, @Inject(RC_CLASS_LEVEL_API_URL) private classLevelApiUrl: string) {
+  }
 
   getClassLevels(): Observable<ClassLevel[]> {
     return this.http.get<ClassLevel[]>(this.classLevelApiUrl);

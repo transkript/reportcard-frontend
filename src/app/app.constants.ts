@@ -1,4 +1,3 @@
-
 // TODO fix endpoints
 const RC_SERVER_URL = 'http://localhost:8090';
 

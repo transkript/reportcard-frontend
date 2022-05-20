@@ -9,7 +9,8 @@ import {Subject} from "../models/dto/subject.model";
 })
 export class SubjectService {
 
-  constructor(private http: HttpClient, @Inject(RC_SUBJECT_API_URL) private subjectApiUrl: string) { }
+  constructor(private http: HttpClient, @Inject(RC_SUBJECT_API_URL) private subjectApiUrl: string) {
+  }
 
   getSubjects(): Observable<Subject[]> {
     return this.http.get<Subject[]>(this.subjectApiUrl);

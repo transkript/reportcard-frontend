@@ -9,7 +9,8 @@ import {Section} from "../models/dto/section.model";
 })
 export class SectionService {
 
-  constructor(private http: HttpClient, @Inject(RC_SECTION_API_URL) private sectionApiUrl: string) { }
+  constructor(private http: HttpClient, @Inject(RC_SECTION_API_URL) private sectionApiUrl: string) {
+  }
 
   getSections(): Observable<Section[]> {
     return this.http.get<Section[]>(this.sectionApiUrl);

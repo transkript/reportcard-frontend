@@ -16,7 +16,7 @@ const classLevelInjectables: Array<any> = [
   {provide: RC_CLASS_LEVEL_API_URL, useValue: RC_CLASS_LEVEL_API_URL}
 ];
 const schoolInjectables: Array<any> = [
-  { provide: SchoolService, useClass: SchoolService },
+  {provide: SchoolService, useClass: SchoolService},
   {provide: RC_SCHOOL_API_URL, useValue: RC_SCHOOL_API_URL}
 ];
 const sectionInjectables: Array<any> = [
@@ -24,11 +24,11 @@ const sectionInjectables: Array<any> = [
   {provide: RC_SECTION_API_URL, useValue: RC_SECTION_API_URL}
 ]
 const studentInjectables: Array<any> = [
-  { provide: StudentService, useClass: StudentService },
+  {provide: StudentService, useClass: StudentService},
   {provide: RC_STUDENT_API_URL, useValue: RC_STUDENT_API_URL}
 ];
 const subjectInjectables: Array<any> = [
-  { provide: SubjectService, useClass: SubjectService },
+  {provide: SubjectService, useClass: SubjectService},
   {provide: RC_SUBJECT_API_URL, useValue: RC_SUBJECT_API_URL}
 ];
 

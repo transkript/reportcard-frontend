@@ -10,7 +10,8 @@ import {EntityResponse} from "../models/dto/entity.response";
 })
 export class SchoolService {
 
-  constructor(private http: HttpClient, @Inject(RC_SCHOOL_API_URL) private schoolApiUrl: string) {}
+  constructor(private http: HttpClient, @Inject(RC_SCHOOL_API_URL) private schoolApiUrl: string) {
+  }
 
   getSchools(): Observable<School[]> {
     return this.http.get<School[]>(this.schoolApiUrl)
