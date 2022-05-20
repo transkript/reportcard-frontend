@@ -2,5 +2,6 @@ export interface Subject {
   id: number;
   name: string;
   code: string;
-  sectionId: number;
+  coefficient: number;
+  section_id: number;
 }
