@@ -25,10 +25,10 @@ export class RcHomeComponent implements OnInit {
     private subjectService: SubjectService,
   ) {
     this.homeStats = [
-      {title: 'Classes', icon: 'pi pi-user', value: 0, link: '#'},
+      {title: 'Classes', icon: 'pi pi-user', value: 0, link: '/dashboard/classes'},
       {title: 'Sections', icon: 'pi pi-user', value: 0, link: '#'},
-      {title: 'Students', icon: 'pi pi-user', value: 0, link: '#'},
-      {title: 'Subjects', icon: 'pi pi-user', value: 0, link: '#'},
+      {title: 'Students', icon: 'pi pi-user', value: 0, link: '/dashboard/students'},
+      {title: 'Subjects', icon: 'pi pi-user', value: 0, link: '/dashboard/subjects'},
     ]
 
   }
