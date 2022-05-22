@@ -126,7 +126,47 @@ app-dashboard {
   border-radius: 4px;
   padding: 0.5em .8em;
   margin: 0.5em;
-
 }
 
+.action-button {
+  @include rc-box-shadow(0px, 2px, 24px, 0px, rgba(0, 0, 0, 0.32));
+
+  border-radius: 50%;
+  border-style: none;
+  border-width: 0;
+  i {
+    color: white;
+  }
+}
+
+.rc-button-primary {
+  background-color: $rc-primary-color;
+  border-color: $rc-primary-color;
+}
+
+/********************************************************************************************/
+
+
+
+
+/********************************************************************************************/
+.full-width {
+  width: 100%;
+}
+
+
+.data-container {
+  @include rc-box-shadow(0px, 2px, 24px, 0px, rgba(0, 0, 0, 0.24));
+
+  padding: 8px 16px;
+  background-color: white;
+  border-radius: 4px;
+
+  table {
+    margin: 24px auto;
+    //font-size: px;
+  }
+
+
+}
 /********************************************************************************************/

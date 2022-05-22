@@ -9,6 +9,7 @@ import {MenuItem} from "primeng/api";
       <app-top-menu></app-top-menu>
     </header>
     <main>
+      <p-toast></p-toast>
       <div class="dashboard-container row no-gutters">
         <div class="col-xl-2 col-lg-2 d-none d-lg-block side-menu-container">
           <app-side-menu></app-side-menu>

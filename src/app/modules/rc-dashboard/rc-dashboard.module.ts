@@ -21,6 +21,9 @@ import {RcClassesComponent} from './components/rc-classes/rc-classes.component';
 import {RcClasslistsComponent} from './components/rc-classlists/rc-classlists.component';
 import {RcSettingsComponent} from './components/rc-settings/rc-settings.component';
 import {RcBodyIntroComponent} from './components/rc-body-intro/rc-body-intro.component';
+import {DataViewModule} from "primeng/dataview";
+import {ReusableModule} from "../reusable/reusable.module";
+import {ToastModule} from "primeng/toast";
 
 
 @NgModule({
@@ -40,6 +43,7 @@ import {RcBodyIntroComponent} from './components/rc-body-intro/rc-body-intro.com
   ],
   imports: [
     CommonModule,
+    ReusableModule,
     MenubarModule,
     SharedModule,
     ButtonModule,
@@ -47,7 +51,9 @@ import {RcBodyIntroComponent} from './components/rc-body-intro/rc-body-intro.com
     PanelMenuModule,
     RippleModule,
     CardModule,
-    DividerModule
+    DividerModule,
+    DataViewModule,
+    ToastModule
   ],
   exports: [
     DashboardComponent
