@@ -3,15 +3,10 @@
     <span class="h3">Students</span>
     <span class="spacer"></span>
     <span class="px-2">
-      <button (click)="addStudentAction()"
-        data-toggle="modal" data-target=".add-subject-modal" type="button"
-        pButton icon="pi pi-plus-circle" class="p-button-rounded"></button>
+      <button (click)="saveStudentAction()" pButton icon="pi pi-plus-circle" class="p-button-rounded"></button>
     </span>
     <span class="px-2">
-      <button
-        (click)="loadStudents()"
-        type="button"
-        pButton icon="pi pi-refresh" class="p-button-rounded"></button>
+      <button (click)="loadStudents()" type="button" pButton icon="pi pi-refresh" class="p-button-rounded"></button>
     </span>
   </div>
 
@@ -35,15 +30,12 @@
           <td>{{student.gender}}</td>
           <td>
               <span class="px-2">
-                <button title="Edit" class="btn rc-button-primary action-button"
-                        data-toggle="modal" data-target=".add-subject-modal"
-                   (click)="changeCurrentStudent(student)" type="button">
+                <a title="Edit" class="btn btn-primary rc-button-primary action-button" (click)="saveStudentAction(student)" type="button">
                   <i class="bi bi-pencil"></i>
-                </button>
+                </a>
               </span>
             <span class="px-2">
-                <a title="Delete" class="btn btn-danger action-button"
-                   (click)="deleteStudentAction(student)">
+                <a title="Delete" class="btn btn-danger action-button" (click)="deleteStudentAction(student)">
                   <i class="bi bi-trash"></i>
                 </a>
               </span>
@@ -56,26 +48,6 @@
         </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-
-  <div #saveSubjectModal class="modal fade add-subject-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="container">
-          <div class="py-2" >
-            <div class="d-flex">
-              <span class="h3">Save Student</span>
-              <span class="spacer"></span>
-              <span class="">
-                <button (click)="closeSaveStudentDialogAction(saveSubjectModal)"
-                  pButton class="p-button-rounded p-button-danger p-button-text" icon="pi pi-times"></button>
-              </span>
-            </div>
-            <app-save-student [student]="currentStudent"></app-save-student>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

@@ -6,6 +6,7 @@ import {MessageService} from "primeng/api";
 import {addToMessageService} from "../../../../utils/message-service.util";
 import {Gender} from "../../../../models/enum/gender.enum";
 import {DateUtil} from "../../../../utils/date.util";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-save-student',
@@ -13,21 +14,20 @@ import {DateUtil} from "../../../../utils/date.util";
   styleUrls: ['./save-student.component.scss']
 })
 export class SaveStudentComponent implements OnInit {
-
   @Input() student: Student;
+  private readonly defaultStudent: Student;
 
   genders: string[] = Object.keys(Gender);
-  selectedGender: string;
 
   studentForm: FormGroup = new FormGroup({});
 
-  constructor(private studentService: StudentService, private messageService: MessageService) {
-    this.student = {
-      id: -1, name: "", gender: "M", date_of_birth: new Date(),
+  constructor(public activeModal: NgbActiveModal,
+    private studentService: StudentService, private messageService: MessageService) {
+    this.defaultStudent = {
+      id: -1, name: "", gender: "M", date_of_birth: '',
       place_of_birth: "", registration_number: "", number_of_applications: 0
     };
-
-    this.selectedGender = this.student.gender;
+    this.student = this.defaultStudent;
   }
 
   ngOnInit(): void {
@@ -35,12 +35,16 @@ export class SaveStudentComponent implements OnInit {
     this.setUpStudentForm();
   }
 
+  resetStudent() {
+    this.student = this.defaultStudent;
+  }
+
   setUpStudentForm(): void {
     this.studentForm = new FormGroup({
       name: new FormControl(this.student.name, Validators.required),
       regNum: new FormControl(this.student.registration_number, Validators.required),
-      gender: new FormControl( Validators.required),
-      dob: new FormControl('', Validators.required),
+      gender: new FormControl(this.student.gender, Validators.required),
+      dob: new FormControl(DateUtil.fromRcDate(this.student.date_of_birth), Validators.required),
       pob: new FormControl(this.student.place_of_birth, Validators.required),
     });
   }
@@ -51,12 +55,13 @@ export class SaveStudentComponent implements OnInit {
       name: this.studentForm.get('name')?.value,
       registration_number: this.studentForm.get('regNum')?.value,
       gender: this.studentForm.get('gender')?.value,
-      date_of_birth: DateUtil.setToRcDateObj(this.studentForm.get('dob')?.value),
+      date_of_birth: DateUtil.setToRcDateString(this.studentForm.get('dob')?.value),
       place_of_birth: this.studentForm.get('pob')?.value,
       number_of_applications: 0,
     };
 
     console.log(studentToSave.date_of_birth)
+    console.log(this.student.id)
 
     if(this.student.id < 0) {
       this.studentService.addStudent(studentToSave).subscribe({
@@ -79,5 +84,9 @@ export class SaveStudentComponent implements OnInit {
         }
       })
     }
+  }
+
+  closeModal() {
+    this.activeModal.close();
   }
 }

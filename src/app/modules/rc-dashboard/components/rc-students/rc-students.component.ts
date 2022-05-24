@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Student} from "../../../../models/dto/student.model";
 import {StudentService} from "../../../../services/student.service";
 import {SaveStudentComponent} from "../../../reusable/student/save-student/save-student.component";
 import {StringUtil} from "../../../../utils/string.util";
 import {MessageService} from "primeng/api";
 import {addToMessageService} from "../../../../utils/message-service.util";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-rc-students',
@@ -12,29 +13,15 @@ import {addToMessageService} from "../../../../utils/message-service.util";
   styleUrls: ['./rc-students.component.scss']
 })
 export class RcStudentsComponent implements OnInit {
-  @ViewChild(SaveStudentComponent) saveStudentComponent?: SaveStudentComponent;
-
-  currentStudent: Student = {
-    id: -1, name: '', gender: 'M', date_of_birth: new Date(),
-    place_of_birth: '', registration_number: 'string', number_of_applications: 0,
-  };
   students: Student[] = [];
-  constructor(private studentService: StudentService, private messageService: MessageService) {
+
+  constructor(
+    private modalService: NgbModal,
+    private studentService: StudentService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
     this.loadStudents();
-  }
-
-  changeCurrentStudent(student: Student) {
-    if(this.saveStudentComponent?.student) {
-      this.saveStudentComponent.student = student;
-      this.saveStudentComponent.setUpStudentForm();
-      this.saveStudentComponent.studentForm.patchValue({
-        gender: student.gender
-      })
-      console.log(student)
-    }
   }
 
   loadStudents() {
@@ -45,8 +32,28 @@ export class RcStudentsComponent implements OnInit {
     });
   }
 
-  addStudentAction() {
-    this.saveStudentComponent?.studentForm.reset();
+  saveStudentAction(student?: Student) {
+    const modalRef = this.modalService.open(SaveStudentComponent, {
+      size: 'lg',
+      centered: true,
+      backdrop: 'static',
+      keyboard: true
+    });
+    const saveStudentComponent: SaveStudentComponent = modalRef.componentInstance;
+    if(!student) {
+      saveStudentComponent.resetStudent();
+      saveStudentComponent.studentForm.reset();
+    } else {
+      saveStudentComponent.student = student;
+      saveStudentComponent.setUpStudentForm();
+
+      console.log(student)
+    }
+    modalRef.result.then((result) => {
+      if (result) {
+        this.loadStudents();
+      }
+    });
   }
 
   deleteStudentAction(student: Student) {
@@ -62,9 +69,4 @@ export class RcStudentsComponent implements OnInit {
       });
     }
   }
-
-  closeSaveStudentDialogAction(saveSubjectModal: HTMLDivElement) {
-    saveSubjectModal.click();
-  }
-
 }
