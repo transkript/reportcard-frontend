@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {injectables} from "./services/injectables/rc-api.injectables";
 import {MessageService} from "primeng/api";
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -25,10 +26,12 @@ import {MessageService} from "primeng/api";
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [
     injectables,
-    {provide: MessageService, useClass: MessageService}
+    {provide: MessageService, useClass: MessageService},
+    {provide: NgbActiveModal, useClass: NgbActiveModal}
   ],
   bootstrap: [AppComponent]
 })
