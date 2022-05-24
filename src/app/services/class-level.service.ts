@@ -1,9 +1,31 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {RC_CLASS_LEVEL_API_URL} from "../app.constants";
+import {Observable} from "rxjs";
+import {ClassLevel} from "../models/dto/classlevel.model";
+import {EntityResponse} from "../models/dto/entity.response";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassLevelService {
 
-  constructor() { }
+  constructor(private http: HttpClient, @Inject(RC_CLASS_LEVEL_API_URL) private classLevelApiUrl: string) {
+  }
+
+  getClassLevels(): Observable<ClassLevel[]> {
+    return this.http.get<ClassLevel[]>(this.classLevelApiUrl);
+  }
+
+  getClassLevelById(id: number): Observable<ClassLevel> {
+    return this.http.get<ClassLevel>(`${this.classLevelApiUrl}/${id}`);
+  }
+
+  addClassLevel(classLevel: ClassLevel): Observable<EntityResponse> {
+    return this.http.post<EntityResponse>(`${this.classLevelApiUrl}/${classLevel.id}`, classLevel);
+  }
+
+  updateClassLevel(classLevel: ClassLevel): Observable<EntityResponse> {
+    return this.http.put<EntityResponse>(`${this.classLevelApiUrl}/${classLevel.id}`, classLevel);
+  }
 }

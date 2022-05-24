@@ -1,5 +1,5 @@
 export interface School {
   id: number;
   name: string;
-  numberOfSection: number;
+  number_of_sections?: number;
 }

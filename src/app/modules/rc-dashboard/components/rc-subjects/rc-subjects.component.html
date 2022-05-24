@@ -1,12 +1,64 @@
 <div class="rc-subjects">
-  <app-rc-body-intro
-    [buttonIcon]="'pi pi-plus-circle'"
-    [buttonLabel]="'Add Subjects'"
-    [buttonLink]="'#'"
-    [title]="'Subjects'"
-  ></app-rc-body-intro>
-
-  <div class="row py-4">
-
+  <div class="py-2 d-flex">
+    <span class="h3">Subjects</span>
+    <span class="spacer"></span>
+    <span class="px-2">
+      <button data-toggle="modal" data-target=".add-subject-modal" type="button"
+              pButton icon="pi pi-plus-circle" label="Add"></button>
+    </span>
+    <span class="px-2">
+      <button (click)="loadSubjects()"
+        type="button"
+        pButton icon="pi pi-refresh" class="p-button-rounded"></button>
+    </span>
   </div>
+
+  <div class="py-4">
+    <div class="subject-data-container data-container">
+      <table class="table table-striped">
+        <thead class="table-info">
+          <tr>
+            <th>SN</th>
+            <th>Subject Name</th>
+            <th>Code</th>
+            <th>Coeff</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let subject of subjects; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{subject.name}}</td>
+            <td>{{subject.code}}</td>
+            <td>{{subject.coefficient}}</td>
+            <td>
+              <span class="px-2">
+                <a title="Edit" class="p-button-sm p-button-rounded rc-action-button" data-toggle="modal" data-target=".add-subject-modal"
+                        (click)="changeCurrentSubject(subject)" type="button" pButton pRipple icon="pi pi-pencil"></a>
+              </span>
+              <span class="px-2">
+                <a title="Delete" class="p-button-sm p-button-rounded p-button-danger rc-action-button" pButton pRipple icon="pi pi-trash" (click)="deleteSubject(subject)"></a>
+              </span>
+            </td>
+          </tr>
+          <tr *ngIf="subjects.length < 1">
+            <td colspan="5">
+              <span class="text-center">No data found</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <div #saveSubjectModal class="modal fade add-subject-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <app-save-subject [subject]="currentSubject" (cancelSaveSubjectEvent)="closeSaveSubjectDialog($event, saveSubjectModal)"></app-save-subject>
+      </div>
+    </div>
+  </div>
+
+
 </div>

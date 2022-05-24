@@ -7,6 +7,9 @@ import {SampleComponent} from './components/sample/sample.component';
 import {RcAuthModule} from './modules/rc-auth/rc-auth.module';
 import {RcDashboardModule} from "./modules/rc-dashboard/rc-dashboard.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HttpClientModule} from "@angular/common/http";
+import {injectables} from "./services/injectables/rc-api.injectables";
+import {MessageService} from "primeng/api";
 
 
 @NgModule({
@@ -21,8 +24,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    injectables,
+    {provide: MessageService, useClass: MessageService}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

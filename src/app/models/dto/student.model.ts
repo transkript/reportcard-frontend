@@ -2,8 +2,8 @@ export interface Student {
   id: number;
   name: string;
   gender: string;
-  dob: Date;
-  pob: string;
-  regNum: string;
-  numberOfApplications?: number;
+  date_of_birth: Date;
+  place_of_birth: string;
+  registration_number: string;
+  number_of_applications?: number;
 }

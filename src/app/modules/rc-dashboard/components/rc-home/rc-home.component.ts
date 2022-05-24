@@ -1,31 +1,51 @@
 import {Component, OnInit} from '@angular/core';
+import {ClassLevelService} from "../../../../services/class-level.service";
+import {SubjectService} from "../../../../services/subject.service";
+import {SectionService} from "../../../../services/section.service";
+import {StudentService} from "../../../../services/student.service";
 
 @Component({
   selector: 'app-rc-home',
   templateUrl: './rc-home.component.html',
-  styleUrls: ['./rc-home.component.scss']
+  styleUrls: ['./rc-home.component.scss'],
 })
 export class RcHomeComponent implements OnInit {
   title: string = 'Home';
   homeStats: { title: string; icon: string; value: number; link: string }[] = [];
-  user: { name: string; email: string; role: string; avatar: string };
+  user: { name: string; email: string; role: string; } = {
+    name: 'John Doe',
+    email: 'johndoe@gmail.com',
+    role: 'Admin',
+  };
 
-  constructor() {
-    this.user = {
-      name: 'John Doe',
-      email: 'johndoe@gmail.com',
-      role: 'Admin',
-      avatar: 'assets/images/avatars/avatar-'
-    };
+  constructor(
+    private classLevelService: ClassLevelService,
+    private sectionService: SectionService,
+    private studentService: StudentService,
+    private subjectService: SubjectService,
+  ) {
+    this.homeStats = [
+      {title: 'Classes', icon: 'pi pi-user', value: 0, link: '/dashboard/classes'},
+      {title: 'Sections', icon: 'pi pi-user', value: 0, link: '#'},
+      {title: 'Students', icon: 'pi pi-user', value: 0, link: '/dashboard/students'},
+      {title: 'Subjects', icon: 'pi pi-user', value: 0, link: '/dashboard/subjects'},
+    ]
+
   }
 
   ngOnInit(): void {
-    this.homeStats = [
-      {title: 'Students', icon: 'pi pi-user', value: 24, link: '#'},
-      {title: 'Subjects', icon: 'pi pi-user', value: 32, link: '#'},
-      {title: 'Classes', icon: 'pi pi-user', value: 14, link: '#'},
-      {title: 'Sections', icon: 'pi pi-user', value: 4, link: '#'},
-    ]
+    this.classLevelService.getClassLevels().subscribe((classLevels) => {
+      this.homeStats[0].value = classLevels.length;
+    });
+    this.sectionService.getSections().subscribe((sections) => {
+      this.homeStats[1].value = sections.length;
+    });
+    this.studentService.getStudents().subscribe((students) => {
+      this.homeStats[2].value = students.length;
+    });
+    this.subjectService.getSubjects().subscribe((subjects) => {
+      this.homeStats[3].value = subjects.length;
+    })
   }
 
   homeStatsValueDisplay(value: number): string {

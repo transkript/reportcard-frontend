@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="py-2" >
+    <div class="">
+      <span class="h3">Save Subject</span>
+    </div>
+    <div class="p-3">
+      <form class="" [formGroup]="subjectForm">
+        <div class="form-group">
+          <label>Name</label>
+          <input class="form-control" pInputText type="text" [value]="subject.name" formControlName="name">
+        </div>
+        <div class="form-group">
+          <label>Code</label>
+          <input class="form-control" pInputText type="text" [value]="subject.code" formControlName="code">
+        </div>
+        <div class="form-group">
+          <label>Coefficient</label>
+          <input class="form-control" pInputText type="number" [value]="subject.coefficient" formControlName="coeff">
+        </div>
+        <div class="form-group">
+          <label>Section</label>
+          <select class="form-control" formControlName="sectionId">
+            <option class="" *ngFor="let section of sections"
+                    [ngValue]="section"
+                    selected="{{subject.section_id == section.id}}">
+              {{section.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <span class="p-2">
+            <button
+              (click)="saveSubject()"
+              type="button" class="btn" pButton label="Save" icon="pi pi-check" [disabled]="!subjectForm.valid"></button>
+          </span>
+            <span class="p-2">
+            <button
+              (click)="cancelSaveSubject()"
+              type="button" pButton label="Close" icon="pi pi-times"
+              class="btn p-button-secondary"></button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
