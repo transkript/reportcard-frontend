@@ -9,4 +9,32 @@
       <button (click)="loadClasses()" type="button" pButton icon="pi pi-refresh" class="p-button-rounded"></button>
     </span>
   </div>
+
+  <div class="py-2">
+    <div class="container">
+      <div class="row py-2" *ngFor="let c of classes">
+        <div class="card">
+          <div class="card-header">
+            {{c.classLevel.name}}
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3" *ngFor="let cs of c.classLevelSubs">
+                <div class="card">
+                  <div class="card-header">
+                    {{cs.name}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-end">
+              <button (click)="deleteClass(c.classLevel)" pButton icon="pi pi-trash" class="p-button-raised p-button-danger"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
