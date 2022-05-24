@@ -7,11 +7,12 @@
   flex: 1 0 auto;
 }
 
-
-html, body, main {
-
+body, body .p-component {
+  font-family: monospace;
+  font-size: 14px;
 }
 
+/*
 html::-webkit-scrollbar {
   width: 8px;
 }
@@ -25,8 +26,9 @@ html::-webkit-scrollbar-thumb {
   border-radius: 25px;
 }
 
+
 body {
   background-color: #7164F2;
 }
 
-
+ */
