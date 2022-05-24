@@ -1,6 +1,6 @@
 import {SchoolService} from "../school.service";
 import {
-  RC_CLASS_LEVEL_API_URL,
+  RC_CLASS_LEVEL_API_URL, RC_CLASS_LEVEL_SUB_API_URL,
   RC_SCHOOL_API_URL,
   RC_SECTION_API_URL,
   RC_STUDENT_API_URL,
@@ -10,10 +10,15 @@ import {StudentService} from "../student.service";
 import {ClassLevelService} from "../class-level.service";
 import {SectionService} from "../section.service";
 import {SubjectService} from "../subject.service";
+import {ClassLevelSubService} from "../class-level-sub.service";
 
 const classLevelInjectables: Array<any> = [
   {provide: ClassLevelService, useClass: ClassLevelService},
   {provide: RC_CLASS_LEVEL_API_URL, useValue: RC_CLASS_LEVEL_API_URL}
+];
+const classLevelSubInjectables: Array<any> = [
+  {provide: ClassLevelSubService, useClass: ClassLevelSubService},
+  {provide: RC_CLASS_LEVEL_SUB_API_URL, useValue: RC_CLASS_LEVEL_SUB_API_URL}
 ];
 const schoolInjectables: Array<any> = [
   {provide: SchoolService, useClass: SchoolService},
@@ -33,5 +38,10 @@ const subjectInjectables: Array<any> = [
 ];
 
 export const injectables = [
-  classLevelInjectables, schoolInjectables, sectionInjectables, studentInjectables, subjectInjectables
-]
+  classLevelInjectables,
+  classLevelSubInjectables,
+  schoolInjectables,
+  sectionInjectables,
+  studentInjectables,
+  subjectInjectables
+];
