@@ -19,7 +19,7 @@ import {MenuItem} from "primeng/api";
         </div>
       </div>
     </main>
-    <footer class="">
+    <footer class="full-width">
       <app-footer></app-footer>
     </footer>
   `
