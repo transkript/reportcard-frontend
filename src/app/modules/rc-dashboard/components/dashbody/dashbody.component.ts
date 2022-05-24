@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   template: `
     <div class="dash-body">
       <div class="container-fluid dash-body-content">
-        <div class="py-5 mx-1">
+        <div class="">
           <router-outlet ></router-outlet>
         </div>
       </div>
