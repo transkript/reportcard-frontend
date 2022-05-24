@@ -5,7 +5,7 @@ export const RC_ACADEMIC_YEAR_API_URL = `${RC_SERVER_URL}/api/academicyear`;
 
 export const RC_CLASS_LEVEL_API_URL = `${RC_SERVER_URL}/api/classlevel`;
 
-export const RC_CLASS_LEVEL_SUB_API_URL = `${RC_SERVER_URL}/api/classlevelsub`;
+export const RC_CLASS_LEVEL_SUB_API_URL = `${RC_SERVER_URL}/api/class_level_sub`;
 
 export const RC_GRADE_API_URL = `${RC_SERVER_URL}/api/grade`;
 

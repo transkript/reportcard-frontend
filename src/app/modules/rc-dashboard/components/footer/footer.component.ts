@@ -5,11 +5,11 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./footer.component.scss'],
   template: `
     <div class="d-flex">
-      <div class="">
-        Copyright &copy; {{ currentYear }}
+      <div class="mr-auto d-flex align-items-center">
+        <span>Copyright &copy; {{ currentYear }}</span>
       </div>
-      <span class="spacer"></span>
-      <div class="">
+
+      <div class="ml-auto">
         <button pButton pRipple type="button" icon="pi pi-facebook" class="p-button-rounded"></button>&nbsp;
         <button pButton pRipple type="button" icon="pi pi-twitter" class="p-button-rounded"></button>&nbsp;
         <button pButton pRipple type="button" icon="pi pi-instagram" class="p-button-rounded"></button>&nbsp;
