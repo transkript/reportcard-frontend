@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="py-5">
+    <div class="d-flex">
+      <span class="h3">Save Student</span>
+      <span class="spacer"></span>
+      <span class="">
+        <button (click)="closeModal()" pButton class="p-button-rounded p-button-danger p-button-text" icon="pi pi-times"></button>
+      </span>
+    </div>
+    <div class="p-3">
+      <form class="" [formGroup]="classForm">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input class="form-control" pInputText [value]="classLevel.name" [formControlName]="'name'">
+        </div>
+        <div class="form-group my-2">
+          <form *ngFor="let classLevelSub of classLevelSubs">
+            <div class="row py-2">
+              <div class="col-lg-8">
+                <input #classSubInput class="form-control" pInputText [value]="classLevelSub.name">
+              </div>
+              <div class="col-lg-4">
+                <button (click)="updateClassLevelSub(classSubInput, classLevelSub)" pButton label="Save Class Sub" type="button" class="btn"></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="form-group">
+          <span class="py-2">
+            <button (click)="saveClassLevel()" type="button" class="btn full-width" pButton label="Save" icon="pi pi-check" [disabled]="!classForm.valid"></button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
