@@ -8,7 +8,6 @@ import {ClassLevelSub} from "../../../../models/dto/classlevelsub.model";
 import {SectionService} from "../../../../services/section.service";
 import {Section} from "../../../../models/dto/section.model";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {SaveStudentComponent} from "../../../reusable/student/save-student/save-student.component";
 import {SaveClassComponent} from "../../../reusable/class-level/save-class/save-class.component";
 
 @Component({
@@ -54,7 +53,6 @@ export class RcClassesComponent implements OnInit {
         console.log(classLevels)
         classLevels.forEach((classLevel) => {
            this.loadClassSubs(classLevel);
-           console.log("loaded " + sectionId)
         });
         this.sortClasses();
       },
@@ -68,6 +66,7 @@ export class RcClassesComponent implements OnInit {
     this.classLevelSubService.getAllClassLevelSubsByClassLevelId(classLevel.id).subscribe({
       next: (classLevelSubs) => {
         this.classes.push({classLevel: classLevel, classLevelSubs: classLevelSubs});
+        this.sortClasses();
       },
       error: (error) => {
         addToMessageService('error', 'Error loading class subs', error.error.message, this.messageService);
@@ -83,7 +82,12 @@ export class RcClassesComponent implements OnInit {
 
   deleteClassAction(classLevel: ClassLevel) {
     const confirmDelete = confirm(`Are you sure you want to delete this class: ${classLevel.name}?`)
-    console.log(confirmDelete)
+    if(confirmDelete) {
+      this.classLevelService.deleteClassLevelById(classLevel).subscribe({
+        next: (res) =>addToMessageService('warn', 'Delete successful', res, this.messageService),
+        error: (err) => addToMessageService('error', 'Delete failed', 'There was a problem deleting this entity. Contact the admin.', this.messageService)
+      })
+    }
   }
 
   editClassAction(classLevel?: ClassLevel) {
