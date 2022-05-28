@@ -46,8 +46,6 @@ export class RcStudentsComponent implements OnInit {
     } else {
       saveStudentComponent.student = student;
       saveStudentComponent.setUpStudentForm();
-
-      console.log(student)
     }
     modalRef.result.then((result) => {
       if (result) {
