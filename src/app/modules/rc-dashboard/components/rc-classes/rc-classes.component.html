@@ -12,6 +12,23 @@
 
   <div class="py-2">
     <div class="container">
+      <div class="row py-2">
+        <label for="section" class="h6">Section</label>
+        <div class="form-group row">
+          <div class="col-8">
+            <select id="section" [(ngModel)]="sectionModelId" class="form-select my-auto">
+              <option [selected]="true">Select section</option>
+              <option *ngFor="let section of sections" [value]="section.id">{{section.name}}</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <button (click)="loadClasses()" pButton class="">Load Classes</button>
+          </div>
+        </div>
+      </div>
+      <div class="row py-2" *ngIf="classes.length == 0">
+        <span class="text-center">No classes for this section</span>
+      </div>
       <div class="row py-2" *ngFor="let c of classes">
         <div class="card">
           <div class="card-header">
@@ -30,7 +47,9 @@
           </div>
           <div class="card-footer">
             <div class="d-flex justify-content-end">
-              <button (click)="deleteClass(c.classLevel)" pButton icon="pi pi-trash" class="p-button-raised p-button-danger"></button>
+              <button (click)="editClassAction(c.classLevel)" pButton icon="pi pi-pencil" class="p-button-raised p-button-info"></button>
+              &nbsp;
+              <button (click)="deleteClassAction(c.classLevel)" pButton icon="pi pi-trash" class="p-button-raised p-button-danger"></button>
             </div>
           </div>
         </div>
