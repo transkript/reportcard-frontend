@@ -24,6 +24,7 @@ import {RcBodyIntroComponent} from './components/rc-body-intro/rc-body-intro.com
 import {DataViewModule} from "primeng/dataview";
 import {ReusableModule} from "../reusable/reusable.module";
 import {ToastModule} from "primeng/toast";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -41,20 +42,21 @@ import {ToastModule} from "primeng/toast";
     RcSettingsComponent,
     RcBodyIntroComponent
   ],
-  imports: [
-    CommonModule,
-    ReusableModule,
-    MenubarModule,
-    SharedModule,
-    ButtonModule,
-    InputTextModule,
-    PanelMenuModule,
-    RippleModule,
-    CardModule,
-    DividerModule,
-    DataViewModule,
-    ToastModule
-  ],
+    imports: [
+        CommonModule,
+        ReusableModule,
+        MenubarModule,
+        SharedModule,
+        ButtonModule,
+        InputTextModule,
+        PanelMenuModule,
+        RippleModule,
+        CardModule,
+        DividerModule,
+        DataViewModule,
+        ToastModule,
+        FormsModule
+    ],
   exports: [
     DashboardComponent
   ]
