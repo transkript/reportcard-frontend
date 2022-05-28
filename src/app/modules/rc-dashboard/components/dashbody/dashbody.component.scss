@@ -1,12 +1,17 @@
+/*
+If you touch this, I will kill you...personally - Vince
+ */
 .dash-body {
-  margin-top: 10%;
-  margin-bottom: 10%;
-  height: 80%;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  height: 82%;
+  padding-top: 8px;
+  padding-bottom: 8px;
   overflow-y: scroll;
-  overflow-scrolling: touch;
 }
 
 .dash-body-content {
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 24px;
+  padding-right: 24px;
 }
+
