@@ -7,12 +7,16 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ToastModule} from "primeng/toast";
 import { SaveStudentComponent } from './student/save-student/save-student.component';
 import {RadioButtonModule} from "primeng/radiobutton";
+import { SaveClassComponent } from './class-level/save-class/save-class.component';
+import { SaveSectionComponent } from './section/save-section/save-section.component';
 
 
 @NgModule({
   declarations: [
     SaveSubjectComponent,
-    SaveStudentComponent
+    SaveStudentComponent,
+    SaveClassComponent,
+    SaveSectionComponent,
   ],
     imports: [
         CommonModule,
