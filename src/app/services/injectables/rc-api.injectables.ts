@@ -1,6 +1,7 @@
 import {SchoolService} from "../school.service";
 import {
-  RC_CLASS_LEVEL_API_URL, RC_CLASS_LEVEL_SUB_API_URL,
+  RC_CLASS_LEVEL_API_URL,
+  RC_CLASS_LEVEL_SUB_API_URL,
   RC_SCHOOL_API_URL,
   RC_SECTION_API_URL,
   RC_STUDENT_API_URL,

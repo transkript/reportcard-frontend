@@ -3,40 +3,40 @@
     <span class="h3">Classes</span>
     <span class="spacer"></span>
     <span class="px-2">
-      <button (click)="saveClassAction()" pButton icon="pi pi-plus-circle" class="p-button-rounded"></button>
+      <button (click)="saveClassAction()" class="p-button-rounded" icon="pi pi-plus-circle" pButton></button>
     </span>
     <span class="px-2">
-      <button (click)="loadClasses()" type="button" pButton icon="pi pi-refresh" class="p-button-rounded"></button>
+      <button (click)="loadClasses()" class="p-button-rounded" icon="pi pi-refresh" pButton type="button"></button>
     </span>
   </div>
 
   <div class="py-2">
     <div class="container">
       <div class="row py-2">
-        <label for="section" class="h6">Section</label>
+        <label class="h6" for="section">Section</label>
         <div class="form-group row">
           <div class="col-8">
-            <select id="section" [(ngModel)]="sectionModelId" class="form-select my-auto">
+            <select [(ngModel)]="sectionModelId" class="form-select my-auto" id="section">
               <option [selected]="true">Select section</option>
               <option *ngFor="let section of sections" [value]="section.id">{{section.name}}</option>
             </select>
           </div>
           <div class="col-4">
-            <button (click)="loadClasses()" pButton class="">Load Classes</button>
+            <button (click)="loadClasses()" class="" pButton>Load Classes</button>
           </div>
         </div>
       </div>
-      <div class="row py-2" *ngIf="classes.length == 0">
+      <div *ngIf="classes.length == 0" class="row py-2">
         <span class="text-center">No classes for this section</span>
       </div>
-      <div class="row py-2" *ngFor="let c of classes">
+      <div *ngFor="let c of classes" class="row py-2">
         <div class="card">
           <div class="card-header">
             {{c.classLevel.name}}
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-3" *ngFor="let cs of c.classLevelSubs">
+              <div *ngFor="let cs of c.classLevelSubs" class="col-3">
                 <div class="card">
                   <div class="card-header">
                     {{cs.name}}
@@ -47,9 +47,11 @@
           </div>
           <div class="card-footer">
             <div class="d-flex justify-content-end">
-              <button (click)="editClassAction(c.classLevel)" pButton icon="pi pi-pencil" class="p-button-raised p-button-info"></button>
+              <button (click)="editClassAction(c.classLevel)" class="p-button-raised p-button-info" icon="pi pi-pencil"
+                      pButton></button>
               &nbsp;
-              <button (click)="deleteClassAction(c.classLevel)" pButton icon="pi pi-trash" class="p-button-raised p-button-danger"></button>
+              <button (click)="deleteClassAction(c.classLevel)" class="p-button-raised p-button-danger" icon="pi pi-trash"
+                      pButton></button>
             </div>
           </div>
         </div>

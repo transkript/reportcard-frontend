@@ -3,10 +3,10 @@
     <span class="h3">Students</span>
     <span class="spacer"></span>
     <span class="px-2">
-      <button (click)="saveStudentAction()" pButton icon="pi pi-plus-circle" class="p-button-rounded"></button>
+      <button (click)="saveStudentAction()" class="p-button-rounded" icon="pi pi-plus-circle" pButton></button>
     </span>
     <span class="px-2">
-      <button (click)="loadStudents()" type="button" pButton icon="pi pi-refresh" class="p-button-rounded"></button>
+      <button (click)="loadStudents()" class="p-button-rounded" icon="pi pi-refresh" pButton type="button"></button>
     </span>
   </div>
 
@@ -30,12 +30,13 @@
           <td>{{student.gender}}</td>
           <td>
               <span class="px-2">
-                <a title="Edit" class="btn btn-primary rc-button-primary action-button" (click)="saveStudentAction(student)" type="button">
+                <a (click)="saveStudentAction(student)" class="btn btn-primary rc-button-primary action-button"
+                   title="Edit" type="button">
                   <i class="bi bi-pencil"></i>
                 </a>
               </span>
             <span class="px-2">
-                <a title="Delete" class="btn btn-danger action-button" (click)="deleteStudentAction(student)">
+                <a (click)="deleteStudentAction(student)" class="btn btn-danger action-button" title="Delete">
                   <i class="bi bi-trash"></i>
                 </a>
               </span>

@@ -56,7 +56,7 @@ export class SaveSubjectComponent implements OnInit {
       section_id: this.subjectForm.get('sectionId')?.value.id
     }
 
-    if(this.subject.id < 0) {
+    if (this.subject.id < 0) {
       this.subjectService.addSubject(subjectToSave).subscribe((response) => {
         console.log(response)
       });

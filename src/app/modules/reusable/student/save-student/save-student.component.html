@@ -4,40 +4,43 @@
       <span class="h3">Save Student</span>
       <span class="spacer"></span>
       <span class="">
-        <button (click)="closeModal()" pButton class="p-button-rounded p-button-danger p-button-text" icon="pi pi-times"></button>
+        <button (click)="closeModal()" class="p-button-rounded p-button-danger p-button-text" icon="pi pi-times"
+                pButton></button>
       </span>
     </div>
     <div class="p-3">
-      <form class="" [formGroup]="studentForm">
+      <form [formGroup]="studentForm" class="">
         <div class="form-group">
           <label class="form-label">Name</label>
-          <input class="form-control" pInputText type="text" [value]="student.name" formControlName="name">
+          <input [value]="student.name" class="form-control" formControlName="name" pInputText type="text">
         </div>
         <div class="form-group">
           <label class="form-label">Registration Number</label>
-          <input class="form-control" pInputText type="text" [value]="student.registration_number" formControlName="regNum">
+          <input [value]="student.registration_number" class="form-control" formControlName="regNum" pInputText
+                 type="text">
         </div>
         <div class="form-group">
           <label class="form-label">Gender</label>
-          <div class="form-check" *ngFor="let gender of genders">
-            <input [formControlName]="'gender'" class="form-check-input p-radiobutton" name="gender"
-                   [id]="gender" [value]="gender.charAt(0)" type="radio">&nbsp;
-            <label class="form-check-label" [for]="gender">{{gender | titlecase}}</label>
+          <div *ngFor="let gender of genders" class="form-check">
+            <input [formControlName]="'gender'" [id]="gender" [value]="gender.charAt(0)"
+                   class="form-check-input p-radiobutton" name="gender" type="radio">&nbsp;
+            <label [for]="gender" class="form-check-label">{{gender | titlecase}}</label>
           </div>
         </div>
         <div class="form-group row">
           <div class="col-md-6">
             <label class="form-label">Date of Birth</label>
-            <input class="form-control" pInputText type="date" formControlName="dob" [disabled]="true">
+            <input [disabled]="true" class="form-control" formControlName="dob" pInputText type="date">
           </div>
           <div class="col-md-6">
             <label class="form-label">Place of birth</label>
-            <input class="form-control" pInputText type="text" [value]="student.place_of_birth" formControlName="pob">
+            <input [value]="student.place_of_birth" class="form-control" formControlName="pob" pInputText type="text">
           </div>
         </div>
         <div class="form-group">
           <span class="py-2">
-            <button (click)="saveStudent()" type="button" class="btn full-width" pButton label="Save" icon="pi pi-check" [disabled]="!studentForm.valid"></button>
+            <button (click)="saveStudent()" [disabled]="!studentForm.valid" class="btn full-width" icon="pi pi-check" label="Save" pButton
+                    type="button"></button>
           </span>
         </div>
       </form>

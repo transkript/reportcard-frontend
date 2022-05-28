@@ -15,14 +15,12 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class SaveStudentComponent implements OnInit {
   @Input() student: Student;
+  genders: string[] = Object.keys(Gender);
+  studentForm: FormGroup = new FormGroup({});
   private readonly defaultStudent: Student;
 
-  genders: string[] = Object.keys(Gender);
-
-  studentForm: FormGroup = new FormGroup({});
-
   constructor(public activeModal: NgbActiveModal,
-    private studentService: StudentService, private messageService: MessageService) {
+              private studentService: StudentService, private messageService: MessageService) {
     this.defaultStudent = {
       id: -1, name: "", gender: "M", date_of_birth: '',
       place_of_birth: "", registration_number: "", number_of_applications: 0
@@ -63,7 +61,7 @@ export class SaveStudentComponent implements OnInit {
     console.log(studentToSave.date_of_birth)
     console.log(this.student.id)
 
-    if(this.student.id < 0) {
+    if (this.student.id < 0) {
       this.studentService.addStudent(studentToSave).subscribe({
         next: (response) => {
           addToMessageService('success', 'Success', response.message, this.messageService);

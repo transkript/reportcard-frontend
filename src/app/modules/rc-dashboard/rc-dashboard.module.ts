@@ -42,21 +42,21 @@ import {FormsModule} from "@angular/forms";
     RcSettingsComponent,
     RcBodyIntroComponent
   ],
-    imports: [
-        CommonModule,
-        ReusableModule,
-        MenubarModule,
-        SharedModule,
-        ButtonModule,
-        InputTextModule,
-        PanelMenuModule,
-        RippleModule,
-        CardModule,
-        DividerModule,
-        DataViewModule,
-        ToastModule,
-        FormsModule
-    ],
+  imports: [
+    CommonModule,
+    ReusableModule,
+    MenubarModule,
+    SharedModule,
+    ButtonModule,
+    InputTextModule,
+    PanelMenuModule,
+    RippleModule,
+    CardModule,
+    DividerModule,
+    DataViewModule,
+    ToastModule,
+    FormsModule
+  ],
   exports: [
     DashboardComponent
   ]

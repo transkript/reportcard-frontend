@@ -1,7 +1,3 @@
-export const STRING = {
-
-}
-
 export module StringUtil {
   export const toTitleCase = (str: string) => {
     let resStr = '';
@@ -13,5 +9,9 @@ export module StringUtil {
 
     }
     return words.join(' ');
+  }
+
+  export const removeTrailWhiteSpace = (str: string) => {
+
   }
 }

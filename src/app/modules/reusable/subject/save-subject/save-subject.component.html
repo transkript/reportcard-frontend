@@ -1,27 +1,27 @@
 <div class="container">
-  <div class="py-2" >
+  <div class="py-2">
     <div class="">
       <span class="h3">Save Subject</span>
     </div>
     <div class="p-3">
-      <form class="" [formGroup]="subjectForm">
+      <form [formGroup]="subjectForm" class="">
         <div class="form-group">
           <label>Name</label>
-          <input class="form-control" pInputText type="text" [value]="subject.name" formControlName="name">
+          <input [value]="subject.name" class="form-control" formControlName="name" pInputText type="text">
         </div>
         <div class="form-group">
           <label>Code</label>
-          <input class="form-control" pInputText type="text" [value]="subject.code" formControlName="code">
+          <input [value]="subject.code" class="form-control" formControlName="code" pInputText type="text">
         </div>
         <div class="form-group">
           <label>Coefficient</label>
-          <input class="form-control" pInputText type="number" [value]="subject.coefficient" formControlName="coeff">
+          <input [value]="subject.coefficient" class="form-control" formControlName="coeff" pInputText type="number">
         </div>
         <div class="form-group">
           <label>Section</label>
           <select class="form-control" formControlName="sectionId">
-            <option class="" *ngFor="let section of sections"
-                    [ngValue]="section"
+            <option *ngFor="let section of sections" [ngValue]="section"
+                    class=""
                     selected="{{subject.section_id == section.id}}">
               {{section.name}}
             </option>
@@ -31,13 +31,14 @@
           <span class="p-2">
             <button
               (click)="saveSubject()"
-              type="button" class="btn" pButton label="Save" icon="pi pi-check" [disabled]="!subjectForm.valid"></button>
+              [disabled]="!subjectForm.valid" class="btn" icon="pi pi-check" label="Save" pButton
+              type="button"></button>
           </span>
-            <span class="p-2">
+          <span class="p-2">
             <button
               (click)="cancelSaveSubject()"
-              type="button" pButton label="Close" icon="pi pi-times"
-              class="btn p-button-secondary"></button>
+              class="btn p-button-secondary" icon="pi pi-times" label="Close" pButton
+              type="button"></button>
           </span>
         </div>
       </form>

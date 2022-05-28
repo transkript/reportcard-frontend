@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClassLevel} from "../../../../models/dto/classlevel.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ClassLevelSubService} from "../../../../services/class-level-sub.service";
@@ -20,13 +20,14 @@ export class SaveClassComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private activeModal: NgbActiveModal,
               private classLevelService: ClassLevelService,
-              private classLevelSubService: ClassLevelSubService, private msg: MessageService) { }
-
-  ngOnInit(): void {
+              private classLevelSubService: ClassLevelSubService, private msg: MessageService) {
   }
 
   get classLevelSubForms() {
     return this.classForm.get('classLevels') as FormArray;
+  }
+
+  ngOnInit(): void {
   }
 
   setupClassForm(classLevel: ClassLevel) {

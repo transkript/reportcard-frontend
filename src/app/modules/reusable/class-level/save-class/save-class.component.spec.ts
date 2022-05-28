@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SaveClassComponent } from './save-class.component';
+import {SaveClassComponent} from './save-class.component';
 
 describe('SaveClassComponent', () => {
   let component: SaveClassComponent;
@@ -8,9 +8,9 @@ describe('SaveClassComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SaveClassComponent ]
+      declarations: [SaveClassComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

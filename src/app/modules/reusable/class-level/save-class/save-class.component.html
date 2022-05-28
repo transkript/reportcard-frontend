@@ -4,30 +4,33 @@
       <span class="h3">Save Student</span>
       <span class="spacer"></span>
       <span class="">
-        <button (click)="closeModal()" pButton class="p-button-rounded p-button-danger p-button-text" icon="pi pi-times"></button>
+        <button (click)="closeModal()" class="p-button-rounded p-button-danger p-button-text" icon="pi pi-times"
+                pButton></button>
       </span>
     </div>
     <div class="p-3">
-      <form class="" [formGroup]="classForm">
+      <form [formGroup]="classForm" class="">
         <div class="form-group">
           <label class="form-label">Name</label>
-          <input class="form-control" pInputText [value]="classLevel.name" [formControlName]="'name'">
+          <input [formControlName]="'name'" [value]="classLevel.name" class="form-control" pInputText>
         </div>
         <div class="form-group my-2">
           <form *ngFor="let classLevelSub of classLevelSubs">
             <div class="row py-2">
               <div class="col-lg-8">
-                <input #classSubInput class="form-control" pInputText [value]="classLevelSub.name">
+                <input #classSubInput [value]="classLevelSub.name" class="form-control" pInputText>
               </div>
               <div class="col-lg-4">
-                <button (click)="updateClassLevelSub(classSubInput, classLevelSub)" pButton label="Save Class Sub" type="button" class="btn"></button>
+                <button (click)="updateClassLevelSub(classSubInput, classLevelSub)" class="btn" label="Save Class Sub"
+                        pButton type="button"></button>
               </div>
             </div>
           </form>
         </div>
         <div class="form-group">
           <span class="py-2">
-            <button (click)="saveClassLevel()" type="button" class="btn full-width" pButton label="Save" icon="pi pi-check" [disabled]="!classForm.valid"></button>
+            <button (click)="saveClassLevel()" [disabled]="!classForm.valid" class="btn full-width" icon="pi pi-check" label="Save"
+                    pButton type="button"></button>
           </span>
         </div>
       </form>

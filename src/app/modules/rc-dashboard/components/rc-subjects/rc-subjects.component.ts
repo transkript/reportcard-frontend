@@ -38,7 +38,7 @@ export class RcSubjectsComponent implements OnInit {
 
   deleteSubject(subject: Subject) {
     const confirmDelete: boolean = confirm("Are you sure want to delete " + subject.name);
-    if(confirmDelete) {
+    if (confirmDelete) {
       this.subjectService.deleteSubject(subject.id).subscribe({
         next: (res) => {
           console.log(res);
@@ -55,7 +55,7 @@ export class RcSubjectsComponent implements OnInit {
   }
 
   closeSaveSubjectDialog($event: boolean, saveSubjectModal: HTMLDivElement) {
-    if($event) {
+    if ($event) {
       saveSubjectModal.click()
     }
   }

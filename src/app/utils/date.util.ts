@@ -18,16 +18,16 @@ export module DateUtil {
 
   export const setToRcDateObj = (date: string): Date => {
     const dateAsNum = Date.parse(date);
-    if(isNaN(dateAsNum)) {
+    if (isNaN(dateAsNum)) {
       return new Date();
     }
     return new Date(dateAsNum)
   }
-  export const setToRcDateString = (date: string): string  =>{
+  export const setToRcDateString = (date: string): string => {
     // input format: yyyy-mm-dd
     // return format: dd-mm-yyyy hh:mm:ss
     let dateAsNum = Date.parse(date);
-    if(isNaN(dateAsNum)) {
+    if (isNaN(dateAsNum)) {
       dateAsNum = Date.parse(new Date().toString());
     }
     const dateObj = new Date(dateAsNum);
@@ -41,7 +41,7 @@ export module DateUtil {
   }
 
   const addZero = (num: number): string => {
-    if(num < 10) {
+    if (num < 10) {
       return `0${num}`;
     }
     return `${num}`;

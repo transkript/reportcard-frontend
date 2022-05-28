@@ -52,24 +52,12 @@ export class RcClassesComponent implements OnInit {
       next: (classLevels: ClassLevel[]) => {
         console.log(classLevels)
         classLevels.forEach((classLevel) => {
-           this.loadClassSubs(classLevel);
+          this.loadClassSubs(classLevel);
         });
         this.sortClasses();
       },
       error: (error) => {
         addToMessageService('error', 'Error loading classes', `Server not responding.\n${error.message}`, this.messageService);
-      }
-    });
-  }
-
-  private loadClassSubs(classLevel: ClassLevel): void {
-    this.classLevelSubService.getAllClassLevelSubsByClassLevelId(classLevel.id).subscribe({
-      next: (classLevelSubs) => {
-        this.classes.push({classLevel: classLevel, classLevelSubs: classLevelSubs});
-        this.sortClasses();
-      },
-      error: (error) => {
-        addToMessageService('error', 'Error loading class subs', error.error.message, this.messageService);
       }
     });
   }
@@ -82,9 +70,9 @@ export class RcClassesComponent implements OnInit {
 
   deleteClassAction(classLevel: ClassLevel) {
     const confirmDelete = confirm(`Are you sure you want to delete this class: ${classLevel.name}?`)
-    if(confirmDelete) {
+    if (confirmDelete) {
       this.classLevelService.deleteClassLevelById(classLevel).subscribe({
-        next: (res) =>addToMessageService('warn', 'Delete successful', res, this.messageService),
+        next: (res) => addToMessageService('warn', 'Delete successful', res, this.messageService),
         error: (err) => addToMessageService('error', 'Delete failed', 'There was a problem deleting this entity. Contact the admin.', this.messageService)
       })
     }
@@ -98,12 +86,24 @@ export class RcClassesComponent implements OnInit {
       keyboard: true
     });
     const saveClassComponent: SaveClassComponent = modalRef.componentInstance;
-    if(!classLevel) {
+    if (!classLevel) {
 
     } else {
       saveClassComponent.classLevel = classLevel;
       saveClassComponent.setupClassForm(classLevel);
     }
+  }
+
+  private loadClassSubs(classLevel: ClassLevel): void {
+    this.classLevelSubService.getAllClassLevelSubsByClassLevelId(classLevel.id).subscribe({
+      next: (classLevelSubs) => {
+        this.classes.push({classLevel: classLevel, classLevelSubs: classLevelSubs});
+        this.sortClasses();
+      },
+      error: (error) => {
+        addToMessageService('error', 'Error loading class subs', error.error.message, this.messageService);
+      }
+    });
   }
 }
 

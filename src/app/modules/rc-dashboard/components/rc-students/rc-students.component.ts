@@ -1,8 +1,7 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Student} from "../../../../models/dto/student.model";
 import {StudentService} from "../../../../services/student.service";
 import {SaveStudentComponent} from "../../../reusable/student/save-student/save-student.component";
-import {StringUtil} from "../../../../utils/string.util";
 import {MessageService} from "primeng/api";
 import {addToMessageService} from "../../../../utils/message-service.util";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -40,7 +39,7 @@ export class RcStudentsComponent implements OnInit {
       keyboard: true
     });
     const saveStudentComponent: SaveStudentComponent = modalRef.componentInstance;
-    if(!student) {
+    if (!student) {
       saveStudentComponent.resetStudent();
       saveStudentComponent.studentForm.reset();
     } else {
@@ -56,13 +55,13 @@ export class RcStudentsComponent implements OnInit {
 
   deleteStudentAction(student: Student) {
     const confirmDelete = confirm(`Are you sure you want to delete account of: ${student.name}`);
-    if(confirmDelete) {
+    if (confirmDelete) {
       this.studentService.deleteStudent(student.id).subscribe({
         next: (res) => {
-          addToMessageService('success',  `Student ${student.name} deleted successfully`, `${res.message}`, this.messageService);
+          addToMessageService('success', `Student ${student.name} deleted successfully`, `${res.message}`, this.messageService);
         },
         error: (err) => {
-          addToMessageService('error',  `Student ${student.name} not deleted`, `${err.message}`, this.messageService);
+          addToMessageService('error', `Student ${student.name} not deleted`, `${err.message}`, this.messageService);
         }
       });
     }
