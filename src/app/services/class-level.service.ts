@@ -32,4 +32,8 @@ export class ClassLevelService {
   updateClassLevel(classLevel: ClassLevel): Observable<EntityResponse> {
     return this.http.put<EntityResponse>(`${this.classLevelApiUrl}/${classLevel.id}`, classLevel);
   }
+
+  deleteClassLevelById(classLevel: ClassLevel): Observable<any> {
+    return this.http.delete<any>(`${this.classLevelApiUrl}/${classLevel.id}`);
+  }
 }
