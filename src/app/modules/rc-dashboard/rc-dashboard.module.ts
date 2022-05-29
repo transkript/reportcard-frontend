@@ -43,22 +43,22 @@ import {TableModule} from "primeng/table";
     RcSettingsComponent,
     RcBodyIntroComponent
   ],
-    imports: [
-        CommonModule,
-        ReusableModule,
-        MenubarModule,
-        SharedModule,
-        ButtonModule,
-        InputTextModule,
-        PanelMenuModule,
-        RippleModule,
-        CardModule,
-        DividerModule,
-        DataViewModule,
-        ToastModule,
-        FormsModule,
-        TableModule
-    ],
+  imports: [
+    CommonModule,
+    ReusableModule,
+    MenubarModule,
+    SharedModule,
+    ButtonModule,
+    InputTextModule,
+    PanelMenuModule,
+    RippleModule,
+    CardModule,
+    DividerModule,
+    DataViewModule,
+    ToastModule,
+    FormsModule,
+    TableModule
+  ],
   exports: [
     DashboardComponent
   ]

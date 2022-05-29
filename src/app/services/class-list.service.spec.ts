@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ClassListService } from './class-list.service';
+import {ClassListService} from './class-list.service';
 
 describe('ClassListService', () => {
   let service: ClassListService;

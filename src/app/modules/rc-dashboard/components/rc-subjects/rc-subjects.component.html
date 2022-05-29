@@ -33,12 +33,14 @@
           <td>{{subject.coefficient}}</td>
           <td>
               <span class="px-2">
-                <a (click)="changeCurrentSubject(subject)" class="p-button-sm p-button-rounded rc-action-button" data-target=".add-subject-modal"
+                <a (click)="changeCurrentSubject(subject)" class="p-button-sm p-button-rounded rc-action-button"
+                   data-target=".add-subject-modal"
                    data-toggle="modal"
                    icon="pi pi-pencil" pButton pRipple title="Edit" type="button"></a>
               </span>
             <span class="px-2">
-                <a (click)="deleteSubject(subject)" class="p-button-sm p-button-rounded p-button-danger rc-action-button" icon="pi pi-trash" pButton
+                <a (click)="deleteSubject(subject)"
+                   class="p-button-sm p-button-rounded p-button-danger rc-action-button" icon="pi pi-trash" pButton
                    pRipple title="Delete"></a>
               </span>
           </td>

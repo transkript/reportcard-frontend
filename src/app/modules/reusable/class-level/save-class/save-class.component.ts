@@ -60,7 +60,7 @@ export class SaveClassComponent implements OnInit {
       classLevels: this.fb.array([])
     });
 
-    if(classLevel.id > 0) {
+    if (classLevel.id > 0) {
       this.classLevelSubService.getAllClassLevelSubsByClassLevelId(classLevel.id).subscribe({
         next: (classLevelSubs) => {
           this.classLevelSubs = classLevelSubs;
@@ -70,14 +70,14 @@ export class SaveClassComponent implements OnInit {
             }))
           });
         },
-        error: () => addToMessageService( this.msg, 'warn', 'Warning!', 'Unable to retrieve class level subs')
+        error: () => addToMessageService(this.msg, 'warn', 'Warning!', 'Unable to retrieve class level subs')
       })
     }
   }
 
   saveClassLevel() {
     this.classLevel.name = this.classForm.get('name')?.value;
-    if(this.classLevel.id < 0) {
+    if (this.classLevel.id < 0) {
       console.log(this.classLevel.section_id)
       this.classLevelService.addClassLevel(this.classLevel).subscribe({
         next: (res) => addToMessageService(this.msg, 'success', 'Save successful', res.message),
@@ -98,7 +98,7 @@ export class SaveClassComponent implements OnInit {
   saveClassLevelSub(classLevelSubInput: HTMLInputElement, classLevelSub: ClassLevelSub) {
     console.log(classLevelSubInput.value);
     classLevelSub.name = classLevelSubInput.value;
-    if(classLevelSub.id < 0) {
+    if (classLevelSub.id < 0) {
       this.classLevelSubService.addClassLevelSub(classLevelSub).subscribe({
         next: (res) => addToMessageService(this.msg, 'success', 'Save successful', res.message),
         error: (err) => addToMessageService(this.msg, 'error', 'Save failed', err.message)
@@ -113,7 +113,7 @@ export class SaveClassComponent implements OnInit {
 
   deleteClassLevelSub(classLevelSub: ClassLevelSub) {
     const confirmDelete = confirm(`Are you sure you want to delete this class level sub: ${classLevelSub.name}`)
-    if(confirmDelete) {
+    if (confirmDelete) {
       this.classLevelSubService.deleteClassLevelSub(classLevelSub.id).subscribe({
         next: () => addToMessageService(this.msg, 'warn', 'Delete successful', `Class level sub ${classLevelSub.name} has been deleted`),
         error: (err) => addToMessageService(this.msg, 'error', 'Delete failed', err.message)

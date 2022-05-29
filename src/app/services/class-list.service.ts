@@ -9,7 +9,8 @@ import {Observable} from "rxjs";
 })
 export class ClassListService {
 
-  constructor(@Inject(RC_CLASS_LIST_API_URL) private apiUrl: string, private http: HttpClient) { }
+  constructor(@Inject(RC_CLASS_LIST_API_URL) private apiUrl: string, private http: HttpClient) {
+  }
 
   getClassList(classListRequest: ClassListRequest): Observable<ClassListResponse> {
     const params = {
@@ -20,7 +21,6 @@ export class ClassListService {
     }
 
     // create the request with params
-    const request = this.http.get<ClassListResponse>(this.apiUrl, {params});
-    return request
+    return this.http.get<ClassListResponse>(this.apiUrl, {params})
   }
 }

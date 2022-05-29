@@ -13,25 +13,25 @@
     <div class="row">
       <div class="col-md-3">
         Academic Year
-        <select [(ngModel)]="classListRequest.year_id" (ngModelChange)="loadGrades()" class="form-select">
+        <select (ngModelChange)="loadGrades()" [(ngModel)]="classListRequest.year_id" class="form-select">
           <option *ngFor="let y of academicYears" [ngValue]="y.id">{{y.name}}</option>
         </select>
       </div>
       <div class="col-md-3">
         Class
-        <select [(ngModel)]="classListRequest.class_id" (ngModelChange)="loadGrades()" class="form-select">
+        <select (ngModelChange)="loadGrades()" [(ngModel)]="classListRequest.class_id" class="form-select">
           <option *ngFor="let c of classes" [ngValue]="c.id">{{c.name}}</option>
         </select>
       </div>
       <div class="col-md-3">
         Subject
-        <select [(ngModel)]="classListRequest.subject_id" (ngModelChange)="loadGrades()" class="form-select">
+        <select (ngModelChange)="loadGrades()" [(ngModel)]="classListRequest.subject_id" class="form-select">
           <option *ngFor="let sub of subjects" [ngValue]="sub.id">{{sub.name}}</option>
         </select>
       </div>
       <div class="col-md-3">
         Sequence
-        <select [(ngModel)]="classListRequest.sequence_id" (ngModelChange)="loadGrades()" class="form-select">
+        <select (ngModelChange)="loadGrades()" [(ngModel)]="classListRequest.sequence_id" class="form-select">
           <option *ngFor="let seq of sequences" [ngValue]="seq.id">{{seq.name}}</option>
         </select>
       </div>
@@ -47,40 +47,44 @@
       <table class="table table-striped text-center align-items-center">
         <thead>
 
-          <tr>
-            <th>Student</th>
-            <th>RegNo</th>
-            <th>Grade</th>
-            <th>Remarks</th>
-            <th>Actions</th>
-          </tr>
+        <tr>
+          <th>Student</th>
+          <th>RegNo</th>
+          <th>Grade</th>
+          <th>Remarks</th>
+          <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-          <tr *ngIf="classListResponse.grades.length == 0">
-            <td colspan="5">Select all fields above to view class list</td>
-          </tr>
-          <tr *ngIf="classListResponse.grades.length != 0">
-            <td colspan="5">
-              <div>
-                {{classListResponse.sequence_name}} -
-                {{classListResponse.subject.name}} -
-                {{classListResponse.class_name}}
-              </div>
-            </td>
-          </tr>
-          <tr *ngFor="let studentInfo of studentInfos">
-            <td>{{studentInfo.student.name}}</td>
-            <td>{{studentInfo.student.registration_number}}</td>
-            <td>
-              <input #gradeInput [disabled]="true" pInputText class="form-control" [value]="studentInfo.grade.score ? studentInfo.grade.score: '-'" [max]="20" [min]="0"  type="number">
-            </td>
-            <td>{{studentInfo.grade.description}}</td>
-            <td>
-              <button (click)="gradeInput.disabled = !gradeInput.disabled" pButton class="btn p-button-secondary">{{gradeInput.disabled ? 'Edit': 'Done'}}</button>
-              &nbsp;
-              <button (click)="saveGrade(studentInfo.grade, gradeInput)" [disabled]="!gradeInputValid(gradeInput)" pButton class="btn">Save</button>
-            </td>
-          </tr>
+        <tr *ngIf="classListResponse.grades.length == 0">
+          <td colspan="5">Select all fields above to view class list</td>
+        </tr>
+        <tr *ngIf="classListResponse.grades.length != 0">
+          <td colspan="5">
+            <div>
+              {{classListResponse.sequence_name}} -
+              {{classListResponse.subject.name}} -
+              {{classListResponse.class_name}}
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let studentInfo of studentInfos">
+          <td>{{studentInfo.student.name}}</td>
+          <td>{{studentInfo.student.registration_number}}</td>
+          <td>
+            <input #gradeInput [disabled]="true" [max]="20" [min]="0"
+                   [value]="studentInfo.grade.score ? studentInfo.grade.score: '-'" class="form-control" pInputText type="number">
+          </td>
+          <td>{{studentInfo.grade.description}}</td>
+          <td>
+            <button (click)="gradeInput.disabled = !gradeInput.disabled" class="btn p-button-secondary"
+                    pButton>{{gradeInput.disabled ? 'Edit' : 'Done'}}</button>
+            &nbsp;
+            <button (click)="saveGrade(studentInfo.grade, gradeInput)" [disabled]="!gradeInputValid(gradeInput)" class="btn"
+                    pButton>Save
+            </button>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>

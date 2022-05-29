@@ -2,11 +2,15 @@ import {SchoolService} from "./services/school.service";
 import {
   RC_ACADEMIC_YEAR_API_URL,
   RC_CLASS_LEVEL_API_URL,
-  RC_CLASS_LEVEL_SUB_API_URL, RC_CLASS_LIST_API_URL, RC_GRADE_API_URL,
+  RC_CLASS_LEVEL_SUB_API_URL,
+  RC_CLASS_LIST_API_URL,
+  RC_GRADE_API_URL,
   RC_SCHOOL_API_URL,
-  RC_SECTION_API_URL, RC_SEQUENCE_API_URL,
+  RC_SECTION_API_URL,
+  RC_SEQUENCE_API_URL,
   RC_STUDENT_API_URL,
-  RC_SUBJECT_API_URL, RC_SUBJECT_REGISTRATION_API_URL
+  RC_SUBJECT_API_URL,
+  RC_SUBJECT_REGISTRATION_API_URL
 } from "./app.constants";
 import {StudentService} from "./services/student.service";
 import {ClassLevelService} from "./services/class-level.service";

@@ -16,7 +16,6 @@ import {addToMessageService} from "../../../../utils/message-service.util";
 import {Student} from "../../../../models/dto/student.model";
 import {SubjectRegistrationService} from "../../../../services/subject-registration.service";
 import {StudentService} from "../../../../services/student.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-rc-classlists',
@@ -32,8 +31,8 @@ export class RcClasslistsComponent implements OnInit {
   academicYears: AcademicYear[] = [];
   subjects: Subject[] = [];
   sequences: Sequence[] = [];
-  classListColumns: {field: string; header: string;}[] = [];
-  studentInfos: {student: Student; grade: Grade}[] = [];
+  classListColumns: { field: string; header: string; }[] = [];
+  studentInfos: { student: Student; grade: Grade }[] = [];
 
 
   constructor(
@@ -78,8 +77,8 @@ export class RcClasslistsComponent implements OnInit {
             next: (classLevel) => {
               this.classes.push({id: classSub.id, name: `${classLevel.name} - ${classSub.name}`});
               this.classes.sort((a, b) => {
-                if(a.name < b.name) return -1;
-                if(a.name > b.name) return 1;
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
                 return 0;
               });
               this.classListRequest.class_id = this.classes[0].id;
@@ -89,6 +88,7 @@ export class RcClasslistsComponent implements OnInit {
       }
     });
   }
+
   loadAcademicYears() {
     this.yearService.getAllAcademicYears().subscribe({
       next: (years) => {
@@ -97,6 +97,7 @@ export class RcClasslistsComponent implements OnInit {
       }
     });
   }
+
   loadSubjects() {
     this.subjectService.getSubjects().subscribe({
       next: (subjects) => {
@@ -105,6 +106,7 @@ export class RcClasslistsComponent implements OnInit {
       }
     });
   }
+
   loadSequences() {
     this.sequenceService.getAllSequences().subscribe({
       next: (sequences) => {
@@ -116,7 +118,7 @@ export class RcClasslistsComponent implements OnInit {
 
   loadGrades() {
     const req = this.classListRequest;
-    if(!(req.year_id < 0 || req.class_id < 0 || req.subject_id < 0 || req.sequence_id < 0)) {
+    if (!(req.year_id < 0 || req.class_id < 0 || req.subject_id < 0 || req.sequence_id < 0)) {
       this.classListService.getClassList(req).subscribe({
         next: (classList) => {
           this.classListResponse = classList;
@@ -140,8 +142,8 @@ export class RcClasslistsComponent implements OnInit {
   saveGrade(grade: Grade, gradeInput: HTMLInputElement) {
     const newScore = this.getGradeInputValue(gradeInput);
     console.log(newScore)
-    if(newScore >= 0 && newScore <= 20) {
-      if(grade.score) {
+    if (newScore >= 0 && newScore <= 20) {
+      if (grade.score) {
         grade.score = newScore;
         this.gradeService.updateGrade(grade).subscribe({
           next: (res) => {

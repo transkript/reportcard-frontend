@@ -75,10 +75,10 @@ export class SaveStudentComponent implements OnInit {
       studentToSave.id = this.student.id;
       this.studentService.updateStudent(studentToSave).subscribe({
         next: (response) => {
-          addToMessageService(this.messageService , 'info', 'Updated', response.message, );
+          addToMessageService(this.messageService, 'info', 'Updated', response.message,);
         },
         error: (err) => {
-          addToMessageService(this.messageService, 'error', 'Error', err.message, );
+          addToMessageService(this.messageService, 'error', 'Error', err.message,);
         }
       })
     }

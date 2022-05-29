@@ -21,17 +21,21 @@
                 <input #classSubInput [value]="classLevelSub.name" class="form-control" pInputText>
               </div>
               <div class="col-lg-4">
-                <button [disabled]="classSubInput.value.length <= 0" (click)="saveClassLevelSub(classSubInput, classLevelSub)" class="btn" label="Save" pButton type="button"></button>
+                <button (click)="saveClassLevelSub(classSubInput, classLevelSub)"
+                        [disabled]="classSubInput.value.length <= 0" class="btn" label="Save" pButton
+                        type="button"></button>
                 &nbsp;
-                <button (click)="deleteClassLevelSub(classLevelSub)" class="btn p-button-danger" label="Delete" pButton type="button"></button>
+                <button (click)="deleteClassLevelSub(classLevelSub)" class="btn p-button-danger" label="Delete" pButton
+                        type="button"></button>
               </div>
             </div>
           </form>
-          <button (click)="addClassLevelSubAction()" pButton icon="pi pi-plus-circle"></button>
+          <button (click)="addClassLevelSubAction()" icon="pi pi-plus-circle" pButton></button>
         </div>
         <div class="form-group">
           <span class="py-2">
-            <button (click)="saveClassLevel()" [disabled]="!classForm.valid" class="btn" icon="pi pi-check" label="Save Class"
+            <button (click)="saveClassLevel()" [disabled]="!classForm.valid" class="btn" icon="pi pi-check"
+                    label="Save Class"
                     pButton type="button"></button>
           </span>
         </div>
