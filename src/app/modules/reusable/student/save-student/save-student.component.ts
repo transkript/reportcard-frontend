@@ -64,21 +64,21 @@ export class SaveStudentComponent implements OnInit {
     if (this.student.id < 0) {
       this.studentService.addStudent(studentToSave).subscribe({
         next: (response) => {
-          addToMessageService('success', 'Success', response.message, this.messageService);
+          addToMessageService(this.messageService, 'success', 'Success', response.message);
         },
         error: (err) => {
           console.log(err)
-          addToMessageService('error', 'Error', err.message, this.messageService);
+          addToMessageService(this.messageService, 'error', 'Error', err.message);
         }
       });
     } else {
       studentToSave.id = this.student.id;
       this.studentService.updateStudent(studentToSave).subscribe({
         next: (response) => {
-          addToMessageService('info', 'Updated', response.message, this.messageService);
+          addToMessageService(this.messageService , 'info', 'Updated', response.message, );
         },
         error: (err) => {
-          addToMessageService('error', 'Error', err.message, this.messageService);
+          addToMessageService(this.messageService, 'error', 'Error', err.message, );
         }
       })
     }
