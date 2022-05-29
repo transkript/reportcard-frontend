@@ -58,10 +58,10 @@ export class RcStudentsComponent implements OnInit {
     if (confirmDelete) {
       this.studentService.deleteStudent(student.id).subscribe({
         next: (res) => {
-          addToMessageService('success', `Student ${student.name} deleted successfully`, `${res.message}`, this.messageService);
+          addToMessageService(this.messageService, 'success', `Student ${student.name} deleted successfully`, `${res.message}`);
         },
         error: (err) => {
-          addToMessageService('error', `Student ${student.name} not deleted`, `${err.message}`, this.messageService);
+          addToMessageService(this.messageService, 'error', `Student ${student.name} not deleted`, `${err.message}`);
         }
       });
     }

@@ -1,1 +1,88 @@
-<p>rc-classlists works!</p>
+<div class="rc-classlist">
+  <div class="py-2 d-flex">
+    <span class="h3">Class Lists</span>
+    <span class="spacer"></span>
+    <span class="px-2">
+      <button class="p-button-rounded" icon="pi pi-plus-circle" pButton></button>
+    </span>
+    <span class="px-2">
+      <button class="p-button-rounded" icon="pi pi-refresh" pButton type="button"></button>
+    </span>
+  </div>
+  <div class="py-2">
+    <div class="row">
+      <div class="col-md-3">
+        Academic Year
+        <select [(ngModel)]="classListRequest.year_id" (ngModelChange)="loadGrades()" class="form-select">
+          <option *ngFor="let y of academicYears" [ngValue]="y.id">{{y.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        Class
+        <select [(ngModel)]="classListRequest.class_id" (ngModelChange)="loadGrades()" class="form-select">
+          <option *ngFor="let c of classes" [ngValue]="c.id">{{c.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        Subject
+        <select [(ngModel)]="classListRequest.subject_id" (ngModelChange)="loadGrades()" class="form-select">
+          <option *ngFor="let sub of subjects" [ngValue]="sub.id">{{sub.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        Sequence
+        <select [(ngModel)]="classListRequest.sequence_id" (ngModelChange)="loadGrades()" class="form-select">
+          <option *ngFor="let seq of sequences" [ngValue]="seq.id">{{seq.name}}</option>
+        </select>
+      </div>
+    </div>
+    {{classListRequest.year_id}}
+    {{classListRequest.class_id}}
+    {{classListRequest.subject_id}}
+    {{classListRequest.sequence_id}}
+  </div>
+
+  <div class="py-2">
+    <div class="container-fluid">
+      <table class="table table-striped text-center align-items-center">
+        <thead>
+
+          <tr>
+            <th>Student</th>
+            <th>RegNo</th>
+            <th>Grade</th>
+            <th>Remarks</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="classListResponse.grades.length == 0">
+            <td colspan="5">Select all fields above to view class list</td>
+          </tr>
+          <tr *ngIf="classListResponse.grades.length != 0">
+            <td colspan="5">
+              <div>
+                {{classListResponse.sequence_name}} -
+                {{classListResponse.subject.name}} -
+                {{classListResponse.class_name}}
+              </div>
+            </td>
+          </tr>
+          <tr *ngFor="let studentInfo of studentInfos">
+            <td>{{studentInfo.student.name}}</td>
+            <td>{{studentInfo.student.registration_number}}</td>
+            <td>
+              <input #gradeInput [disabled]="true" pInputText class="form-control" [value]="studentInfo.grade.score ? studentInfo.grade.score: '-'" [max]="20" [min]="0"  type="number">
+            </td>
+            <td>{{studentInfo.grade.description}}</td>
+            <td>
+              <button (click)="gradeInput.disabled = !gradeInput.disabled" pButton class="btn p-button-secondary">{{gradeInput.disabled ? 'Edit': 'Done'}}</button>
+              &nbsp;
+              <button (click)="saveGrade(studentInfo.grade, gradeInput)" [disabled]="!gradeInputValid(gradeInput)" pButton class="btn">Save</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
