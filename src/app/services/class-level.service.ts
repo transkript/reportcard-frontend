@@ -18,7 +18,11 @@ export class ClassLevelService {
   }
 
   getClassLevelsBySectionId(sectionId: number): Observable<ClassLevel[]> {
-    return this.http.get<ClassLevel[]>(`${this.classLevelApiUrl}/${sectionId}`)
+    return this.http.get<ClassLevel[]>(`${this.classLevelApiUrl}/section`, {
+      params: {
+        sectionId: sectionId
+      }
+    });
   }
 
   getClassLevelById(id: number): Observable<ClassLevel> {
