@@ -26,7 +26,7 @@ export class ClassLevelService {
   }
 
   addClassLevel(classLevel: ClassLevel): Observable<EntityResponse> {
-    return this.http.post<EntityResponse>(`${this.classLevelApiUrl}/${classLevel.id}`, classLevel);
+    return this.http.post<EntityResponse>(`${this.classLevelApiUrl}`, classLevel);
   }
 
   updateClassLevel(classLevel: ClassLevel): Observable<EntityResponse> {
