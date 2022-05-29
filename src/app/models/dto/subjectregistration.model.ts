@@ -1,6 +1,9 @@
 export interface SubjectRegistration {
   id: number;
-  createdAt: Date;
+  created_at: string;
+  updated_at: string;
   applicationId: number;
+  student_id: number;
+  year_id: number;
   subjectId: number;
 }
