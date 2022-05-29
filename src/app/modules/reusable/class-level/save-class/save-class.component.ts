@@ -7,6 +7,8 @@ import {ClassLevelSub} from "../../../../models/dto/classlevelsub.model";
 import {addToMessageService} from "../../../../utils/message-service.util";
 import {MessageService} from "primeng/api";
 import {ClassLevelService} from "../../../../services/class-level.service";
+import {SectionService} from "../../../../services/section.service";
+import {Section} from "../../../../models/dto/section.model";
 
 @Component({
   selector: 'app-save-class',
@@ -14,61 +16,112 @@ import {ClassLevelService} from "../../../../services/class-level.service";
   styleUrls: ['./save-class.component.scss']
 })
 export class SaveClassComponent implements OnInit {
-  classForm!: FormGroup;
+  classForm: FormGroup;
   classLevel!: ClassLevel;
+  section: Section;
   classLevelSubs: ClassLevelSub[] = [];
 
   constructor(private fb: FormBuilder, private activeModal: NgbActiveModal,
-              private classLevelService: ClassLevelService,
+              private classLevelService: ClassLevelService, private sectionService: SectionService,
               private classLevelSubService: ClassLevelSubService, private msg: MessageService) {
+    this.classForm = this.fb.group({});
+    this.section = {id: -1, name: '', category: '', school_id: -1, number_of_class_levels: 0, number_of_subjects: 0}
   }
 
   get classLevelSubForms() {
     return this.classForm.get('classLevels') as FormArray;
   }
 
-  ngOnInit(): void {
+  setClassLevelSection(sectionId: number) {
+    this.sectionService.getSectionById(sectionId).subscribe({
+      next: (section: Section) => {
+        this.section = section;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
-  setupClassForm(classLevel: ClassLevel) {
-    this.classLevel = classLevel;
+  ngOnInit(): void {
+    this.setupClassForm(this.classLevel);
+    this.setClassLevelSection(this.classLevel.section_id);
+  }
+
+  resetClassLevel(sectionId: number) {
+    console.log(sectionId)
+    this.classLevel = {id: -1, section_id: sectionId, name: '', classLevelSubs: []}
+    this.setClassLevelSection(sectionId);
+  }
+
+  setupClassForm(classLevel: ClassLevel): void {
     this.classForm = this.fb.group({
       name: [classLevel.name, Validators.required],
       classLevels: this.fb.array([])
     });
 
-    this.classLevelSubService.getAllClassLevelSubsByClassLevelId(classLevel.id).subscribe({
-      next: (classLevelSubs) => {
-        this.classLevelSubs = classLevelSubs;
-
-        classLevelSubs.forEach(classLevelSub => {
-          this.classLevelSubForms.push(this.fb.group({
-            subName: [classLevelSub.name, Validators.required]
-          }))
-        });
-      }
-    })
+    if(classLevel.id > 0) {
+      this.classLevelSubService.getAllClassLevelSubsByClassLevelId(classLevel.id).subscribe({
+        next: (classLevelSubs) => {
+          this.classLevelSubs = classLevelSubs;
+          classLevelSubs.forEach(classLevelSub => {
+            this.classLevelSubForms.push(this.fb.group({
+              subName: [classLevelSub.name, Validators.required]
+            }))
+          });
+        },
+        error: () => addToMessageService( this.msg, 'warn', 'Warning!', 'Unable to retrieve class level subs')
+      })
+    }
   }
 
   saveClassLevel() {
     this.classLevel.name = this.classForm.get('name')?.value;
-    this.classLevelService.updateClassLevel(this.classLevel).subscribe({
-      next: (res) => addToMessageService('success', 'Update successful', res.message, this.msg),
-      error: (err) => addToMessageService('error', 'Update failed', err.message, this.msg)
-    })
+    if(this.classLevel.id < 0) {
+      console.log(this.classLevel.section_id)
+      this.classLevelService.addClassLevel(this.classLevel).subscribe({
+        next: (res) => addToMessageService(this.msg, 'success', 'Save successful', res.message),
+        error: (err) => addToMessageService(this.msg, 'error', 'Save failed', err.message)
+      });
+    } else {
+      this.classLevelService.updateClassLevel(this.classLevel).subscribe({
+        next: (res) => addToMessageService(this.msg, 'success', 'Update successful', res.message),
+        error: (err) => addToMessageService(this.msg, 'error', 'Update failed', err.error.message)
+      });
+    }
   }
 
   closeModal() {
     this.activeModal.close();
   }
 
-  updateClassLevelSub(classLevelSubInput: HTMLInputElement, classLevelSub: ClassLevelSub) {
+  saveClassLevelSub(classLevelSubInput: HTMLInputElement, classLevelSub: ClassLevelSub) {
     console.log(classLevelSubInput.value);
     classLevelSub.name = classLevelSubInput.value;
-    this.classLevelSubService.updateClassLevelSub(classLevelSub).subscribe({
-      next: (res) => addToMessageService('success', 'Update successful', res.message, this.msg),
-      error: (err) => addToMessageService('error', 'Update failed', err.message, this.msg)
-    });
-    this.setupClassForm(this.classLevel);
+    if(classLevelSub.id < 0) {
+      this.classLevelSubService.addClassLevelSub(classLevelSub).subscribe({
+        next: (res) => addToMessageService(this.msg, 'success', 'Save successful', res.message),
+        error: (err) => addToMessageService(this.msg, 'error', 'Save failed', err.message)
+      });
+    } else {
+      this.classLevelSubService.updateClassLevelSub(classLevelSub).subscribe({
+        next: (res) => addToMessageService(this.msg, 'success', 'Update successful', res.message),
+        error: (err) => addToMessageService(this.msg, 'error', 'Update failed', err.message)
+      });
+    }
+  }
+
+  deleteClassLevelSub(classLevelSub: ClassLevelSub) {
+    const confirmDelete = confirm(`Are you sure you want to delete this class level sub: ${classLevelSub.name}`)
+    if(confirmDelete) {
+      this.classLevelSubService.deleteClassLevelSub(classLevelSub.id).subscribe({
+        next: () => addToMessageService(this.msg, 'warn', 'Delete successful', `Class level sub ${classLevelSub.name} has been deleted`),
+        error: (err) => addToMessageService(this.msg, 'error', 'Delete failed', err.message)
+      });
+    }
+  }
+
+  addClassLevelSubAction() {
+    this.classLevelSubs.push({id: -1, name: '', class_level_id: this.classLevel.id})
   }
 }

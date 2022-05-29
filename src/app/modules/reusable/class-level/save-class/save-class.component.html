@@ -21,17 +21,22 @@
                 <input #classSubInput [value]="classLevelSub.name" class="form-control" pInputText>
               </div>
               <div class="col-lg-4">
-                <button (click)="updateClassLevelSub(classSubInput, classLevelSub)" class="btn" label="Save Class Sub"
-                        pButton type="button"></button>
+                <button [disabled]="classSubInput.value.length <= 0" (click)="saveClassLevelSub(classSubInput, classLevelSub)" class="btn" label="Save" pButton type="button"></button>
+                &nbsp;
+                <button (click)="deleteClassLevelSub(classLevelSub)" class="btn p-button-danger" label="Delete" pButton type="button"></button>
               </div>
             </div>
           </form>
+          <button (click)="addClassLevelSubAction()" pButton icon="pi pi-plus-circle"></button>
         </div>
         <div class="form-group">
           <span class="py-2">
-            <button (click)="saveClassLevel()" [disabled]="!classForm.valid" class="btn full-width" icon="pi pi-check" label="Save"
+            <button (click)="saveClassLevel()" [disabled]="!classForm.valid" class="btn" icon="pi pi-check" label="Save Class"
                     pButton type="button"></button>
           </span>
+        </div>
+        <div class="form-text text-center">
+          <span class="font-bold text-primary">This class will be saved to <u>{{section.name}}</u></span>
         </div>
       </form>
     </div>
