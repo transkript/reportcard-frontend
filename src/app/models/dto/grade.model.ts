@@ -1,3 +1,6 @@
 export interface Grade {
-  id: number;
+  score: number;
+  description: string;
+  registration_id: number;
+  sequence_id: number;
 }
