@@ -13,14 +13,13 @@ export class ClassListService {
   }
 
   getClassList(classListRequest: ClassListRequest): Observable<ClassListResponse> {
-    const params = {
-      yearId: classListRequest.year_id,
-      classId: classListRequest.class_id,
-      subjectId: classListRequest.subject_id,
-      sequenceId: classListRequest.sequence_id,
-    }
-
-    // create the request with params
-    return this.http.get<ClassListResponse>(this.apiUrl, {params})
+    return this.http.get<ClassListResponse>(this.apiUrl, {
+      params: {
+        yearId: classListRequest.year_id,
+        classId: classListRequest.class_id,
+        subjectId: classListRequest.subject_id,
+        sequenceId: classListRequest.sequence_id,
+      }
+    });
   }
 }
