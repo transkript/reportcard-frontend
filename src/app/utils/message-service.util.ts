@@ -1,6 +1,6 @@
 import {MessageService} from "primeng/api";
 
-export const addToMessageService = (severity?: string, summary?: string, detail?: string, messageService?: MessageService) => {
+export const addToMessageService = (messageService: MessageService, severity?: string, summary?: string, detail?: string) => {
   if (messageService) {
     messageService.add({
       severity: severity,
