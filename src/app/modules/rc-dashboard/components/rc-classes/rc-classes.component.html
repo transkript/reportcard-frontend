@@ -13,10 +13,10 @@
   <div class="py-2">
     <div class="container">
       <div class="row py-2">
-        <label class="h6" for="section">Section</label>
+        <label class="h6" for="section">Select School Section</label>
         <div class="form-group row">
           <div class="col-8">
-            <select [(ngModel)]="sectionModelId" class="form-select my-auto" id="section">
+            <select [(ngModel)]="sectionModelId" (ngModelChange)="loadClasses()" class="form-select my-auto" id="section">
               <option [selected]="true">Select section</option>
               <option *ngFor="let section of sections" [value]="section.id">{{section.name}}</option>
             </select>
@@ -29,29 +29,31 @@
       <div *ngIf="classes.length == 0" class="row py-2">
         <span class="text-center">No classes for this section</span>
       </div>
-      <div *ngFor="let c of classes" class="row py-2">
-        <div class="card">
-          <div class="card-header">
-            {{c.classLevel.name}}
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div *ngFor="let cs of c.classLevelSubs" class="col-3">
-                <div class="card">
-                  <div class="card-header">
-                    {{cs.name}}
+      <div class="row py-2">
+        <div *ngFor="let c of classes" class="col-lg-6 col-sm-12">
+          <div class="card my-2">
+            <div class="card-header">
+              {{c.classLevel.name}}
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div *ngFor="let cs of c.classLevelSubs" class="col-3">
+                  <div class="card">
+                    <div class="card-header">
+                      {{cs.name}}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card-footer">
-            <div class="d-flex justify-content-end">
-              <button (click)="editClassAction(c.classLevel)" class="p-button-raised p-button-info" icon="pi pi-pencil"
-                      pButton></button>
-              &nbsp;
-              <button (click)="deleteClassAction(c.classLevel)" class="p-button-raised p-button-danger" icon="pi pi-trash"
-                      pButton></button>
+            <div class="card-footer">
+              <div class="d-flex justify-content-end">
+                <button (click)="saveClassAction(c.classLevel)" class="p-button-raised p-button-info" icon="pi pi-pencil"
+                        pButton></button>
+                &nbsp;
+                <button (click)="deleteClassAction(c.classLevel)" class="p-button-raised p-button-danger" icon="pi pi-trash"
+                        pButton></button>
+              </div>
             </div>
           </div>
         </div>

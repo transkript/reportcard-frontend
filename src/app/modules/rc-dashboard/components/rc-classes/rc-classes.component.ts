@@ -29,11 +29,6 @@ export class RcClassesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSections();
-    // this.loadClasses();
-  }
-
-  saveClassAction() {
-
   }
 
   loadSections(): void {
@@ -41,7 +36,9 @@ export class RcClassesComponent implements OnInit {
       next: (sections) => {
         this.sections = sections;
         this.sectionModelId = this.sections[0].id;
-      }
+        this.loadClasses();
+      },
+      error: (err) => addToMessageService(this.messageService, 'error', 'Error loading sections', `Connection refused. Check that the server is running!`)
     });
   }
 
@@ -50,14 +47,13 @@ export class RcClassesComponent implements OnInit {
     this.classes = [];
     this.classLevelService.getClassLevelsBySectionId(sectionId).subscribe({
       next: (classLevels: ClassLevel[]) => {
-        console.log(classLevels)
         classLevels.forEach((classLevel) => {
           this.loadClassSubs(classLevel);
         });
         this.sortClasses();
       },
       error: (error) => {
-        addToMessageService('error', 'Error loading classes', `Server not responding.\n${error.message}`, this.messageService);
+        addToMessageService(this.messageService, 'error', 'Error loading classes', `Server not responding.\n${error.message}`);
       }
     });
   }
@@ -72,13 +68,13 @@ export class RcClassesComponent implements OnInit {
     const confirmDelete = confirm(`Are you sure you want to delete this class: ${classLevel.name}?`)
     if (confirmDelete) {
       this.classLevelService.deleteClassLevelById(classLevel).subscribe({
-        next: (res) => addToMessageService('warn', 'Delete successful', res, this.messageService),
-        error: (err) => addToMessageService('error', 'Delete failed', 'There was a problem deleting this entity. Contact the admin.', this.messageService)
+        next: (res) => addToMessageService(this.messageService, 'warn', 'Delete successful', res),
+        error: (err) => addToMessageService(this.messageService, 'error', 'Delete failed', 'There was a problem deleting this entity. Contact the admin.')
       })
     }
   }
 
-  editClassAction(classLevel?: ClassLevel) {
+  saveClassAction(classLevel?: ClassLevel) {
     const modalRef = this.modalService.open(SaveClassComponent, {
       size: 'lg',
       centered: true,
@@ -87,11 +83,13 @@ export class RcClassesComponent implements OnInit {
     });
     const saveClassComponent: SaveClassComponent = modalRef.componentInstance;
     if (!classLevel) {
-
+      saveClassComponent.resetClassLevel(this.sectionModelId);
+      saveClassComponent.classForm.reset();
     } else {
       saveClassComponent.classLevel = classLevel;
       saveClassComponent.setupClassForm(classLevel);
     }
+    modalRef.result.then(() => this.loadClasses());
   }
 
   private loadClassSubs(classLevel: ClassLevel): void {
@@ -101,7 +99,7 @@ export class RcClassesComponent implements OnInit {
         this.sortClasses();
       },
       error: (error) => {
-        addToMessageService('error', 'Error loading class subs', error.error.message, this.messageService);
+        addToMessageService(this.messageService, 'error', 'Error loading class subs', error.message);
       }
     });
   }
