@@ -55,13 +55,15 @@ export class RcClasslistsComponent implements OnInit {
     this.loadAcademicYears();
     this.loadSubjects();
     this.loadSequences();
+
+    // Post init, try loading the list until it is successful, and stop.
     let t = setTimeout(() => {
       const req = this.classListRequest;
       if(req.year_id > 0 && req.class_id > 0 && req.subject_id > 0 && req.sequence_id > 0) {
         this.loadGrades();
         clearTimeout(t);
       }
-    }, 1000)
+    }, 2500);
   }
 
   loadClasses() {
@@ -150,9 +152,9 @@ export class RcClasslistsComponent implements OnInit {
     return parseFloat(gradeInput.value);
   }
 
-  gradeInputValid(gradeInput: HTMLInputElement) {
+  gradeInputValid(grade: Grade, gradeInput: HTMLInputElement) {
     const gradeInputValue = this.getGradeInputValue(gradeInput);
-    return gradeInputValue >= 0 || gradeInputValue <= 20;
+    return (gradeInputValue >= 0 && gradeInputValue <= 20) && (grade.score !== gradeInputValue);
   }
 
 }

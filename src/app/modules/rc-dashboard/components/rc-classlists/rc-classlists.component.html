@@ -11,6 +11,7 @@
   </div>
   <div class="py-2">
     <div class="row">
+      <!-- If the class list is not loading properly for some reason, check that the order of the ngModel and ngModelChange attribs is correct -->
       <div class="col-md-3">
         Academic Year
         <select [(ngModel)]="classListRequest.year_id" (ngModelChange)="loadGrades()" class="form-select">
@@ -48,45 +49,45 @@
 
   <div class="py-2">
     <div class="container-fluid">
-      <table class="table table-striped text-center align-items-center">
+      <table class="table table-striped text-center align-items-center align-middle">
         <thead>
-
-        <tr>
-          <th>Student</th>
-          <th>RegNo</th>
-          <th>Grade</th>
-          <th>Remarks</th>
-          <th>Actions</th>
-        </tr>
+          <tr *ngIf="classListResponse.student_grades.length != 0">
+            <td colspan="5">
+              <div class="h6">
+                {{classListResponse.sequence_name}} -
+                {{classListResponse.subject.name}} -
+                {{classListResponse.class_name}} -
+                {{classListResponse.student_grades.length}} Students
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>Student</th>
+            <th>RegNo</th>
+            <th>Grade</th>
+            <th>Remarks</th>
+            <th>Actions</th>
+          </tr>
         </thead>
         <tbody>
         <tr *ngIf="classListResponse.student_grades.length == 0">
           <td colspan="5">Select all fields above to view class list</td>
         </tr>
-        <tr *ngIf="classListResponse.student_grades.length != 0">
-          <td colspan="5">
-            <div>
-              {{classListResponse.sequence_name}} -
-              {{classListResponse.subject.name}} -
-              {{classListResponse.class_name}} -
-              {{classListResponse.student_grades.length}} Students
-            </div>
-          </td>
-        </tr>
+
         <tr *ngFor="let sg of classListResponse.student_grades">
           <td>{{sg.student.name}}</td>
           <td>{{sg.student.registration_number}}</td>
           <td>
-            <input #gradeInput [disabled]="true" [max]="20" [min]="0"
-                   [value]="sg.grade.score ? sg.grade.score: '-'" class="form-control" pInputText type="number">
+            <input #gradeInput [disabled]="true" [max]="20" [min]="0" (change)="gradeInput.value"
+                   [value]="sg.grade.score != null ? sg.grade.score: '-'" class="form-control" type="number">
           </td>
-          <td>{{sg.grade.description}}</td>
           <td>
-            <button (click)="gradeInput.disabled = !gradeInput.disabled" class="btn p-button-secondary"
-                    pButton>{{gradeInput.disabled ? 'Edit' : 'Done'}}</button>
+            <span class="{{sg.grade.score < 10 ? 'text-danger':''}}">{{sg.grade.description | titlecase}}</span>
+          </td>
+          <td>
+            <button (click)="gradeInput.disabled = !gradeInput.disabled" class="btn btn-secondary">{{gradeInput.disabled ? 'Edit' : 'Done'}}</button>
             &nbsp;
-            <button (click)="saveGrade(sg.grade, gradeInput)" [disabled]="!gradeInputValid(gradeInput)" class="btn"
-                    pButton>Save
+            <button (click)="saveGrade(sg.grade, gradeInput)" [disabled]="!gradeInputValid(sg.grade, gradeInput)" class="btn btn-outline-primary">Save
             </button>
           </td>
         </tr>
