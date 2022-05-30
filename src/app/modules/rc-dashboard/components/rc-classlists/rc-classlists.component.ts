@@ -14,8 +14,7 @@ import {GradeService} from "../../../../services/grade.service";
 import {MessageService} from "primeng/api";
 import {addToMessageService} from "../../../../utils/message-service.util";
 import {Student} from "../../../../models/dto/student.model";
-import {SubjectRegistrationService} from "../../../../services/subject-registration.service";
-import {StudentService} from "../../../../services/student.service";
+import {delay} from "rxjs";
 
 @Component({
   selector: 'app-rc-classlists',
@@ -31,8 +30,6 @@ export class RcClasslistsComponent implements OnInit {
   academicYears: AcademicYear[] = [];
   subjects: Subject[] = [];
   sequences: Sequence[] = [];
-  classListColumns: { field: string; header: string; }[] = [];
-  studentInfos: { student: Student; grade: Grade }[] = [];
 
 
   constructor(
@@ -43,23 +40,14 @@ export class RcClasslistsComponent implements OnInit {
     private sequenceService: SequenceService,
     private classListService: ClassListService,
     private gradeService: GradeService,
-    private subjectRegistrationService: SubjectRegistrationService,
-    private studentService: StudentService,
     private msg: MessageService
   ) {
     this.classListRequest = {year_id: -1, class_id: -1, subject_id: -1, sequence_id: -1};
     this.classListResponse = {
       class_level: {id: -1, class_level_id: -1, name: ''},
       subject: {id: -1, name: '', code: '', coefficient: 0, section_id: -1},
-      class_name: '',
-      sequence_name: '',
-      grades: []
+      class_name: '', sequence_name: '', student_grades: []
     };
-    this.classListColumns = [
-      {field: 'student', header: 'Student'},
-      {field: 'grade', header: 'Grade'},
-      {field: 'remarks', header: 'Remarks'},
-    ]
   }
 
   ngOnInit(): void {
@@ -67,6 +55,13 @@ export class RcClasslistsComponent implements OnInit {
     this.loadAcademicYears();
     this.loadSubjects();
     this.loadSequences();
+    let t = setTimeout(() => {
+      const req = this.classListRequest;
+      if(req.year_id > 0 && req.class_id > 0 && req.subject_id > 0 && req.sequence_id > 0) {
+        this.loadGrades();
+        clearTimeout(t);
+      }
+    }, 1000)
   }
 
   loadClasses() {
@@ -76,11 +71,7 @@ export class RcClasslistsComponent implements OnInit {
           this.classLevelService.getClassLevelById(classSub.class_level_id).subscribe({
             next: (classLevel) => {
               this.classes.push({id: classSub.id, name: `${classLevel.name} - ${classSub.name}`});
-              this.classes.sort((a, b) => {
-                if (a.name < b.name) return -1;
-                if (a.name > b.name) return 1;
-                return 0;
-              });
+              this.classes.sort((a, b) => a.name < b.name ? -1 : 1);
               this.classListRequest.class_id = this.classes[0].id;
             }
           });
@@ -122,18 +113,6 @@ export class RcClasslistsComponent implements OnInit {
       this.classListService.getClassList(req).subscribe({
         next: (classList) => {
           this.classListResponse = classList;
-          this.studentInfos = [];
-          classList.grades.forEach((grade) => {
-            this.subjectRegistrationService.getSubjectRegistration(grade.registration_id).subscribe({
-              next: (subReg) => {
-                this.studentService.getStudentById(subReg.student_id).subscribe({
-                  next: (student) => {
-                    this.studentInfos.push({student: student, grade: grade})
-                  },
-                })
-              }
-            });
-          });
         }
       });
     }
