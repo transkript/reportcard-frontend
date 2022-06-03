@@ -19,7 +19,7 @@ if [ "$(lsof -Pi :8090 -sTCP:LISTEN -t)" ]; then
     echo "Please close the application and try again"
 
     # ask to kill the process
-    read -p "Kill the process? (y/n): " -n 1 -r
+    read -p "Kill the process holding the port? (y/n): " -n 1 -r
     echo    # (optional) move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
