@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# check if rc.jar exists
+if [ ! -f "dist-app/rc.jar" ]; then
+    echo "rc.jar not found"
+    echo "Downloading rc.jar"
+    cd wget https://github.com/transkript/reportcard-backend/releases/download/v0.0.1-alpha/rc-application-0.0.1-SNAPSHOT.jar
+    mkdir dist-app
+    mv rc-application-0.0.1-SNAPSHOT.jar dist-app/rc.jar
+else
+    echo "rc.jar found"
+    echo "Continuing..."
+fi
+
+# run the ngbuild commands disconnected from the terminal
+# check if port is in use
+if [ "$(lsof -Pi :8090 -sTCP:LISTEN -t)" ]; then
+    echo "Port 8090 is in use"
+    echo "Please close the application and try again"
+
+    # ask to kill the process
+    read -p "Kill the process? (y/n): " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo "Killing the process"
+        kill $(lsof -t -i:8090)
+    else
+        echo "Exiting"
+        exit 1
+    fi
+else
+    echo "Port 8080 is available"
+    echo "Continuing..."
+fi
+
+java -jar dist-app/rc.jar&
+ng serve
+
