@@ -33,7 +33,6 @@
             "styles": [
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/primeng.min.css",
