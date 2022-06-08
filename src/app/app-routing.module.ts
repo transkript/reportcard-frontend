@@ -9,7 +9,6 @@ import {RcClasslistsComponent} from "./modules/rc-dashboard/components/rc-classl
 import {HomeComponent} from './modules/rc-auth/components/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard/home', pathMatch: 'full'},
   {
     component: DashboardComponent,
     path: 'dashboard',
