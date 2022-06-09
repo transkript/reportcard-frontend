@@ -48,6 +48,7 @@ export class RcStudentsComponent implements OnInit {
     }
     modalRef.result.then((result) => {
       if (result) {
+        // TODO this should be removed from here
         this.loadStudents();
       }
     });
@@ -59,6 +60,7 @@ export class RcStudentsComponent implements OnInit {
       this.studentService.deleteStudent(student.id).subscribe({
         next: (res) => {
           addToMessageService(this.messageService, 'success', `Student ${student.name} deleted successfully`, `${res.message}`);
+          this.loadStudents();
         },
         error: (err) => {
           addToMessageService(this.messageService, 'error', `Student ${student.name} not deleted`, `${err.message}`);
