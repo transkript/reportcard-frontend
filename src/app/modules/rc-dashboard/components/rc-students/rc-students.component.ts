@@ -33,10 +33,7 @@ export class RcStudentsComponent implements OnInit {
 
   saveStudentAction(student?: Student) {
     const modalRef = this.modalService.open(SaveStudentComponent, {
-      size: 'lg',
-      centered: true,
-      backdrop: 'static',
-      keyboard: true
+      size: 'lg', centered: true, backdrop: 'static', keyboard: true
     });
     const saveStudentComponent: SaveStudentComponent = modalRef.componentInstance;
     if (!student) {

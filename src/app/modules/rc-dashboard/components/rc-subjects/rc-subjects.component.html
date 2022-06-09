@@ -3,8 +3,7 @@
     <span class="h3">Subjects</span>
     <span class="spacer"></span>
     <span class="px-2">
-      <button data-target=".add-subject-modal" data-toggle="modal" icon="pi pi-plus-circle"
-              label="Add" pButton type="button"></button>
+      <button (click)="saveSubjectAction()" class="p-button-rounded" icon="pi pi-plus-circle" pButton type="button"></button>
     </span>
     <span class="px-2">
       <button (click)="loadSubjects()"
@@ -50,19 +49,6 @@
         </tr>
         </tbody>
       </table>
-
     </div>
   </div>
-
-  <div #saveSubjectModal aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade add-subject-modal"
-       role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <app-save-subject (cancelSaveSubjectEvent)="closeSaveSubjectDialog($event, saveSubjectModal)"
-                          [subject]="currentSubject"></app-save-subject>
-      </div>
-    </div>
-  </div>
-
-
 </div>

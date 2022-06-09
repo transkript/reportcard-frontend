@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Subject} from "../../../../models/dto/subject.model";
 import {SubjectService} from "../../../../services/subject.service";
 import {MessageService} from "primeng/api";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {SaveSubjectComponent} from "../../../reusable/subject/save-subject/save-subject.component";
+import {addToMessageService} from "../../../../utils/message-service.util";
 
 @Component({
   selector: 'app-rc-subjects',
@@ -12,7 +15,9 @@ export class RcSubjectsComponent implements OnInit {
   subjects: Subject[] = [];
   currentSubject: Subject = {id: -1, name: '', coefficient: 1, code: '', section_id: -1};
 
-  constructor(private subjectService: SubjectService, private messageService: MessageService) {
+  constructor(
+    private modalService: NgbModal,
+    private subjectService: SubjectService, private msgService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -24,15 +29,8 @@ export class RcSubjectsComponent implements OnInit {
 
   loadSubjects(): void {
     this.subjectService.getSubjects().subscribe({
-      next: (subjects) => {
-        this.subjects = subjects;
-      },
-      error: (error) => {
-        console.log()
-        this.messageService.add({
-          severity: 'error', summary: 'Error connecting to server', detail: `${error.message}`
-        })
-      },
+      next: (subjects) => this.subjects = subjects,
+      error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.message),
     })
   }
 
@@ -65,17 +63,5 @@ export class RcSubjectsComponent implements OnInit {
         error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.message)
       });
     }
-
   }
-
-  closeSaveSubjectDialog($event: boolean, saveSubjectModal: HTMLDivElement) {
-    if ($event) {
-      saveSubjectModal.click()
-    }
-  }
-
-  changeCurrentSubject(subject: Subject) {
-    this.currentSubject = subject
-  }
-
 }
