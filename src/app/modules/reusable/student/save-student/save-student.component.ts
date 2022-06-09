@@ -17,14 +17,16 @@ export class SaveStudentComponent implements OnInit {
   @Input() student: Student;
   genders: string[] = Object.keys(Gender);
   studentForm: FormGroup = new FormGroup({});
-  private readonly defaultStudent: Student;
+  private readonly defaultStudent: Student = {
+    id: -1, name: "", gender: "M", date_of_birth: '',
+    place_of_birth: "", registration_number: "", number_of_applications: 0
+  };
 
-  constructor(public activeModal: NgbActiveModal,
-              private studentService: StudentService, private messageService: MessageService) {
-    this.defaultStudent = {
-      id: -1, name: "", gender: "M", date_of_birth: '',
-      place_of_birth: "", registration_number: "", number_of_applications: 0
-    };
+  constructor(
+    private activeModal: NgbActiveModal,
+    private studentService: StudentService,
+    private messageService: MessageService
+  ) {
     this.student = this.defaultStudent;
   }
 
@@ -58,28 +60,16 @@ export class SaveStudentComponent implements OnInit {
       number_of_applications: 0,
     };
 
-    console.log(studentToSave.date_of_birth)
-    console.log(this.student.id)
-
     if (this.student.id < 0) {
       this.studentService.addStudent(studentToSave).subscribe({
-        next: (response) => {
-          addToMessageService(this.messageService, 'success', 'Success', response.message);
-        },
-        error: (err) => {
-          console.log(err)
-          addToMessageService(this.messageService, 'error', 'Error', err.message);
-        }
+        next: (res) => addToMessageService(this.messageService, 'success', 'Success', `${res.message}`),
+        error: (err) => addToMessageService(this.messageService, 'error', 'Error', `${err.message}`)
       });
     } else {
       studentToSave.id = this.student.id;
       this.studentService.updateStudent(studentToSave).subscribe({
-        next: (response) => {
-          addToMessageService(this.messageService, 'info', 'Updated', response.message,);
-        },
-        error: (err) => {
-          addToMessageService(this.messageService, 'error', 'Error', err.message,);
-        }
+        next: (res) => addToMessageService(this.messageService, 'info', 'Updated', res.message,),
+        error: (err) => addToMessageService(this.messageService, 'error', 'Error', `${err.message}`)
       })
     }
   }
