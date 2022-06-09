@@ -1,10 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Subject} from "../../../../models/dto/subject.model";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {SubjectService} from "../../../../services/subject.service";
 import {Section} from "../../../../models/dto/section.model";
 import {SectionService} from "../../../../services/section.service";
 import {MessageService} from "primeng/api";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {addToMessageService} from "../../../../utils/message-service.util";
 
 @Component({
   selector: 'app-save-subject',
@@ -13,15 +15,34 @@ import {MessageService} from "primeng/api";
 })
 export class SaveSubjectComponent implements OnInit {
 
+  private readonly defaultSubject: Subject = {id: -1, name: '', coefficient: 0, code: '', section_id: -1};
   @Input() subject: Subject;
-  @Output() cancelSaveSubjectEvent = new EventEmitter<boolean>();
-
-  subjectForm: FormGroup;
+  subjectForm: FormGroup = this.fb.group({});
   sections: Section[] = [];
 
-  constructor(private subjectService: SubjectService, private sectionService: SectionService, private messageService: MessageService) {
-    this.subject = {id: -1, name: '', coefficient: 0, code: '', section_id: -1}
+  constructor(
+    private fb: FormBuilder,
+    private activeModal: NgbActiveModal,
+    private subjectService: SubjectService,
+    private sectionService: SectionService,
+    private msgService: MessageService
+  ) {
+    this.subject = this.defaultSubject;
+    this.setupSubjectForm();
+  }
 
+  ngOnInit(): void {
+    this.sectionService.getSections().subscribe({
+      next: (sections) => this.sections = sections,
+      error: (err) => addToMessageService(this.msgService, 'warn', 'Error connecting to server', `${err.message}`)
+    });
+  }
+
+  resetSubject(): void {
+    this.subject = this.defaultSubject;
+  }
+
+  setupSubjectForm() {
     this.subjectForm = new FormGroup({
       name: new FormControl(this.subject.name, Validators.required),
       code: new FormControl(this.subject.code, Validators.required),
@@ -30,24 +51,7 @@ export class SaveSubjectComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-    // load the sections from the backend
-    this.sectionService.getSections().subscribe({
-      next: (sections) => {
-        this.sections = sections;
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'warn', summary: 'Error connecting to server', detail: error.message
-        })
-      }
-    });
-  }
-
   saveSubject(): void {
-    console.log(this.subjectForm.value)
-
     const subjectToSave: Subject = {
       id: -1,
       name: this.subjectForm.get('name')?.value,
@@ -57,28 +61,20 @@ export class SaveSubjectComponent implements OnInit {
     }
 
     if (this.subject.id < 0) {
-      this.subjectService.addSubject(subjectToSave).subscribe((response) => {
-        console.log(response)
+      this.subjectService.addSubject(subjectToSave).subscribe({
+        next: (res) => addToMessageService(this.msgService, 'success', 'Success', `${res.message}`),
+        error: (err) => addToMessageService(this.msgService, 'error', 'Failed', `${err.message}`)
       });
     } else {
       subjectToSave.id = this.subject.id;
       this.subjectService.updateSubject(subjectToSave).subscribe({
-        next: (response) => {
-          console.log(response);
-          this.messageService.add({
-            severity: 'success', summary: 'Success', detail: response.message
-          });
-        },
-        error: (err) => {
-          this.messageService.add({
-            severity: 'error', summary: 'Error', detail: err.message
-          });
-        }
+        next: (res) => addToMessageService(this.msgService, 'success', 'Success', `${res.message}`),
+        error: (err) => addToMessageService(this.msgService, 'error', 'Error', `${err.message}`)
       });
     }
   }
 
-  cancelSaveSubject() {
-    this.cancelSaveSubjectEvent.emit(true);
+  closeModal() {
+    this.activeModal.close();
   }
 }

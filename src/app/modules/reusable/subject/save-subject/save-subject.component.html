@@ -1,7 +1,12 @@
 <div class="container">
   <div class="py-2">
-    <div class="">
+    <div class="d-flex">
       <span class="h3">Save Subject</span>
+      <span class="spacer"></span>
+      <span class="">
+        <button (click)="closeModal()" class="p-button-rounded p-button-danger p-button-text" icon="pi pi-times"
+                pButton></button>
+      </span>
     </div>
     <div class="p-3">
       <form [formGroup]="subjectForm" class="">
@@ -19,7 +24,7 @@
         </div>
         <div class="form-group">
           <label>Section</label>
-          <select class="form-control" formControlName="sectionId">
+          <select class="form-select" formControlName="sectionId">
             <option *ngFor="let section of sections" [ngValue]="section"
                     class=""
                     selected="{{subject.section_id == section.id}}">
@@ -30,19 +35,12 @@
         <div class="form-group">
           <span class="p-2">
             <button
-              (click)="saveSubject()"
-              [disabled]="!subjectForm.valid" class="btn" icon="pi pi-check" label="Save" pButton
-              type="button"></button>
-          </span>
-          <span class="p-2">
-            <button
-              (click)="cancelSaveSubject()"
-              class="btn p-button-secondary" icon="pi pi-times" label="Close" pButton
+              (click)="saveSubject()" [disabled]="!subjectForm.valid" class="btn" icon="pi pi-check"
+              label="Save" pButton
               type="button"></button>
           </span>
         </div>
       </form>
     </div>
   </div>
-
 </div>
