@@ -16,11 +16,12 @@
         <label class="h6" for="section">Select School Section</label>
         <div class="form-group row">
           <div class="col-8">
-            <select (ngModelChange)="loadClasses()" [(ngModel)]="sectionModelId" class="form-select my-auto"
-                    id="section">
-              <option [selected]="true">Select section</option>
+            <select (ngModelChange)="loadClasses()" [(ngModel)]="sectionModelId" class="form-select my-auto" id="section">
+              <!-- this does not actually fire the event -->
+              <option [selected]="true" disabled>Select section</option> <!-- TODO make this disabled -->
               <option *ngFor="let section of sections" [value]="section.id">{{section.name}}</option>
             </select>
+            {{sectionModelId}}
           </div>
           <div class="col-4">
             <button (click)="loadClasses()" class="" pButton>Load Classes</button>
