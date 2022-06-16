@@ -24,8 +24,9 @@ import {RcBodyIntroComponent} from './components/rc-body-intro/rc-body-intro.com
 import {DataViewModule} from "primeng/dataview";
 import {ReusableModule} from "../reusable/reusable.module";
 import {ToastModule} from "primeng/toast";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
+import {InputSwitchModule} from "primeng/inputswitch";
 
 
 @NgModule({
@@ -57,7 +58,9 @@ import {TableModule} from "primeng/table";
     DataViewModule,
     ToastModule,
     FormsModule,
-    TableModule
+    TableModule,
+    InputSwitchModule,
+    ReactiveFormsModule
   ],
   exports: [
     DashboardComponent
