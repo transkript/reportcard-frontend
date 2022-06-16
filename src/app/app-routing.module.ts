@@ -11,6 +11,7 @@ import {RcWelcomeComponent} from "./components/rc-welcome/rc-welcome.component";
 import {RcSettingsComponent} from "./modules/rc-dashboard/components/rc-settings/rc-settings.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: '/dashboard/home', pathMatch: 'full'},
   {
     component: RcWelcomeComponent,
     path: '',
