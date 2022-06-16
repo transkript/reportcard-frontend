@@ -1,1 +1,147 @@
-<p>rc-settings works!</p>
+<div class="rc-subjects">
+  <div class="py-2 d-flex">
+    <span class="h3">Settings</span>
+    <span class="spacer"></span>
+    <span class="px-2">
+      <button pButton label="Load Default Data" (click)="loadDefaultDataAction()"></button>
+    </span>
+  </div>
+
+  <div class="py-4">
+    <div class="" *ngIf="!schoolSettingsValid">
+      School settings have not been added
+    </div>
+    <div class="" *ngIf="schoolSettingsValid">
+      <form [formGroup]="settingsForm" (submit)="saveSettingsAction()">
+        <div class="row pb-3">
+          <div class="col-md-6 py-2">
+            <label class="form-label">Applications Open</label>
+            <div class="form-check form-switch">
+              <input type="checkbox" class="form-check-input" [formControlName]="'applicationsOpen'">
+              <label class="form-check-label">{{settingsForm.get('applicationsOpen')?.value ? 'Yes' : 'No'}}</label>
+            </div>
+          </div>
+          <div class="col-md-6 py-2">
+            <label for="currYear" class="form-label">Current Academic Year</label>
+            <select id="currYear" class="form-select" [formControlName]="'year'">
+              <option *ngFor="let year of academicYears" [value]="year.id" [selected]="year.id == schoolSettings.curr_year_id">
+                {{year.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row pb-3">
+          <div class="col-md-6 py-2">
+            <label for="currTerm" class="form-label">Current Term</label>
+            <select id="currTerm" class="form-select" [formControlName]="'term'">
+              <option *ngFor="let term of terms" [value]="term.id" [selected]="term.id == schoolSettings.curr_term_id">
+                {{term.id == schoolSettings.curr_term_id}}&nbsp;
+                {{term.name}}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6 py-2">
+            <label for="currSeq" class="form-label">Current Sequence</label>
+            <select id="currSeq" class="form-select" [formControlName]="'sequence'">
+              <option *ngFor="let seq of sequences"  [value]="seq.id" [selected]="seq.id == schoolSettings.curr_seq_id">
+                {{seq.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row pb-3">
+          <div class="col-md-6 py-2">
+            <label class="form-label">Min Grade Score</label>
+            <input type="number" class="form-control" [formControlName]="'minGrade'" [value]="schoolSettings.min_grade">
+          </div>
+          <div class="col-md-6 py-2">
+            <label class="form-label">Max Grade Score</label>
+            <input type="number" class="form-control" [formControlName]="'maxGrade'" [value]="schoolSettings.max_grade">
+          </div>
+        </div>
+        <button type="submit" class="btn" [disabled]="!settingsForm.valid" pButton>Save</button>
+      </form>
+    </div>
+  </div>
+  <div class="py-4">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 my-2">
+          <div class="card">
+            <div class="card-header">Academic Years</div>
+            <div class="card-body">
+              <div *ngFor="let year of academicYears" class="my-2">
+                <div class="d-flex align-middle form-group">
+                  <input #academicYearUpdateInput class="form-control" [value]="year.name" [disabled]="true">&nbsp;
+                  <button (click)="editATSAction($event, 0, year, academicYearUpdateInput)" class="btn btn-primary">Edit</button>&nbsp;
+                  <button (click)="deleteATSAction(0, year)" class="btn btn-danger">Delete</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex">
+                <div class="mr-auto">
+                  <input #yearAddInput class="form-control" placeholder="20XX/20XY" [hidden]="true">&nbsp;
+                </div>
+                <div class="ml-auto">
+                  <button (click)="addATSAction($event, 0, yearAddInput)" class="btn btn-primary">Add</button>&nbsp;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 my-2">
+          <div class="card h-100">
+            <div class="card-header">Terms</div>
+            <div class="card-body">
+              <div *ngFor="let term of terms" class="my-2">
+                <div class="d-flex align-middle form-group">
+                  <input #termUpdateInput class="form-control" [value]="term.name" [disabled]="true">&nbsp;
+                  <button (click)="editATSAction($event, 1, term, termUpdateInput)" class="btn btn-primary">Edit</button>&nbsp;
+                  <button (click)="deleteATSAction(1, term)" class="btn btn-danger">Delete</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex">
+                <div class="mr-auto">
+                  <input #termAddInput class="form-control" [hidden]="true">&nbsp;
+                </div>
+                <div class="ml-auto">
+                  <button (click)="addATSAction($event, 1, termAddInput)" class="btn btn-primary">Add</button>&nbsp;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 my-2">
+          <div class="card h-100">
+            <div class="card-header">Sequences</div>
+            <div class="card-body">
+              <div *ngFor="let seq of sequences" class="my-2">
+                <div class="d-flex align-middle form-group">
+                  <input #seqUpdateInput class="form-control" [value]="seq.name" [disabled]="true">&nbsp;
+                  <button (click)="editATSAction($event, 2, seq, seqUpdateInput)" class="btn btn-primary">Edit</button>&nbsp;
+                  <button (click)="deleteATSAction(2, seq)" class="btn btn-danger">Delete</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex">
+                <div class="mr-auto">
+                  <input #seqAddInput class="form-control" [hidden]="true">&nbsp;
+                  <select class="form-select" [hidden]="seqAddInput.hidden">
+                    <option *ngFor="let t of terms" [value]="t.id">{{t.name}}</option>
+                  </select>
+                </div>
+                <div class="ml-auto">
+                  <button (click)="addATSAction($event, 2, seqAddInput)" class="btn btn-primary">Add</button>&nbsp;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
