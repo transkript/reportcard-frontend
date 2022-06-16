@@ -10,11 +10,13 @@ import {HttpClientModule} from "@angular/common/http";
 import {injectables} from "./app.injectables";
 import {MessageService} from "primeng/api";
 import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { RcWelcomeComponent } from './components/rc-welcome/rc-welcome.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    RcWelcomeComponent,
   ],
   imports: [
     RcDashboardModule,
