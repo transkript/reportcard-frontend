@@ -1,5 +1,7 @@
 // TODO fix endpoints
-const RC_SERVER_URL = 'http://localhost:8090';
+import {environment} from "../environments/environment";
+
+const RC_SERVER_URL = environment.serverUrl;
 
 export const RC_ACADEMIC_YEAR_API_URL = `${RC_SERVER_URL}/api/academic_year`;
 
