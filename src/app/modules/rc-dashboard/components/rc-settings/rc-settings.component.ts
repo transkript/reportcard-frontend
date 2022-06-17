@@ -56,6 +56,7 @@ export class RcSettingsComponent implements OnInit {
       minGrade: [0, Validators.min(0)],
       maxGrade: [0, Validators.compose([Validators.min(0), Validators.max(100)])]
     });
+
   }
 
   ngOnInit(): void {
@@ -119,9 +120,10 @@ export class RcSettingsComponent implements OnInit {
       next: (schoolSettings) => {
         this.schoolSettings = schoolSettings;
         this.updateSchoolSettingsValid();
+        this.patchSettingsForm(this.schoolSettings);
         this.loadSettingsInfo();
       }, error: (err) => {
-        addToMessageService(this.msgService, 'error', 'Error', `${err.message}`)
+        addToMessageService(this.msgService, 'error', 'Error', `${err.error.message}`)
       }
     });
   }
@@ -200,11 +202,9 @@ export class RcSettingsComponent implements OnInit {
             console.log(entity)
             if(AcademicYearUtil.isValid(entity.name)) {
               this.academicYearService.updateAcademicYear(entity as AcademicYear).subscribe({
-                next: (res) => {
-                  addToMessageService(this.msgService, 'success', 'Update successful', res.message);
-                  this.loadSettingsInfo();
-                },
+                next: (res) => addToMessageService(this.msgService, 'success', 'Update successful', res.message),
                 error: (err) => addToMessageService(this.msgService, 'error', 'Update failed', err.message),
+                complete: () => this.loadSettingsInfo()
               });
             } else {
               addToMessageService(this.msgService, 'warn', 'Invalid Year', `The value '${entity.name}' is not valid!`);
@@ -214,21 +214,17 @@ export class RcSettingsComponent implements OnInit {
           }
           case ATSName.TERM: {
             this.termService.updateTerm(entity as Term).subscribe({
-              next: (res) => {
-                addToMessageService(this.msgService, 'success', 'Update successful', res.message);
-                this.loadSettingsInfo();
-              },
+              next: (res) => addToMessageService(this.msgService, 'success', 'Update successful', res.message),
               error: (err) => addToMessageService(this.msgService, 'error', 'Update failed', err.message),
+              complete: () => this.loadSettingsInfo()
             });
             break;
           }
           case ATSName.SEQUENCE: {
             this.sequenceService.updateSequence(entity as Sequence).subscribe({
-              next: (res) => {
-                addToMessageService(this.msgService, 'success', 'Update successful', res.message);
-                this.loadSettingsInfo();
-              },
+              next: (res) => addToMessageService(this.msgService, 'success', 'Update successful', res.message),
               error: (err) => addToMessageService(this.msgService, 'error', 'Update failed', err.message),
+              complete: () => this.loadSettingsInfo()
             });
             break;
           }
@@ -238,7 +234,7 @@ export class RcSettingsComponent implements OnInit {
     }
   }
 
-  addATSAction($event: MouseEvent, atsName: ATSName, inputElement: HTMLInputElement) {
+  addATSAction($event: MouseEvent, atsName: ATSName, inputElement: HTMLInputElement, seqTermAddInput?: HTMLSelectElement) {
     const addButton = $event.target as HTMLButtonElement;
     if(inputElement.hidden) {
       inputElement.hidden = false;
@@ -249,24 +245,23 @@ export class RcSettingsComponent implements OnInit {
       const entityValue = inputElement.value;
       switch (atsName) {
         case ATSName.SEQUENCE: {
-          const seq: Sequence = {id: -1, name: entityValue, term_id: -1}; // TODO fix this hell
-          this.sequenceService.addSequence(seq).subscribe( {
-            next: (res) => {
-              addToMessageService(this.msgService, 'success', 'Success', res.message);
-              this.loadSettingsInfo();
-            },
-            error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message)
-          })
+          const termId = seqTermAddInput ? parseInt(seqTermAddInput.value) : -1;
+          const seq: Sequence = {id: -1, name: entityValue, term_id: termId};
+          if(seq.term_id > 0 ) {
+            this.sequenceService.addSequence(seq).subscribe( {
+              next: (res) => addToMessageService(this.msgService, 'success', 'Success', res.message),
+              error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
+              complete: () => this.loadSettingsInfo()
+            });
+          } else addToMessageService(this.msgService, 'warn', 'No term selected', 'Select a term first to save the sequence')
           break;
         }
         case ATSName.TERM: {
           const term: Term = {id: -1, name: entityValue};
           this.termService.addTerm(term).subscribe({
-            next: (res) => {
-              addToMessageService(this.msgService, 'success', 'Success', res.message);
-              this.loadSettingsInfo();
-            },
-            error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message)
+            next: (res) => addToMessageService(this.msgService, 'success', 'Success', res.message),
+            error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
+            complete: () => this.loadSettingsInfo()
           });
           break;
         }
@@ -274,11 +269,9 @@ export class RcSettingsComponent implements OnInit {
           if(AcademicYearUtil.isValid(entityValue)) {
             const year: AcademicYear = {id: -1, name: entityValue};
             this.academicYearService.addAcademicYear(year).subscribe({
-              next: (res) => {
-                addToMessageService(this.msgService, 'success', 'Success', res.message);
-                this.loadSettingsInfo();
-              },
-              error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message)
+              next: (res) => addToMessageService(this.msgService, 'success', 'Success', res.message),
+              error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
+              complete: () => this.loadSettingsInfo()
             });
           } else {
             addToMessageService(this.msgService, 'warn', 'Invalid Year', `The value '${entityValue}' is not valid!`);
@@ -289,6 +282,18 @@ export class RcSettingsComponent implements OnInit {
 
       inputElement.hidden = true;
       addButton.textContent = "Add";
+    }
+  }
+
+  // TODO move this to a util module
+  getTermById(id: number): Term {
+    const res = this.terms.filter((term) => {
+      return id == term.id
+    });
+    switch (res.length) {
+      case 0: return {id: -1, name: 'None'};
+      case 1: return res[0];
+      default: return {id: -1, name: 'None'};
     }
   }
 }
