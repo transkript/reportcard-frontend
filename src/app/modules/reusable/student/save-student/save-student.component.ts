@@ -72,6 +72,8 @@ export class SaveStudentComponent implements OnInit {
         error: (err) => addToMessageService(this.messageService, 'error', 'Error', `${err.message}`)
       })
     }
+
+    this.closeModal();
   }
 
   closeModal() {
