@@ -73,6 +73,47 @@ export class RcSettingsComponent implements OnInit {
     );
   }
 
+  private isValidSettings = (settings: SchoolSettings): { valid: boolean, errors: string[] } => {
+    console.log(settings)
+    const errs: string[] = [];
+    const term: Term = this.getTermById(settings.curr_term_id);
+    const sequencesByTerm = this.sequences.filter(seq => seq.term_id == term.id);
+    const sequenceValid: boolean = sequencesByTerm.find(seq => seq.id == settings.curr_seq_id) != undefined;
+
+    {
+      if(!sequenceValid) {
+        errs.push("This sequence is not compatible with this term");
+      }
+    }
+
+    const gradeValid = settings.min_grade < settings.max_grade;
+
+    {
+      if(!gradeValid) {
+        errs.push("Maximum grade score must be higher than the minimum grade score");
+      }
+    }
+
+    return {valid: sequenceValid && gradeValid, errors: errs};
+  }
+
+  patchSettingsForm(schoolSettings: SchoolSettings): void {
+    if(schoolSettings == null) {
+      schoolSettings = this.defaultSettings;
+      if (this.sequences.length > 0) schoolSettings.curr_seq_id = this.sequences[0].id
+      if (this.terms.length > 0) schoolSettings.curr_term_id = this.terms[0].id
+      if (this.academicYears.length > 0) schoolSettings.curr_year_id = this.academicYears[0].id
+    }
+    this.settingsForm.patchValue({
+      "applicationsOpen": schoolSettings.application_is_open,
+      "year": schoolSettings.curr_year_id,
+      "term": schoolSettings.curr_term_id,
+      "sequence": schoolSettings.curr_seq_id,
+      "minGrade": schoolSettings.min_grade,
+      "maxGrade": schoolSettings.max_grade,
+    });
+  }
+
   loadSettings(): void {
     this.schoolSettingsService.getSettings().subscribe({
       next: (schoolSettings) => {
@@ -98,7 +139,36 @@ export class RcSettingsComponent implements OnInit {
   }
 
   saveSettingsAction() {
-    console.log(this.settingsForm.value);
+    const settings: SchoolSettings = {
+      id: this.schoolSettings ? this.schoolSettings.id: -1,
+      application_is_open: this.settingsForm.get('applicationsOpen')?.value,
+      min_grade: this.settingsForm.get('minGrade')?.value,
+      max_grade: this.settingsForm.get('maxGrade')?.value,
+      curr_year_id: parseInt(this.settingsForm.get("year")?.value),
+      curr_term_id: parseInt(this.settingsForm.get("term")?.value),
+      curr_seq_id: parseInt(this.settingsForm.get("sequence")?.value),
+    }
+
+    const settingsValidRes = this.isValidSettings(settings);
+    if (settingsValidRes.valid) {
+      if(settings.id <= 0) {
+        this.schoolSettingsService.addSettings(settings).subscribe({
+          next: () => addToMessageService(this.msgService, 'success', 'Saved', 'Settings saved successfully'),
+          error: err => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
+          complete: () => this.loadSettings()
+        });
+      } else {
+        this.schoolSettingsService.updateSettings(settings).subscribe({
+          next: () => addToMessageService(this.msgService, 'success', 'Saved', 'Settings saved successfully'),
+          error: err => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
+          complete: () => this.loadSettings()
+        });
+      }
+    } else {
+      for (let i = 0; i < settingsValidRes.errors.length; i ++ ) {
+        addToMessageService(this.msgService, 'warn', 'Invalid Settings', `Warning ${i + 1}: ${settingsValidRes.errors[i]}`)
+      }
+    }
   }
 
   loadDefaultDataAction() {

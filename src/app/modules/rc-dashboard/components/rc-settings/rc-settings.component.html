@@ -8,10 +8,10 @@
   </div>
 
   <div class="py-4">
-    <div class="" *ngIf="!schoolSettingsValid">
+    <div class="text-danger fst-italic" *ngIf="!schoolSettingsValid">
       School settings have not been added
     </div>
-    <div class="" *ngIf="schoolSettingsValid">
+    <div class="">
       <form [formGroup]="settingsForm" (submit)="saveSettingsAction()">
         <div class="row pb-3">
           <div class="col-md-6 py-2">
@@ -24,7 +24,7 @@
           <div class="col-md-6 py-2">
             <label for="currYear" class="form-label">Current Academic Year</label>
             <select id="currYear" class="form-select" [formControlName]="'year'">
-              <option *ngFor="let year of academicYears" [value]="year.id" [selected]="year.id == schoolSettings.curr_year_id">
+              <option *ngFor="let year of academicYears" [value]="year.id" [selected]="year.id == (schoolSettings ? schoolSettings.curr_year_id : -1)">
                 {{year.name}}
               </option>
             </select>
@@ -34,8 +34,7 @@
           <div class="col-md-6 py-2">
             <label for="currTerm" class="form-label">Current Term</label>
             <select id="currTerm" class="form-select" [formControlName]="'term'">
-              <option *ngFor="let term of terms" [value]="term.id" [selected]="term.id == schoolSettings.curr_term_id">
-                {{term.id == schoolSettings.curr_term_id}}&nbsp;
+              <option *ngFor="let term of terms" [value]="term.id" [selected]="term.id == (schoolSettings ? schoolSettings.curr_term_id : -1)">
                 {{term.name}}
               </option>
             </select>
@@ -43,7 +42,7 @@
           <div class="col-md-6 py-2">
             <label for="currSeq" class="form-label">Current Sequence</label>
             <select id="currSeq" class="form-select" [formControlName]="'sequence'">
-              <option *ngFor="let seq of sequences"  [value]="seq.id" [selected]="seq.id == schoolSettings.curr_seq_id">
+              <option *ngFor="let seq of sequences"  [value]="seq.id" [selected]="seq.id == ( schoolSettings ? schoolSettings.curr_seq_id : -1)">
                 {{seq.name}}
               </option>
             </select>
@@ -52,11 +51,11 @@
         <div class="row pb-3">
           <div class="col-md-6 py-2">
             <label class="form-label">Min Grade Score</label>
-            <input type="number" class="form-control" [formControlName]="'minGrade'" [value]="schoolSettings.min_grade">
+            <input type="number" class="form-control" [formControlName]="'minGrade'" [value]="schoolSettings ? schoolSettings.min_grade: 0">
           </div>
           <div class="col-md-6 py-2">
             <label class="form-label">Max Grade Score</label>
-            <input type="number" class="form-control" [formControlName]="'maxGrade'" [value]="schoolSettings.max_grade">
+            <input type="number" class="form-control" [formControlName]="'maxGrade'" [value]="schoolSettings ? schoolSettings.max_grade: 0">
           </div>
         </div>
         <button type="submit" class="btn" [disabled]="!settingsForm.valid" pButton>Save</button>
@@ -84,7 +83,7 @@
                   <input #yearAddInput class="form-control" placeholder="20XX/20XY" [hidden]="true">&nbsp;
                 </div>
                 <div class="ml-auto">
-                  <button (click)="addATSAction($event, 0, yearAddInput)" class="btn btn-primary">Add</button>&nbsp;
+                  <button (click)="addATSAction($event,0,yearAddInput,seqTermAddInput)" class="btn btn-primary">Add</button>&nbsp;
                 </div>
               </div>
             </div>
@@ -108,7 +107,7 @@
                   <input #termAddInput class="form-control" [hidden]="true">&nbsp;
                 </div>
                 <div class="ml-auto">
-                  <button (click)="addATSAction($event, 1, termAddInput)" class="btn btn-primary">Add</button>&nbsp;
+                  <button (click)="addATSAction($event,1,termAddInput,seqTermAddInput)" class="btn btn-primary">Add</button>&nbsp;
                 </div>
               </div>
             </div>
@@ -119,6 +118,7 @@
             <div class="card-header">Sequences</div>
             <div class="card-body">
               <div *ngFor="let seq of sequences" class="my-2">
+                <label class="form-label">{{getTermById(seq.term_id).name}}</label>
                 <div class="d-flex align-middle form-group">
                   <input #seqUpdateInput class="form-control" [value]="seq.name" [disabled]="true">&nbsp;
                   <button (click)="editATSAction($event, 2, seq, seqUpdateInput)" class="btn btn-primary">Edit</button>&nbsp;
@@ -130,12 +130,12 @@
               <div class="d-flex">
                 <div class="mr-auto">
                   <input #seqAddInput class="form-control" [hidden]="true">&nbsp;
-                  <select class="form-select" [hidden]="seqAddInput.hidden">
+                  <select #seqTermAddInput class="form-select" [hidden]="seqAddInput.hidden">
                     <option *ngFor="let t of terms" [value]="t.id">{{t.name}}</option>
                   </select>
                 </div>
                 <div class="ml-auto">
-                  <button (click)="addATSAction($event, 2, seqAddInput)" class="btn btn-primary">Add</button>&nbsp;
+                  <button (click)="addATSAction($event, 2, seqAddInput, seqTermAddInput)" class="btn btn-primary">Add</button>&nbsp;
                 </div>
               </div>
             </div>
