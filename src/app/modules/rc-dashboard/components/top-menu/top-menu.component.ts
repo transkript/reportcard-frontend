@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-top-menu',
@@ -11,6 +12,9 @@ import {Component, OnInit} from '@angular/core';
         </ng-template>
         <ng-template pTemplate="end">
           <div class="d-flex">
+            <div class="flex-item mx-2">
+              <span class="fw-bold {{online ? 'online-text': 'offline-text' }}">{{online ? "ONLINE" : "OFFLINE"}}</span>
+            </div>
             <div class="flex-item text-center">
               <ul>
                 <li class="font-weight-bold">John Doe</li>
@@ -28,10 +32,26 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TopMenuComponent implements OnInit {
 
+  online: boolean = false;
+
   constructor() {
   }
 
   ngOnInit(): void {
+    this.checkOnlineStatus();
   }
 
+  checkOnlineStatus(): void {
+    setInterval(() => {
+      let req: XMLHttpRequest = new XMLHttpRequest();
+      req.open("GET", `${environment.serverUrl}/api/default/test`, false);
+      try {
+        req.send();
+        this.online = req.status == 200;
+      } catch (e) {
+        this.online = false;
+        console.clear(); // TODO this is quite dangerous
+      }
+    }, 500);
+  }
 }
