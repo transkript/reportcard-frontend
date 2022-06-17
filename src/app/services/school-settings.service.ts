@@ -17,7 +17,11 @@ export class SchoolSettingsService {
     return this.http.get<SchoolSettings>(`${this.apiUrl}`);
   }
 
+  addSettings(schoolSettings: SchoolSettings): Observable<SchoolSettings> {
+    return this.http.post<SchoolSettings>(`${this.apiUrl}`, schoolSettings);
+  }
+
   updateSettings(schoolSettings: SchoolSettings): Observable<EntityResponse> {
-    return this.http.post<EntityResponse>(`${this.apiUrl}`, schoolSettings);
+    return this.http.put<EntityResponse>(`${this.apiUrl}`, schoolSettings);
   }
 }
