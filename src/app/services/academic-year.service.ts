@@ -1,16 +1,21 @@
 import {Inject, Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {catchError, Observable} from "rxjs";
 import {AcademicYear} from "../models/dto/academicyear.model";
 import {RC_ACADEMIC_YEAR_API_URL} from "../app.constants";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {EntityResponse} from "../models/dto/entity.response";
+import {MessageService} from "primeng/api";
+import {addToMessageService} from "../utils/message-service.util";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AcademicYearService {
 
-  constructor(@Inject(RC_ACADEMIC_YEAR_API_URL) private apiUrl: string, private http: HttpClient) {
+  constructor(
+    @Inject(RC_ACADEMIC_YEAR_API_URL) private apiUrl: string,
+    private msgService: MessageService,
+    private http: HttpClient) {
 
   }
 
@@ -24,5 +29,25 @@ export class AcademicYearService {
 
   updateAcademicYear(academicYear: AcademicYear): Observable<EntityResponse> {
     return this.http.put<EntityResponse>(`${this.apiUrl}/${academicYear.id}`, academicYear);
+  }
+
+  onError(err: HttpErrorResponse) : void {
+    this.msgService.add({
+      severity: 'error',
+      summary: err.message,
+      detail: err.error
+    })
+  }
+
+}
+
+export module AcademicYearServiceHelper {
+  export const loadAcademicYears = (yearService: AcademicYearService, onLoad: (years: AcademicYear[]) => void) => {
+    yearService.getAllAcademicYears().subscribe({
+      next: (years) => {
+
+        onLoad(years);
+      }
+    });
   }
 }

@@ -6,11 +6,12 @@ import {AppComponent} from './app.component';
 import {RcAuthModule} from './modules/rc-auth/rc-auth.module';
 import {RcDashboardModule} from "./modules/rc-dashboard/rc-dashboard.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {injectables} from "./app.injectables";
 import {MessageService} from "primeng/api";
 import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RcWelcomeComponent } from './components/rc-welcome/rc-welcome.component';
+import {HttpErrorInterceptor} from "./interceptors/http-error.interceptor";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { RcWelcomeComponent } from './components/rc-welcome/rc-welcome.component
   ],
   providers: [
     injectables,
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
     {provide: MessageService, useClass: MessageService},
     {provide: NgbActiveModal, useClass: NgbActiveModal}
   ],

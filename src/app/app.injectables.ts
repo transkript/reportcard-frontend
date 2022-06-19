@@ -8,7 +8,7 @@ import {
   RC_SCHOOL_API_URL,
   RC_SECTION_API_URL,
   RC_SEQUENCE_API_URL, RC_SETTINGS_API_URL,
-  RC_STUDENT_API_URL,
+  RC_STUDENT_API_URL, RC_STUDENT_APPLICATION_API_URL,
   RC_SUBJECT_API_URL,
   RC_SUBJECT_REGISTRATION_API_URL, RC_TERM_API_URL
 } from "./app.constants";
@@ -25,6 +25,7 @@ import {SubjectRegistrationService} from "./services/subject-registration.servic
 import {SchoolSettingsService} from "./services/school-settings.service";
 import {TermService} from "./services/term.service";
 import {DefaultService} from "./services/default.service";
+import {StudentApplicationService} from "./services/student-application.service";
 
 const academicYearInjectables: Array<any> = [
   {provide: AcademicYearService, useClass: AcademicYearService},
@@ -54,6 +55,10 @@ const schoolInjectables: Array<any> = [
   {provide: SchoolService, useClass: SchoolService},
   {provide: RC_SCHOOL_API_URL, useValue: RC_SCHOOL_API_URL}
 ];
+const schoolSettingsInjectables: Array<any> = [
+  {provide: SchoolSettingsService, useClass: SchoolSettingsService},
+  {provide: RC_SETTINGS_API_URL, useValue: RC_SETTINGS_API_URL}
+];
 const sectionInjectables: Array<any> = [
   {provide: SectionService, useClass: SectionService},
   {provide: RC_SECTION_API_URL, useValue: RC_SECTION_API_URL}
@@ -62,13 +67,13 @@ const sequenceInjectables: Array<any> = [
   {provide: SequenceService, useClass: SequenceService},
   {provide: RC_SEQUENCE_API_URL, useValue: RC_SEQUENCE_API_URL}
 ];
-const schoolSettingsInjectables: Array<any> = [
-  {provide: SchoolSettingsService, useClass: SchoolSettingsService},
-  {provide: RC_SETTINGS_API_URL, useValue: RC_SETTINGS_API_URL}
-];
 const studentInjectables: Array<any> = [
   {provide: StudentService, useClass: StudentService},
   {provide: RC_STUDENT_API_URL, useValue: RC_STUDENT_API_URL}
+];
+const studentApplicationInjectables: Array<any> = [
+  {provide: StudentApplicationService, useClass: StudentApplicationService},
+  {provide: RC_STUDENT_APPLICATION_API_URL, useValue: RC_STUDENT_APPLICATION_API_URL},
 ];
 const subjectInjectables: Array<any> = [
   {provide: SubjectService, useClass: SubjectService},
@@ -95,6 +100,7 @@ export const injectables = [
   sequenceInjectables,
   schoolSettingsInjectables,
   studentInjectables,
+  studentApplicationInjectables,
   subjectInjectables,
   subjectRegistrationInjectables,
   termInjectables,

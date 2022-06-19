@@ -25,7 +25,7 @@ export const RC_SETTINGS_API_URL = `${RC_SERVER_URL}/api/settings`;
 
 export const RC_STUDENT_API_URL = `${RC_SERVER_URL}/api/student`;
 
-export const RC_STUDENT_APPLICATION_API_URL = `${RC_SERVER_URL}/api/student-application`;
+export const RC_STUDENT_APPLICATION_API_URL = `${RC_SERVER_URL}/api/student_application`;
 
 export const RC_SUBJECT_API_URL = `${RC_SERVER_URL}/api/subject`;
 
