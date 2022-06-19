@@ -9,6 +9,7 @@ import {RcClasslistsComponent} from "./modules/rc-dashboard/components/rc-classl
 import {HomeComponent} from './modules/rc-auth/components/home/home.component';
 import {RcWelcomeComponent} from "./components/rc-welcome/rc-welcome.component";
 import {RcSettingsComponent} from "./modules/rc-dashboard/components/rc-settings/rc-settings.component";
+import {RcApplicationsComponent} from "./modules/rc-dashboard/components/rc-applications/rc-applications.component";
 
 const routes: Routes = [
   {
@@ -22,8 +23,9 @@ const routes: Routes = [
     children: [
       {component: RcHomeComponent, path: 'home'},
       {component: RcSubjectsComponent, path: 'subjects'},
-      {component: RcStudentsComponent, path: 'students'},
       {component: RcClassesComponent, path: 'classes'},
+      {component: RcStudentsComponent, path: 'students'},
+      {component: RcApplicationsComponent, path: 'applications'},
       {component: RcClasslistsComponent, path: 'class-lists'},
       {component: RcSettingsComponent, path: 'settings'}
     ]
