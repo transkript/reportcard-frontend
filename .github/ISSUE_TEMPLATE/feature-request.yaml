@@ -1,0 +1,44 @@
+name: 🆕 Feature Request
+description: Suggest an idea for this project
+title: "[Feature Request] <title>"
+labels: [feature, enhancement]
+body:
+  - type: dropdown
+    attributes:
+      label: Is your feature request related to a problem?
+      options:
+        - Yes, it is
+        - No, it isn't
+        - I am not sure
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Please describe the problem this request is related to. If you didn't mark the checkbox above, please skip this question.
+      placeholder: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Please describe solution to you'd like to see.
+      placeholder: Describe your feature here
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Please describe the benefit of your feature.
+      placeholder: Describe the benefit of your feature here
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Please describe the alternatives you have considered.
+      placeholder: A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional Context
+      placeholder: Add any other context or screenshots about the feature request here.
+    validations:
+      required: true
