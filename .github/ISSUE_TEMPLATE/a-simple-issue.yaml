@@ -1,0 +1,11 @@
+name: 🏮 A Simple Issue
+description: File a simple issue
+title: "<title>"
+labels: [needs triage, to be reviewed]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      placeholder: Enter a description of the issue
+    validations:
+      required: true
