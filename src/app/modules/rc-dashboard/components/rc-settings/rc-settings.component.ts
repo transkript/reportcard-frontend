@@ -44,7 +44,7 @@ export class RcSettingsComponent implements OnInit {
     private academicYearService: AcademicYearService
   ) {
     this.defaultSettings = {
-      id: -1, curr_seq_id: -1, curr_year_id: -1, curr_term_id: -1,
+      id: -1, curr_seq_id: -1, curr_year_id: -1, curr_term: '',
       application_is_open: false, min_grade: 0, max_grade: 0,
     };
     this.schoolSettings = this.defaultSettings;
@@ -77,7 +77,7 @@ export class RcSettingsComponent implements OnInit {
   private isValidSettings = (settings: SchoolSettings): { valid: boolean, errors: string[] } => {
     console.log(settings)
     const errs: string[] = [];
-    const term: Term = this.getTermById(settings.curr_term_id);
+    const term: Term = this.getTermBySequenceId(settings.curr_seq_id);
     const sequencesByTerm = this.sequences.filter(seq => seq.term_id == term.id);
     const sequenceValid: boolean = sequencesByTerm.find(seq => seq.id == settings.curr_seq_id) != undefined;
 
@@ -102,13 +102,11 @@ export class RcSettingsComponent implements OnInit {
     if(schoolSettings == null) {
       schoolSettings = this.defaultSettings;
       if (this.sequences.length > 0) schoolSettings.curr_seq_id = this.sequences[0].id
-      if (this.terms.length > 0) schoolSettings.curr_term_id = this.terms[0].id
       if (this.academicYears.length > 0) schoolSettings.curr_year_id = this.academicYears[0].id
     }
     this.settingsForm.patchValue({
       "applicationsOpen": schoolSettings.application_is_open,
       "year": schoolSettings.curr_year_id,
-      "term": schoolSettings.curr_term_id,
       "sequence": schoolSettings.curr_seq_id,
       "minGrade": schoolSettings.min_grade,
       "maxGrade": schoolSettings.max_grade,
@@ -147,7 +145,6 @@ export class RcSettingsComponent implements OnInit {
       min_grade: this.settingsForm.get('minGrade')?.value,
       max_grade: this.settingsForm.get('maxGrade')?.value,
       curr_year_id: parseInt(this.settingsForm.get("year")?.value),
-      curr_term_id: parseInt(this.settingsForm.get("term")?.value),
       curr_seq_id: parseInt(this.settingsForm.get("sequence")?.value),
     }
 
@@ -240,8 +237,6 @@ export class RcSettingsComponent implements OnInit {
       inputElement.hidden = false;
       addButton.textContent = "Save";
     } else {
-      let saved = false;
-
       const entityValue = inputElement.value;
       switch (atsName) {
         case ATSName.SEQUENCE: {
@@ -286,10 +281,16 @@ export class RcSettingsComponent implements OnInit {
   }
 
   // TODO move this to a util module
-  getTermById(id: number): Term {
-    const res = this.terms.filter((term) => {
-      return id == term.id
-    });
+  getTermBySequenceId(sequenceId: number): Term {
+    const sequence = this.sequences.find(seq => seq.id == sequenceId);
+
+    let res: Term[] = [];
+    if (sequence) {
+      res = this.terms.filter((term) => {
+        return sequence.term_id == term.id
+      });
+    }
+
     switch (res.length) {
       case 0: return {id: -1, name: 'None'};
       case 1: return res[0];

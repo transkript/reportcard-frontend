@@ -3,7 +3,7 @@
     <span class="h3">Settings</span>
     <span class="spacer"></span>
     <span class="px-2">
-      <button pButton label="Load Default Data" (click)="loadDefaultDataAction()"></button>
+      <button pButton label="Load Default Data" (click)="loadDefaultDataAction()" [disabled]="true"></button>
     </span>
   </div>
 
@@ -32,12 +32,8 @@
         </div>
         <div class="row pb-3">
           <div class="col-md-6 py-2">
-            <label for="currTerm" class="form-label">Current Term</label>
-            <select id="currTerm" class="form-select" [formControlName]="'term'">
-              <option *ngFor="let term of terms" [value]="term.id" [selected]="term.id == (schoolSettings ? schoolSettings.curr_term_id : -1)">
-                {{term.name}}
-              </option>
-            </select>
+            <label class="form-label">Current Term</label>
+            <input class="form-control" [value]="schoolSettings ? (schoolSettings.curr_term ? schoolSettings.curr_term : 'None') : ''" disabled>
           </div>
           <div class="col-md-6 py-2">
             <label for="currSeq" class="form-label">Current Sequence</label>
@@ -94,7 +90,7 @@
             <div class="card-header">Terms</div>
             <div class="card-body">
               <div *ngFor="let term of terms" class="my-2">
-                <div class="d-flex align-middle form-group">
+                <div class="d-flex align-middle form-group my-3">
                   <input #termUpdateInput class="form-control" [value]="term.name" [disabled]="true">&nbsp;
                   <button (click)="editATSAction($event, 1, term, termUpdateInput)" class="btn btn-primary">Edit</button>&nbsp;
                   <button (click)="deleteATSAction(1, term)" class="btn btn-danger">Delete</button>
@@ -118,7 +114,7 @@
             <div class="card-header">Sequences</div>
             <div class="card-body">
               <div *ngFor="let seq of sequences" class="my-2">
-                <label class="form-label">{{getTermById(seq.term_id).name}}</label>
+                <label class="form-label">{{getTermBySequenceId(seq.id).name}}</label>
                 <div class="d-flex align-middle form-group">
                   <input #seqUpdateInput class="form-control" [value]="seq.name" [disabled]="true">&nbsp;
                   <button (click)="editATSAction($event, 2, seq, seqUpdateInput)" class="btn btn-primary">Edit</button>&nbsp;
