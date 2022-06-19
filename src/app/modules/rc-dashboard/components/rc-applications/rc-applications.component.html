@@ -1,0 +1,73 @@
+<div class="rc-classlist">
+  <div class="py-2 d-flex">
+    <span class="h3">Student Applications</span>
+    <span class="spacer"></span>
+    <span class="px-2">
+      <button (click)="saveApplicationAction()" class="p-button-rounded" icon="pi pi-plus-circle" pButton></button>
+    </span>
+    <span class="px-2">
+      <button class="p-button-rounded" icon="pi pi-refresh" pButton></button>
+    </span>
+  </div>
+  <div class="py-2">
+    <div class="row">
+      <!-- If the applications are not loading properly for some reason, check that the order of the ngModel and ngModelChange attribs is correct -->
+      <div class="col-md-3">
+        Academic Year
+        <select [(ngModel)]="applicationRequest.year_id" (ngModelChange)="loadApplications()" class="form-select">
+          <option [disabled]="true">Select Academic Year</option>
+          <option *ngFor="let y of academicYears" [ngValue]="y.id">{{y.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        Class
+        <select [(ngModel)]="applicationRequest.class_id" (ngModelChange)="loadApplications()" class="form-select">
+          <option [selected]="true" [value]="-1">Select Class</option>
+          <option *ngFor="let c of classes" [ngValue]="c.sub_id">{{c.name}}</option>
+        </select>
+      </div>
+    </div>
+    {{applicationRequest.year_id}}
+    {{applicationRequest.class_id}}
+  </div>
+
+  <div class="py-2">
+    <div class="container-fluid">
+      <table class="table table-striped text-center align-items-center align-middle">
+        <thead>
+        <tr *ngIf="applications.length != 0">
+          <td colspan="5">
+            <div class="h5">
+              Student Applications
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>Student</th>
+          <th>RegNo</th>
+          <th *ngIf="applicationRequest.class_id < 0">Class Level</th>
+          <th>Applied On</th>
+          <th>No of Subjects</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngIf="applications.length == 0">
+          <td colspan="5">Select all fields above to view student applications</td>
+        </tr>
+
+        <tr *ngFor="let a of applications">
+          <td>{{a.student.name}}</td>
+          <td>{{a.student.registration_number}}</td>
+          <td *ngIf="applicationRequest.class_id < 0">{{a.class_name}}</td>
+          <td>{{a.application.created_at}}</td>
+          <td>{{a.application.number_of_subjects}}</td>
+          <td>
+            <button (click)="saveApplicationAction(a)" class="btn btn-primary">Edit</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
