@@ -42,7 +42,7 @@ export class TopMenuComponent implements OnInit {
   }
 
   checkOnlineStatus(): void {
-    setInterval(() => {
+    setTimeout(() => {
       let req: XMLHttpRequest = new XMLHttpRequest();
       req.open("GET", `${environment.serverUrl}/api/default/test`, false);
       try {
@@ -50,7 +50,7 @@ export class TopMenuComponent implements OnInit {
         this.online = req.status == 200;
       } catch (e) {
         this.online = false;
-        console.clear(); // TODO this is quite dangerous
+        //console.clear(); // TODO this is quite dangerous
       }
     }, 500);
   }

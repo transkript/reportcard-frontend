@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ClassListRequest, ClassListResponse} from "../../../../models/dto/classlist.model";
-import {AcademicYearService} from "../../../../services/academic-year.service";
+import {AcademicYearService, AcademicYearServiceHelper} from "../../../../services/academic-year.service";
 import {ClassLevelService} from "../../../../services/class-level.service";
 import {SubjectService} from "../../../../services/subject.service";
 import {SequenceService} from "../../../../services/sequence.service";
@@ -113,9 +113,7 @@ export class RcClasslistsComponent implements OnInit {
     const req = this.classListRequest;
     if (!(req.year_id < 0 || req.class_id < 0 || req.subject_id < 0 || req.sequence_id < 0)) {
       this.classListService.getClassList(req).subscribe({
-        next: (classList) => {
-          this.classListResponse = classList;
-        }
+        next: (classList) => this.classListResponse = classList
       });
     }
   }

@@ -32,21 +32,25 @@ export class SideMenuComponent implements OnInit {
         routerLink: ['/dashboard/subjects'],
       },
       {
+        label: 'Classes',
+        icon: 'pi pi-fw pi-list',
+        routerLink: ['/dashboard/classes'],
+      },
+      {
         label: 'Students',
         icon: 'pi pi-fw pi-users',
         routerLink: ['/dashboard/students'],
       },
       {
-        label: 'Classes',
-        icon: 'pi pi-fw pi-list',
-        routerLink: ['/dashboard/classes'],
+        label: 'Applications',
+        icon: 'pi pi-fw pi-plus-circle',
+        routerLink: ['/dashboard/applications'],
       },
       {
         label: 'Class Lists',
         icon: 'pi pi-fw pi-folder',
         routerLink: ['/dashboard/class-lists'],
       },
-
       {
         label: 'Settings',
         icon: 'pi pi-fw pi-cog',

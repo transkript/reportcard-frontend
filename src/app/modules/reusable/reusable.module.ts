@@ -9,6 +9,7 @@ import {SaveStudentComponent} from './student/save-student/save-student.componen
 import {RadioButtonModule} from "primeng/radiobutton";
 import {SaveClassComponent} from './class-level/save-class/save-class.component';
 import {SaveSectionComponent} from './section/save-section/save-section.component';
+import { SaveApplicationComponent } from './student-application/save-application/save-application.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {SaveSectionComponent} from './section/save-section/save-section.componen
     SaveStudentComponent,
     SaveClassComponent,
     SaveSectionComponent,
+    SaveApplicationComponent,
   ],
   imports: [
     CommonModule,

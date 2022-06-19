@@ -8,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
       <div class="col-md-9 d-flex">
         <span class="h4 align-self-center">{{title}}</span>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 d-flex justify-content-end">
         <button pButton type="button" label="{{buttonLabel}}" icon="{{buttonIcon}}" class="mr-0"></button>
       </div>
     </div>
