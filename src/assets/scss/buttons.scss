@@ -1,0 +1,17 @@
+@import "mixins.scss";
+@import "variables.scss";
+
+.btn-primary {
+  background-color: $rc-primary-color;
+  border-color: $rc-primary-color;
+
+  :hover {
+    background-color: #7a81f9;
+    border-color: #7a81f9;
+  }
+
+  :focus {
+    background-color: #7a81f9;
+    border-color: #7a81f9;
+  }
+}
