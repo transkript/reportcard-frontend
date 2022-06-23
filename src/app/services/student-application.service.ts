@@ -18,16 +18,16 @@ export class StudentApplicationService {
   }
 
   getAllByRequest(request: ApplicationRequest): Observable<ApplicationResponse[]> {
-    return this.http.get<ApplicationResponse[]>(`${this.apiUrl}`,
-      {
-        params: {
-          yearId: request.year_id,
-          classId: request.class_id
-        }
-      });
+    return this.http.get<ApplicationResponse[]>(`${this.apiUrl}`, {
+      params: {yearId: request.year_id, classId: request.class_id}
+    });
   }
 
-  save(application: StudentApplication) {
+  save(application: StudentApplication): Observable<EntityResponse> {
     return this.http.post<EntityResponse>(`${this.apiUrl}`, application);
+  }
+
+  update(application: StudentApplication): Observable<EntityResponse> {
+    return this.http.put<EntityResponse>(`${this.apiUrl}`, application);
   }
 }
