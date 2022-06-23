@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {RC_SETTINGS_API_URL} from "../app.constants";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {SchoolSettings} from "../models/dto/schoolsettings.model";
+import {SchoolSettings} from "../models/dto/school-settings.model";
 import {EntityResponse} from "../models/dto/entity.response";
 
 @Injectable({

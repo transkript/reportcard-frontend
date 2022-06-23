@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {RC_SUBJECT_REGISTRATION_API_URL} from "../app.constants";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {SubjectRegistration} from "../models/dto/subjectregistration.model";
+import {SubjectRegistration} from "../models/dto/subject-registration.model";
 import {EntityResponse} from "../models/dto/entity.response";
 
 @Injectable({

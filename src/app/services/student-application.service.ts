@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {ApplicationRequest, ApplicationResponse, StudentApplication} from "../models/dto/studentapplication.model";
+import {ApplicationRequest, ApplicationResponse, StudentApplication} from "../models/dto/student-application.model";
 import {RC_STUDENT_APPLICATION_API_URL} from "../app.constants";
 import {HttpClient} from "@angular/common/http";
 import {EntityResponse} from "../models/dto/entity.response";

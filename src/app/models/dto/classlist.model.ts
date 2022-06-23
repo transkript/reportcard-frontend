@@ -1,5 +1,5 @@
 import {Subject} from "./subject.model";
-import {ClassLevelSub} from "./classlevelsub.model";
+import {ClassLevelSub} from "./class-level-sub.model";
 import {Grade} from "./grade.model";
 import {Student} from "./student.model";
 

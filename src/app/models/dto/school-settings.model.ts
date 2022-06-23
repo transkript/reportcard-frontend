@@ -1,5 +1,6 @@
 export interface SchoolSettings {
   id: number,
+  school_name: string,
   curr_year_id: number,
   curr_term?: string,
   curr_seq_id: number,

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ClassLevel} from "../../../../models/dto/classlevel.model";
+import {ClassLevel} from "../../../../models/dto/class-level.model";
 import {ClassLevelService} from "../../../../services/class-level.service";
 import {MessageService} from "primeng/api";
 import {addToMessageService} from "../../../../utils/message-service.util";
 import {ClassLevelSubService} from "../../../../services/class-level-sub.service";
-import {ClassLevelSub} from "../../../../models/dto/classlevelsub.model";
+import {ClassLevelSub} from "../../../../models/dto/class-level-sub.model";
 import {SectionService} from "../../../../services/section.service";
 import {Section} from "../../../../models/dto/section.model";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";

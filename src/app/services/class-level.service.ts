@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {RC_CLASS_LEVEL_API_URL} from "../app.constants";
 import {Observable} from "rxjs";
-import {ClassLevel} from "../models/dto/classlevel.model";
+import {ClassLevel} from "../models/dto/class-level.model";
 import {EntityResponse} from "../models/dto/entity.response";
 
 @Injectable({

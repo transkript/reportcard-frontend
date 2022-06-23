@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ApplicationResponse} from "../../../../models/dto/studentapplication.model";
+import {ApplicationResponse} from "../../../../models/dto/student-application.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Subject} from "../../../../models/dto/subject.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {SubjectService} from "../../../../services/subject.service";
-import {SubjectRegistration} from "../../../../models/dto/subjectregistration.model";
+import {SubjectRegistration} from "../../../../models/dto/subject-registration.model";
 import {SubjectRegistrationService} from "../../../../services/subject-registration.service";
 
 @Component({
@@ -33,6 +33,7 @@ export class SaveApplicationComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSubjects();
+    this.loadApplicationSubjects();
   }
 
   loadSubjects() {
@@ -43,11 +44,9 @@ export class SaveApplicationComponent implements OnInit {
 
   loadApplicationSubjects() {
     if (this.studentApplicationRes) {
-      this.studentApplicationRes.subject_regs.forEach((sr) => {
+      this.studentApplicationRes.subjects_regs.forEach((sr) => {
         this.subjectService.getSubjectById(sr.subject_id).subscribe({
-          next: (subject) => {
-            this.addToApplicationSubjects({pending: false, subject: subject});
-          }
+          next: (subject) => this.addToApplicationSubjects({pending: false, subject: subject})
         });
       });
     }
@@ -78,7 +77,10 @@ export class SaveApplicationComponent implements OnInit {
     });
 
     this.subjectRegistrationService.addMultiple(newSubjectRegs).subscribe({
-      next: (res) => console.log(res)
+      next: (res) => {
+        console.log(res)
+        this.loadApplicationSubjects();
+      }
     });
   }
 

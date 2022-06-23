@@ -3,7 +3,7 @@ import {
   ApplicationRequest,
   ApplicationResponse,
   StudentApplication
-} from "../../../../models/dto/studentapplication.model";
+} from "../../../../models/dto/student-application.model";
 import {AcademicYear} from "../../../../models/dto/academicyear.model";
 import {AcademicYearService} from "../../../../services/academic-year.service";
 import {MessageService} from "primeng/api";
