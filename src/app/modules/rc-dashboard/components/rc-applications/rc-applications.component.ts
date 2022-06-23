@@ -4,7 +4,7 @@ import {
   ApplicationResponse,
   StudentApplication
 } from "../../../../models/dto/student-application.model";
-import {AcademicYear} from "../../../../models/dto/academicyear.model";
+import {AcademicYear} from "../../../../models/dto/academic-year.model";
 import {AcademicYearService} from "../../../../services/academic-year.service";
 import {MessageService} from "primeng/api";
 import {ClassLevelService} from "../../../../services/class-level.service";
@@ -52,7 +52,7 @@ export class RcApplicationsComponent implements OnInit {
   }
 
   loadAcademicYears() {
-    this.academicYearService.getAllAcademicYears().subscribe({
+    this.academicYearService.getAll().subscribe({
       next: (years) => {
         this.academicYears = years;
         this.applicationRequest.year_id = this.academicYears[0].id;
@@ -95,9 +95,11 @@ export class RcApplicationsComponent implements OnInit {
     });
     const saveApplicationComponent: SaveApplicationComponent = modalRef.componentInstance;
     if(!application) {
+      saveApplicationComponent.editing = false;
       saveApplicationComponent.resetApplication();
       saveApplicationComponent.applicationForm.reset();
     } else {
+      saveApplicationComponent.editing = true;
       saveApplicationComponent.studentApplicationRes = application;
       saveApplicationComponent.setupApplicationForm();
     }
