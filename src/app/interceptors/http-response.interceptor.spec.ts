@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { HttpResponseInterceptor } from './http-response.interceptor';
+import {HttpResponseInterceptor} from './http-response.interceptor';
 
 describe('HttpErrorInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       HttpResponseInterceptor
-      ]
+    ]
   }));
 
   it('should be created', () => {

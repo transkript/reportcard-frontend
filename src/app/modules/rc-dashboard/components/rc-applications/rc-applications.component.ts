@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  ApplicationRequest,
-  ApplicationResponse,
-  StudentApplication
-} from "../../../../models/dto/student-application.model";
+import {Component, OnInit} from '@angular/core';
+import {ApplicationRequest, ApplicationResponse} from "../../../../models/dto/student-application.model";
 import {AcademicYear} from "../../../../models/dto/academic-year.model";
 import {AcademicYearService} from "../../../../services/academic-year.service";
 import {MessageService} from "primeng/api";
 import {ClassLevelService} from "../../../../services/class-level.service";
 import {ClassLevelSubService} from "../../../../services/class-level-sub.service";
-import {Student} from "../../../../models/dto/student.model";
 import {StudentApplicationService} from "../../../../services/student-application.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {
@@ -28,7 +23,8 @@ export class RcApplicationsComponent implements OnInit {
 
   academicYears: AcademicYear[] = [];
 
-  classes: {sub_id: number, name: string }[] = []
+  classes: { sub_id: number, name: string }[] = []
+
   constructor(
     private modalService: NgbModal,
     private msgService: MessageService,
@@ -61,20 +57,20 @@ export class RcApplicationsComponent implements OnInit {
   }
 
   loadClasses() {
-    this.classService.getClassLevels().subscribe({
-      next: (classes) => classes.forEach((c) => this.classSubService.getAllClassLevelSubs().subscribe({
-          next: (classSubs) => {
-            classSubs.forEach((cs) => {
-              this.classes.push({
-                sub_id: cs.id,
-                name: `${c.name} ${cs.name}`
-              });
+    this.classService.getAll().subscribe({
+      next: (classes) => classes.forEach((c) => this.classSubService.getAll().subscribe({
+        next: (classSubs) => {
+          classSubs.forEach((cs) => {
+            this.classes.push({
+              sub_id: cs.id,
+              name: `${c.name} ${cs.name}`
             });
-            if(this.classes.length > 0) {
-              this.applicationRequest.class_id = this.classes[0].sub_id;
-            }
+          });
+          if (this.classes.length > 0) {
+            this.applicationRequest.class_id = this.classes[0].sub_id;
           }
-        }))
+        }
+      }))
     });
   }
 
@@ -94,7 +90,7 @@ export class RcApplicationsComponent implements OnInit {
       size: 'md', centered: true, backdrop: 'static', keyboard: true
     });
     const saveApplicationComponent: SaveApplicationComponent = modalRef.componentInstance;
-    if(!application) {
+    if (!application) {
       saveApplicationComponent.editing = false;
       saveApplicationComponent.resetApplication();
       saveApplicationComponent.applicationForm.reset();

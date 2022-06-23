@@ -14,14 +14,14 @@
       <!-- If the applications are not loading properly for some reason, check that the order of the ngModel and ngModelChange attribs is correct -->
       <div class="col-md-3">
         Academic Year
-        <select [(ngModel)]="applicationRequest.year_id" (ngModelChange)="loadApplications()" class="form-select">
+        <select (ngModelChange)="loadApplications()" [(ngModel)]="applicationRequest.year_id" class="form-select">
           <option [disabled]="true">Select Academic Year</option>
           <option *ngFor="let y of academicYears" [ngValue]="y.id">{{y.name}}</option>
         </select>
       </div>
       <div class="col-md-3">
         Class
-        <select [(ngModel)]="applicationRequest.class_id" (ngModelChange)="loadApplications()" class="form-select">
+        <select (ngModelChange)="loadApplications()" [(ngModel)]="applicationRequest.class_id" class="form-select">
           <option [selected]="true" [value]="-1">Select Class</option>
           <option *ngFor="let c of classes" [ngValue]="c.sub_id">{{c.name}}</option>
         </select>

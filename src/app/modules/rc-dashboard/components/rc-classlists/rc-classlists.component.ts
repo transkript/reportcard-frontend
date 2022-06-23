@@ -57,7 +57,7 @@ export class RcClasslistsComponent implements OnInit {
     // Post init, try loading the list until it is successful, and stop.
     let t = setTimeout(() => {
       const req = this.classListRequest;
-      if(req.year_id > 0 && req.class_id > 0 && req.subject_id > 0 && req.sequence_id > 0) {
+      if (req.year_id > 0 && req.class_id > 0 && req.subject_id > 0 && req.sequence_id > 0) {
         this.loadGrades();
         clearTimeout(t);
       }

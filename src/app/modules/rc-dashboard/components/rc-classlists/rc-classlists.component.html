@@ -14,28 +14,28 @@
       <!-- If the class list is not loading properly for some reason, check that the order of the ngModel and ngModelChange attribs is correct -->
       <div class="col-md-3">
         Academic Year
-        <select [(ngModel)]="classListRequest.year_id" (ngModelChange)="loadGrades()" class="form-select">
+        <select (ngModelChange)="loadGrades()" [(ngModel)]="classListRequest.year_id" class="form-select">
           <option [disabled]="true">Select Academic Year</option>
           <option *ngFor="let y of academicYears" [ngValue]="y.id">{{y.name}}</option>
         </select>
       </div>
       <div class="col-md-3">
         Class
-        <select [(ngModel)]="classListRequest.class_id" (ngModelChange)="loadGrades()" class="form-select">
+        <select (ngModelChange)="loadGrades()" [(ngModel)]="classListRequest.class_id" class="form-select">
           <option [disabled]="true">Select Class</option>
           <option *ngFor="let c of classes" [ngValue]="c.id">{{c.name}}</option>
         </select>
       </div>
       <div class="col-md-3">
         Subject
-        <select [(ngModel)]="classListRequest.subject_id" (ngModelChange)="loadGrades()" class="form-select">
+        <select (ngModelChange)="loadGrades()" [(ngModel)]="classListRequest.subject_id" class="form-select">
           <option [disabled]="true">Select Subject</option>
           <option *ngFor="let sub of subjects" [ngValue]="sub.id">{{sub.name}}</option>
         </select>
       </div>
       <div class="col-md-3">
         Sequence
-        <select [(ngModel)]="classListRequest.sequence_id" (ngModelChange)="loadGrades()" class="form-select">
+        <select (ngModelChange)="loadGrades()" [(ngModel)]="classListRequest.sequence_id" class="form-select">
           <option [disabled]="true">Select Sequence</option>
           <option *ngFor="let seq of sequences" [ngValue]="seq.id">{{seq.name}}</option>
         </select>
@@ -51,23 +51,23 @@
     <div class="container-fluid">
       <table class="table table-striped text-center align-items-center align-middle">
         <thead>
-          <tr *ngIf="classListResponse.student_grades.length != 0">
-            <td colspan="5">
-              <div class="h6">
-                {{classListResponse.sequence_name}} -
-                {{classListResponse.subject.name}} -
-                {{classListResponse.class_name}} -
-                {{classListResponse.student_grades.length}} Students
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>Student</th>
-            <th>RegNo</th>
-            <th>Grade</th>
-            <th>Remarks</th>
-            <th>Actions</th>
-          </tr>
+        <tr *ngIf="classListResponse.student_grades.length != 0">
+          <td colspan="5">
+            <div class="h6">
+              {{classListResponse.sequence_name}} -
+              {{classListResponse.subject.name}} -
+              {{classListResponse.class_name}} -
+              {{classListResponse.student_grades.length}} Students
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>Student</th>
+          <th>RegNo</th>
+          <th>Grade</th>
+          <th>Remarks</th>
+          <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         <tr *ngIf="classListResponse.student_grades.length == 0">
@@ -78,16 +78,18 @@
           <td>{{sg.student.name}}</td>
           <td>{{sg.student.regno}}</td>
           <td>
-            <input #gradeInput [disabled]="true" [max]="20" [min]="0" (change)="gradeInput.value"
+            <input #gradeInput (change)="gradeInput.value" [disabled]="true" [max]="20" [min]="0"
                    [value]="sg.grade.score != null ? sg.grade.score: '-'" class="form-control" type="number">
           </td>
           <td>
             <span class="{{sg.grade.score < 10 ? 'text-danger':''}}">{{sg.grade.description | titlecase}}</span>
           </td>
           <td>
-            <button (click)="gradeInput.disabled = !gradeInput.disabled" class="btn btn-secondary">{{gradeInput.disabled ? 'Edit' : 'Done'}}</button>
+            <button (click)="gradeInput.disabled = !gradeInput.disabled"
+                    class="btn btn-secondary">{{gradeInput.disabled ? 'Edit' : 'Done'}}</button>
             &nbsp;
-            <button (click)="saveGrade(sg.grade, gradeInput)" [disabled]="!gradeInputValid(sg.grade, gradeInput)" class="btn btn-outline-primary">Save
+            <button (click)="saveGrade(sg.grade, gradeInput)" [disabled]="!gradeInputValid(sg.grade, gradeInput)"
+                    class="btn btn-outline-primary">Save
             </button>
           </td>
         </tr>

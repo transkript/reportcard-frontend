@@ -15,5 +15,5 @@ export interface ClassListResponse {
   sequence_name: string;
   subject: Subject;
   class_level: ClassLevelSub;
-  student_grades: {student: Student, grade: Grade}[];
+  student_grades: { student: Student, grade: Grade }[];
 }

@@ -27,7 +27,7 @@ import {ToastModule} from "primeng/toast";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
-import { RcApplicationsComponent } from './components/rc-applications/rc-applications.component';
+import {RcApplicationsComponent} from './components/rc-applications/rc-applications.component';
 
 
 @NgModule({

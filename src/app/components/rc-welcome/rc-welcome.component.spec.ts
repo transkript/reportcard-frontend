@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RcWelcomeComponent } from './rc-welcome.component';
+import {RcWelcomeComponent} from './rc-welcome.component';
 
 describe('RcWelcomeComponent', () => {
   let component: RcWelcomeComponent;
@@ -8,9 +8,9 @@ describe('RcWelcomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RcWelcomeComponent ]
+      declarations: [RcWelcomeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

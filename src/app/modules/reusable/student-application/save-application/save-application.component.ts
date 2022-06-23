@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApplicationResponse, StudentApplication} from "../../../../models/dto/student-application.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subject} from "../../../../models/dto/subject.model";
@@ -24,16 +24,15 @@ import {DateUtil} from "../../../../utils/date.util";
 })
 export class SaveApplicationComponent implements OnInit {
   readonly modal: NgbActiveModal;
-  private readonly defaultSubject: Subject = {id: -1, name: '', section_id: -1, code: '', coefficient: -1};
-
   editing: boolean = false;
   studentApplicationRes?: ApplicationResponse;
   applicationForm: FormGroup = this.fb.group({});
-  applicationSubjects: {pending: boolean, subject: Subject}[] = [];
+  applicationSubjects: { pending: boolean, subject: Subject }[] = [];
   subjects: Subject[] = [];
   students: Student[] = [];
   classLevels: { id: number, name: string, cl: ClassLevel, cls: ClassLevelSub }[] = [];
   academicYears: AcademicYear[] = [];
+  private readonly defaultSubject: Subject = {id: -1, name: '', section_id: -1, code: '', coefficient: -1};
 
   constructor(
     private fb: FormBuilder,
@@ -61,9 +60,18 @@ export class SaveApplicationComponent implements OnInit {
   loadStudentApplicationForm = () => {
     this.applicationForm = new FormGroup({
       // disabled
-      studentId: new FormControl({value: this.studentApplicationRes?.student.id, disabled: this.editing}, Validators.required),
-      classId: new FormControl({value: this.studentApplicationRes?.application.cls_id, disabled: this.editing}, Validators.required),
-      yearId: new FormControl({value: this.studentApplicationRes?.application.year_id, disabled: this.editing}, Validators.required),
+      studentId: new FormControl({
+        value: this.studentApplicationRes?.student.id,
+        disabled: this.editing
+      }, Validators.required),
+      classId: new FormControl({
+        value: this.studentApplicationRes?.application.cls_id,
+        disabled: this.editing
+      }, Validators.required),
+      yearId: new FormControl({
+        value: this.studentApplicationRes?.application.year_id,
+        disabled: this.editing
+      }, Validators.required),
     });
   }
 
@@ -119,7 +127,7 @@ export class SaveApplicationComponent implements OnInit {
   saveApplication() {
     const newSubjectRegs: SubjectRegistration[] = [];
     this.applicationSubjects.forEach((aps) => {
-      if(aps.pending) {
+      if (aps.pending) {
         if (this.studentApplicationRes) {
           newSubjectRegs.push({
             id: -1,
@@ -157,13 +165,13 @@ export class SaveApplicationComponent implements OnInit {
 
   addSubject($event: MouseEvent, subjectSelect: HTMLSelectElement) {
     const addSubjectButton: HTMLButtonElement = $event.target as HTMLButtonElement;
-    if(subjectSelect.hidden) {
+    if (subjectSelect.hidden) {
       subjectSelect.hidden = false;
       addSubjectButton.textContent = "Register";
     } else {
       const s: Subject = this.findSubjectById(parseInt(subjectSelect.value), this.subjects);
 
-      if(s.id > 0) {
+      if (s.id > 0) {
         this.addToApplicationSubjects({pending: true, subject: s})
       }
 
@@ -174,10 +182,10 @@ export class SaveApplicationComponent implements OnInit {
 
   findSubjectById = (id: number, subjects: Subject[]): Subject => {
     const s: Subject | undefined = subjects.find(s => s.id == id);
-    return s ? s :  this.defaultSubject;
+    return s ? s : this.defaultSubject;
   }
 
-  addToApplicationSubjects = (asp: {pending: boolean, subject: Subject}) => {
+  addToApplicationSubjects = (asp: { pending: boolean, subject: Subject }) => {
     if (!(this.applicationSubjects.find(asb => asb.subject.id == asp.subject.id))) {
       this.applicationSubjects.push(asp);
     } else {

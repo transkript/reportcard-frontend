@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Subject} from "../../../../models/dto/subject.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {SubjectService} from "../../../../services/subject.service";
@@ -15,10 +15,10 @@ import {addToMessageService} from "../../../../utils/message-service.util";
 })
 export class SaveSubjectComponent implements OnInit {
 
-  private readonly defaultSubject: Subject = {id: -1, name: '', coefficient: 0, code: '', section_id: -1};
   @Input() subject: Subject;
   subjectForm: FormGroup = this.fb.group({});
   sections: Section[] = [];
+  private readonly defaultSubject: Subject = {id: -1, name: '', coefficient: 0, code: '', section_id: -1};
 
   constructor(
     private fb: FormBuilder,

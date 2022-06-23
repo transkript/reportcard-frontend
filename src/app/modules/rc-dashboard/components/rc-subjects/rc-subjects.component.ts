@@ -39,7 +39,7 @@ export class RcSubjectsComponent implements OnInit {
       size: 'lg', centered: true, backdrop: 'static', keyboard: true
     });
     const saveSubjectComponent: SaveSubjectComponent = modalRef.componentInstance;
-    if(!subject) {
+    if (!subject) {
       saveSubjectComponent.resetSubject();
       saveSubjectComponent.subjectForm.reset();
     } else {

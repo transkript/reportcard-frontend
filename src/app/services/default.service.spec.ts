@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { DefaultService } from './default.service';
+import {DefaultService} from './default.service';
 
 describe('DefaultService', () => {
   let service: DefaultService;
