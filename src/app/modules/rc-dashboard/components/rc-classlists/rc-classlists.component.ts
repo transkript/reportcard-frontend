@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ClassListRequest, ClassListResponse} from "../../../../models/dto/classlist.model";
-import {AcademicYearService, AcademicYearServiceHelper} from "../../../../services/academic-year.service";
+import {AcademicYearService} from "../../../../services/academic-year.service";
 import {ClassLevelService} from "../../../../services/class-level.service";
 import {SubjectService} from "../../../../services/subject.service";
 import {SequenceService} from "../../../../services/sequence.service";
-import {AcademicYear} from "../../../../models/dto/academicyear.model";
+import {AcademicYear} from "../../../../models/dto/academic-year.model";
 import {Subject} from "../../../../models/dto/subject.model";
 import {Sequence} from "../../../../models/dto/sequence.model";
 import {ClassLevelSubService} from "../../../../services/class-level-sub.service";
@@ -13,8 +13,6 @@ import {Grade} from "../../../../models/dto/grade.model";
 import {GradeService} from "../../../../services/grade.service";
 import {MessageService} from "primeng/api";
 import {addToMessageService} from "../../../../utils/message-service.util";
-import {Student} from "../../../../models/dto/student.model";
-import {delay} from "rxjs";
 
 @Component({
   selector: 'app-rc-classlists',
@@ -67,10 +65,10 @@ export class RcClasslistsComponent implements OnInit {
   }
 
   loadClasses() {
-    this.classLevelSubService.getAllClassLevelSubs().subscribe({
+    this.classLevelSubService.getAll().subscribe({
       next: (classLevelSubs) => {
         classLevelSubs.forEach(classSub => {
-          this.classLevelService.getClassLevelById(classSub.class_level_id).subscribe({
+          this.classLevelService.getById(classSub.class_level_id).subscribe({
             next: (classLevel) => {
               this.classes.push({id: classSub.id, name: `${classLevel.name} - ${classSub.name}`});
               this.classes.sort((a, b) => a.name < b.name ? -1 : 1);
@@ -83,7 +81,7 @@ export class RcClasslistsComponent implements OnInit {
   }
 
   loadAcademicYears() {
-    this.yearService.getAllAcademicYears().subscribe({
+    this.yearService.getAll().subscribe({
       next: (years) => {
         this.academicYears = years;
         this.classListRequest.year_id = this.academicYears[0].id;
@@ -92,7 +90,7 @@ export class RcClasslistsComponent implements OnInit {
   }
 
   loadSubjects() {
-    this.subjectService.getSubjects().subscribe({
+    this.subjectService.getAll().subscribe({
       next: (subjects) => {
         this.subjects = subjects;
         this.classListRequest.subject_id = this.subjects[0].id;
@@ -101,7 +99,7 @@ export class RcClasslistsComponent implements OnInit {
   }
 
   loadSequences() {
-    this.sequenceService.getAllSequences().subscribe({
+    this.sequenceService.getAll().subscribe({
       next: (sequences) => {
         this.sequences = sequences;
         this.classListRequest.sequence_id = this.sequences[0].id;
@@ -112,7 +110,7 @@ export class RcClasslistsComponent implements OnInit {
   loadGrades() {
     const req = this.classListRequest;
     if (!(req.year_id < 0 || req.class_id < 0 || req.subject_id < 0 || req.sequence_id < 0)) {
-      this.classListService.getClassList(req).subscribe({
+      this.classListService.get(req).subscribe({
         next: (classList) => this.classListResponse = classList
       });
     }
@@ -124,7 +122,7 @@ export class RcClasslistsComponent implements OnInit {
     if (newScore >= 0 && newScore <= 20) {
       if (grade.score) {
         grade.score = newScore;
-        this.gradeService.updateGrade(grade).subscribe({
+        this.gradeService.update(grade).subscribe({
           next: (res) => {
             addToMessageService(this.msg, 'success', 'Update grade successfully', res.message)
             this.loadGrades();
@@ -133,7 +131,7 @@ export class RcClasslistsComponent implements OnInit {
         });
       } else {
         grade.score = newScore
-        this.gradeService.addGrade(grade).subscribe({
+        this.gradeService.save(grade).subscribe({
           next: (res) => {
             addToMessageService(this.msg, 'success', 'Add grade successfully', res.message)
             this.loadGrades();

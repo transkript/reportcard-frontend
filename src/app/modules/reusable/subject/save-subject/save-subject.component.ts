@@ -32,7 +32,7 @@ export class SaveSubjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sectionService.getSections().subscribe({
+    this.sectionService.getAll().subscribe({
       next: (sections) => this.sections = sections,
       error: (err) => addToMessageService(this.msgService, 'warn', 'Error connecting to server', `${err.message}`)
     });
@@ -61,13 +61,13 @@ export class SaveSubjectComponent implements OnInit {
     }
 
     if (this.subject.id < 0) {
-      this.subjectService.addSubject(subjectToSave).subscribe({
+      this.subjectService.save(subjectToSave).subscribe({
         next: (res) => addToMessageService(this.msgService, 'success', 'Success', `${res.message}`),
         error: (err) => addToMessageService(this.msgService, 'error', 'Failed', `${err.message}`)
       });
     } else {
       subjectToSave.id = this.subject.id;
-      this.subjectService.updateSubject(subjectToSave).subscribe({
+      this.subjectService.update(subjectToSave).subscribe({
         next: (res) => addToMessageService(this.msgService, 'success', 'Success', `${res.message}`),
         error: (err) => addToMessageService(this.msgService, 'error', 'Error', `${err.message}`)
       });

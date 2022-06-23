@@ -32,7 +32,7 @@ export class RcClassesComponent implements OnInit {
   }
 
   loadSections(): void {
-    this.sectionService.getSections().subscribe({
+    this.sectionService.getAll().subscribe({
       next: (sections) => {
         this.sections = sections;
         this.sectionModelId = this.sections[0].id;
@@ -45,7 +45,7 @@ export class RcClassesComponent implements OnInit {
   loadClasses(): void {
     const sectionId = this.sectionModelId;
     this.classes = [];
-    this.classLevelService.getClassLevelsBySectionId(sectionId).subscribe({
+    this.classLevelService.getBySection(sectionId).subscribe({
       next: (classLevels: ClassLevel[]) => {
         classLevels.forEach((classLevel) => {
           this.loadClassSubs(classLevel);
@@ -67,7 +67,7 @@ export class RcClassesComponent implements OnInit {
   deleteClassAction(classLevel: ClassLevel) {
     const confirmDelete = confirm(`Are you sure you want to delete this class: ${classLevel.name}?`)
     if (confirmDelete) {
-      this.classLevelService.deleteClassLevelById(classLevel).subscribe({
+      this.classLevelService.delete(classLevel).subscribe({
         next: (res) => addToMessageService(this.messageService, 'warn', 'Delete successful', res),
         error: (err) => addToMessageService(this.messageService, 'error', 'Delete failed', 'There was a problem deleting this entity. Contact the admin.')
       })
@@ -93,7 +93,7 @@ export class RcClassesComponent implements OnInit {
   }
 
   private loadClassSubs(classLevel: ClassLevel): void {
-    this.classLevelSubService.getAllClassLevelSubsByClassLevelId(classLevel.id).subscribe({
+    this.classLevelSubService.getAllByClassLevelId(classLevel.id).subscribe({
       next: (classLevelSubs) => {
         this.classes.push({classLevel: classLevel, classLevelSubs: classLevelSubs});
         this.sortClasses();

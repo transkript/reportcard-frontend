@@ -13,15 +13,15 @@ export class SubjectRegistrationService {
   constructor(@Inject(RC_SUBJECT_REGISTRATION_API_URL) private apiUrl: string, private http: HttpClient) {
   }
 
-  getOne(id: number): Observable<SubjectRegistration> {
+  get(id: number): Observable<SubjectRegistration> {
     return this.http.get<SubjectRegistration>(`${this.apiUrl}/${id}`);
   }
 
-  add(subjectRegistration: SubjectRegistration): Observable<EntityResponse> {
+  save(subjectRegistration: SubjectRegistration): Observable<EntityResponse> {
     return this.http.post<SubjectRegistration>(`${this.apiUrl}`, subjectRegistration);
   }
 
-  addMultiple(subjectRegistrations: SubjectRegistration[]): Observable<EntityResponse> {
+  saveMultiple(subjectRegistrations: SubjectRegistration[]): Observable<EntityResponse> {
     return this.http.post<SubjectRegistration>(`${this.apiUrl}/multiple`, subjectRegistrations);
   }
 }

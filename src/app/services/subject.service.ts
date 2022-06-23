@@ -13,23 +13,23 @@ export class SubjectService {
   constructor(private http: HttpClient, @Inject(RC_SUBJECT_API_URL) private subjectApiUrl: string) {
   }
 
-  getSubjects(): Observable<Subject[]> {
+  getAll(): Observable<Subject[]> {
     return this.http.get<Subject[]>(this.subjectApiUrl);
   }
 
-  getSubjectById(id: number): Observable<Subject> {
+  getById(id: number): Observable<Subject> {
     return this.http.get<Subject>(`${this.subjectApiUrl}/${id}`);
   }
 
-  addSubject(subject: Subject): Observable<EntityResponse> {
+  save(subject: Subject): Observable<EntityResponse> {
     return this.http.post<Subject>(this.subjectApiUrl, subject);
   }
 
-  updateSubject(subject: Subject): Observable<EntityResponse> {
+  update(subject: Subject): Observable<EntityResponse> {
     return this.http.put<Subject>(`${this.subjectApiUrl}/${subject.id}`, subject);
   }
 
-  deleteSubject(id: number): Observable<any> {
+  delete(id: number): Observable<any> {
     return this.http.delete<any>(`${this.subjectApiUrl}/${id}`);
   }
 }

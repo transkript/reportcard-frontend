@@ -12,7 +12,7 @@ export class ClassListService {
   constructor(@Inject(RC_CLASS_LIST_API_URL) private apiUrl: string, private http: HttpClient) {
   }
 
-  getClassList(classListRequest: ClassListRequest): Observable<ClassListResponse> {
+  get(classListRequest: ClassListRequest): Observable<ClassListResponse> {
     return this.http.get<ClassListResponse>(this.apiUrl, {
       params: {
         yearId: classListRequest.year_id,

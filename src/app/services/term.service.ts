@@ -13,15 +13,15 @@ export class TermService {
   constructor(@Inject(RC_TERM_API_URL) private apiUrl: string, private http: HttpClient) {
   }
 
-  getAllTerms(): Observable<Term[]> {
+  getAll(): Observable<Term[]> {
     return this.http.get<Term[]>(`${this.apiUrl}`);
   }
 
-  addTerm(term: Term): Observable<EntityResponse> {
+  save(term: Term): Observable<EntityResponse> {
     return this.http.post<EntityResponse>(`${this.apiUrl}`, term);
   }
 
-  updateTerm(term: Term): Observable<EntityResponse> {
+  update(term: Term): Observable<EntityResponse> {
     return this.http.put<EntityResponse>(`${this.apiUrl}/${term.id}`, term);
   }
 }

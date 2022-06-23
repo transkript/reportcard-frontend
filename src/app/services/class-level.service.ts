@@ -13,11 +13,11 @@ export class ClassLevelService {
   constructor(private http: HttpClient, @Inject(RC_CLASS_LEVEL_API_URL) private classLevelApiUrl: string) {
   }
 
-  getClassLevels(): Observable<ClassLevel[]> {
+  getAll(): Observable<ClassLevel[]> {
     return this.http.get<ClassLevel[]>(this.classLevelApiUrl);
   }
 
-  getClassLevelsBySectionId(sectionId: number): Observable<ClassLevel[]> {
+  getBySection(sectionId: number): Observable<ClassLevel[]> {
     return this.http.get<ClassLevel[]>(`${this.classLevelApiUrl}/section`, {
       params: {
         sectionId: sectionId
@@ -25,19 +25,19 @@ export class ClassLevelService {
     });
   }
 
-  getClassLevelById(id: number): Observable<ClassLevel> {
+  getById(id: number): Observable<ClassLevel> {
     return this.http.get<ClassLevel>(`${this.classLevelApiUrl}/${id}`);
   }
 
-  addClassLevel(classLevel: ClassLevel): Observable<EntityResponse> {
+  save(classLevel: ClassLevel): Observable<EntityResponse> {
     return this.http.post<EntityResponse>(`${this.classLevelApiUrl}`, classLevel);
   }
 
-  updateClassLevel(classLevel: ClassLevel): Observable<EntityResponse> {
+  update(classLevel: ClassLevel): Observable<EntityResponse> {
     return this.http.put<EntityResponse>(`${this.classLevelApiUrl}/${classLevel.id}`, classLevel);
   }
 
-  deleteClassLevelById(classLevel: ClassLevel): Observable<any> {
+  delete(classLevel: ClassLevel): Observable<any> {
     return this.http.delete<any>(`${this.classLevelApiUrl}/${classLevel.id}`);
   }
 }

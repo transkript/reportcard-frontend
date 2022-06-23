@@ -12,19 +12,19 @@ export class SectionService {
   constructor(private http: HttpClient, @Inject(RC_SECTION_API_URL) private sectionApiUrl: string) {
   }
 
-  getSections(): Observable<Section[]> {
+  getAll(): Observable<Section[]> {
     return this.http.get<Section[]>(this.sectionApiUrl);
   }
 
-  getSectionById(id: number): Observable<Section> {
+  getById(id: number): Observable<Section> {
     return this.http.get<Section>(`${this.sectionApiUrl}/${id}`);
   }
 
-  addSection(section: Section): Observable<Section> {
+  save(section: Section): Observable<Section> {
     return this.http.post<Section>(this.sectionApiUrl, section);
   }
 
-  updateSection(section: Section): Observable<Section> {
+  update(section: Section): Observable<Section> {
     return this.http.put<Section>(`${this.sectionApiUrl}/${section.id}`, section);
   }
 }

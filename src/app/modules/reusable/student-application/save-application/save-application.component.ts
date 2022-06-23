@@ -69,13 +69,13 @@ export class SaveApplicationComponent implements OnInit {
 
 
   loadStudents = () => {
-    this.studentService.getStudents().subscribe({
+    this.studentService.getAll().subscribe({
       next: (students) => this.students = students
     });
   }
 
   loadSubjects = () => {
-    this.subjectService.getSubjects().subscribe({
+    this.subjectService.getAll().subscribe({
       next: (subjects) => this.subjects = subjects
     });
   }
@@ -101,7 +101,7 @@ export class SaveApplicationComponent implements OnInit {
   loadApplicationSubjects() {
     if (this.studentApplicationRes) {
       this.studentApplicationRes.subjects_regs.forEach((sr) => {
-        this.subjectService.getSubjectById(sr.subject_id).subscribe({
+        this.subjectService.getById(sr.subject_id).subscribe({
           next: (subject) => this.addToApplicationSubjects({pending: false, subject: subject})
         });
       });
@@ -146,7 +146,7 @@ export class SaveApplicationComponent implements OnInit {
         next: (res) => console.log(res),
       });
 
-      this.subjectRegistrationService.addMultiple(newSubjectRegs).subscribe({
+      this.subjectRegistrationService.saveMultiple(newSubjectRegs).subscribe({
         next: (res) => {
           console.log(res)
           this.loadApplicationSubjects();

@@ -13,23 +13,23 @@ export class StudentService {
   constructor(private http: HttpClient, @Inject(RC_STUDENT_API_URL) private studentApiUrl: string) {
   }
 
-  getStudents(): Observable<Student[]> {
+  getAll(): Observable<Student[]> {
     return this.http.get<Student[]>(this.studentApiUrl);
   }
 
-  getStudentById(id: number): Observable<Student> {
+  getById(id: number): Observable<Student> {
     return this.http.get<Student>(`${this.studentApiUrl}/${id}`);
   }
 
-  addStudent(student: Student): Observable<EntityResponse> {
+  save(student: Student): Observable<EntityResponse> {
     return this.http.post<EntityResponse>(this.studentApiUrl, student);
   }
 
-  updateStudent(student: Student): Observable<EntityResponse> {
+  update(student: Student): Observable<EntityResponse> {
     return this.http.put<EntityResponse>(`${this.studentApiUrl}/${student.id}`, student);
   }
 
-  deleteStudent(id: number): Observable<EntityResponse> {
+  delete(id: number): Observable<EntityResponse> {
     return this.http.delete<EntityResponse>(`${this.studentApiUrl}/${id}`);
   }
 }

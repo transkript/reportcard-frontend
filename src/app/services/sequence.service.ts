@@ -13,15 +13,15 @@ export class SequenceService {
   constructor(@Inject(RC_SEQUENCE_API_URL) private apiUrl: string, private http: HttpClient) {
   }
 
-  getAllSequences(): Observable<Sequence[]> {
+  getAll(): Observable<Sequence[]> {
     return this.http.get<Sequence[]>(this.apiUrl);
   }
 
-  addSequence(sequence: Sequence): Observable<EntityResponse> {
+  save(sequence: Sequence): Observable<EntityResponse> {
     return this.http.post(`${this.apiUrl}`, sequence);
   }
 
-  updateSequence(sequence: Sequence): Observable<EntityResponse> {
+  update(sequence: Sequence): Observable<EntityResponse> {
     return this.http.put(`${this.apiUrl}/${sequence.id}`, sequence);
   }
 }

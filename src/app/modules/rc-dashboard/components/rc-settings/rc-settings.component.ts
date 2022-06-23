@@ -8,7 +8,7 @@ import {SequenceService} from "../../../../services/sequence.service";
 import {TermService} from "../../../../services/term.service";
 import {AcademicYearService} from "../../../../services/academic-year.service";
 import {Term} from "../../../../models/dto/term.model";
-import {AcademicYear} from "../../../../models/dto/academicyear.model";
+import {AcademicYear} from "../../../../models/dto/academic-year.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DefaultService} from "../../../../services/default.service";
 import {AcademicYearUtil} from "../../../../utils/academic-year.util";
@@ -116,7 +116,7 @@ export class RcSettingsComponent implements OnInit {
   }
 
   loadSettings(): void {
-    this.schoolSettingsService.getSettings().subscribe({
+    this.schoolSettingsService.get().subscribe({
       next: (schoolSettings) => {
         this.schoolSettings = schoolSettings;
         this.updateSchoolSettingsValid();
@@ -129,13 +129,13 @@ export class RcSettingsComponent implements OnInit {
   }
 
   loadSettingsInfo(): void {
-    this.sequenceService.getAllSequences().subscribe({
+    this.sequenceService.getAll().subscribe({
       next: (sequences) => this.sequences = sequences,
     });
-    this.termService.getAllTerms().subscribe({
+    this.termService.getAll().subscribe({
       next: (terms) => this.terms = terms,
     });
-    this.academicYearService.getAllAcademicYears().subscribe({
+    this.academicYearService.getAll().subscribe({
       next: (years) => this.academicYears = years,
     });
   }
@@ -154,13 +154,13 @@ export class RcSettingsComponent implements OnInit {
     const settingsValidRes = this.isValidSettings(settings);
     if (settingsValidRes.valid) {
       if(settings.id <= 0) {
-        this.schoolSettingsService.addSettings(settings).subscribe({
+        this.schoolSettingsService.save(settings).subscribe({
           next: () => addToMessageService(this.msgService, 'success', 'Saved', 'Settings saved successfully'),
           error: err => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
           complete: () => this.loadSettings()
         });
       } else {
-        this.schoolSettingsService.updateSettings(settings).subscribe({
+        this.schoolSettingsService.update(settings).subscribe({
           next: () => addToMessageService(this.msgService, 'success', 'Saved', 'Settings saved successfully'),
           error: err => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
           complete: () => this.loadSettings()
@@ -201,7 +201,7 @@ export class RcSettingsComponent implements OnInit {
           case ATSName.YEAR: {
             console.log(entity)
             if(AcademicYearUtil.isValid(entity.name)) {
-              this.academicYearService.updateAcademicYear(entity as AcademicYear).subscribe({
+              this.academicYearService.update(entity as AcademicYear).subscribe({
                 next: (res) => addToMessageService(this.msgService, 'success', 'Update successful', res.message),
                 error: (err) => addToMessageService(this.msgService, 'error', 'Update failed', err.message),
                 complete: () => this.loadSettingsInfo()
@@ -213,7 +213,7 @@ export class RcSettingsComponent implements OnInit {
             break;
           }
           case ATSName.TERM: {
-            this.termService.updateTerm(entity as Term).subscribe({
+            this.termService.update(entity as Term).subscribe({
               next: (res) => addToMessageService(this.msgService, 'success', 'Update successful', res.message),
               error: (err) => addToMessageService(this.msgService, 'error', 'Update failed', err.message),
               complete: () => this.loadSettingsInfo()
@@ -221,7 +221,7 @@ export class RcSettingsComponent implements OnInit {
             break;
           }
           case ATSName.SEQUENCE: {
-            this.sequenceService.updateSequence(entity as Sequence).subscribe({
+            this.sequenceService.update(entity as Sequence).subscribe({
               next: (res) => addToMessageService(this.msgService, 'success', 'Update successful', res.message),
               error: (err) => addToMessageService(this.msgService, 'error', 'Update failed', err.message),
               complete: () => this.loadSettingsInfo()
@@ -246,7 +246,7 @@ export class RcSettingsComponent implements OnInit {
           const termId = seqTermAddInput ? parseInt(seqTermAddInput.value) : -1;
           const seq: Sequence = {id: -1, name: entityValue, term_id: termId};
           if(seq.term_id > 0 ) {
-            this.sequenceService.addSequence(seq).subscribe( {
+            this.sequenceService.save(seq).subscribe( {
               next: (res) => addToMessageService(this.msgService, 'success', 'Success', res.message),
               error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
               complete: () => this.loadSettingsInfo()
@@ -256,7 +256,7 @@ export class RcSettingsComponent implements OnInit {
         }
         case ATSName.TERM: {
           const term: Term = {id: -1, name: entityValue};
-          this.termService.addTerm(term).subscribe({
+          this.termService.save(term).subscribe({
             next: (res) => addToMessageService(this.msgService, 'success', 'Success', res.message),
             error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
             complete: () => this.loadSettingsInfo()
@@ -266,7 +266,7 @@ export class RcSettingsComponent implements OnInit {
         case ATSName.YEAR: {
           if(AcademicYearUtil.isValid(entityValue)) {
             const year: AcademicYear = {id: -1, name: entityValue};
-            this.academicYearService.addAcademicYear(year).subscribe({
+            this.academicYearService.save(year).subscribe({
               next: (res) => addToMessageService(this.msgService, 'success', 'Success', res.message),
               error: (err) => addToMessageService(this.msgService, 'error', 'Error', err.error.message),
               complete: () => this.loadSettingsInfo()

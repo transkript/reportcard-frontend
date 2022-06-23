@@ -13,11 +13,11 @@ export class GradeService {
   constructor(@Inject(RC_GRADE_API_URL) private apiUrl: string, private http: HttpClient) {
   }
 
-  addGrade(grade: Grade): Observable<EntityResponse> {
+  save(grade: Grade): Observable<EntityResponse> {
     return this.http.post<EntityResponse>(`${this.apiUrl}`, grade);
   }
 
-  updateGrade(grade: Grade): Observable<EntityResponse> {
+  update(grade: Grade): Observable<EntityResponse> {
     return this.http.put<EntityResponse>(`${this.apiUrl}`, grade);
   }
 }

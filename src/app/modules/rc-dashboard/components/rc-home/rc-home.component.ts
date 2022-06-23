@@ -34,16 +34,16 @@ export class RcHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.classLevelService.getClassLevels().subscribe((classLevels) => {
+    this.classLevelService.getAll().subscribe((classLevels) => {
       this.homeStats[0].value = classLevels.length;
     });
-    this.sectionService.getSections().subscribe((sections) => {
+    this.sectionService.getAll().subscribe((sections) => {
       this.homeStats[1].value = sections.length;
     });
-    this.studentService.getStudents().subscribe((students) => {
+    this.studentService.getAll().subscribe((students) => {
       this.homeStats[2].value = students.length;
     });
-    this.subjectService.getSubjects().subscribe((subjects) => {
+    this.subjectService.getAll().subscribe((subjects) => {
       this.homeStats[3].value = subjects.length;
     })
   }

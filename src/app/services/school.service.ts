@@ -13,19 +13,19 @@ export class SchoolService {
   constructor(private http: HttpClient, @Inject(RC_SCHOOL_API_URL) private schoolApiUrl: string) {
   }
 
-  getSchools(): Observable<School[]> {
+  get(): Observable<School[]> {
     return this.http.get<School[]>(this.schoolApiUrl)
   }
 
-  getSchoolById(id: number): Observable<School> {
+  getById(id: number): Observable<School> {
     return this.http.get<School>(`${this.schoolApiUrl}/${id}`)
   }
 
-  addSchool(school: School): Observable<EntityResponse> {
+  save(school: School): Observable<EntityResponse> {
     return this.http.post<School>(this.schoolApiUrl, school)
   }
 
-  updateSchool(school: School): Observable<EntityResponse> {
+  update(school: School): Observable<EntityResponse> {
     return this.http.put<School>(`${this.schoolApiUrl}/${school.id}`, school)
   }
 
