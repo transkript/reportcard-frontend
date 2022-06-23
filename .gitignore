@@ -12,6 +12,7 @@
 /node_modules
 npm-debug.log
 yarn-error.log
+node_modules.tar.xz
 
 # IDEs and editors
 .idea/
