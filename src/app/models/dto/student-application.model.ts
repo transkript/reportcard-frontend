@@ -3,9 +3,9 @@ import {SubjectRegistration} from "./subject-registration.model";
 
 export interface StudentApplication {
   id: number;
-  created_at: Date;
-  updated_at: Date;
-  repeating: boolean;
+  created_at: string;
+  updated_at?: string;
+  repeating?: boolean;
   student_id: number;
   cls_id: number;
   year_id: number;
