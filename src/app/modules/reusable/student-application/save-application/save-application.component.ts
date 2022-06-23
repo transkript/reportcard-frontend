@@ -89,9 +89,9 @@ export class SaveApplicationComponent implements OnInit {
   }
 
   loadClassLevels = () => {
-    this.classLevelService.getClassLevels().subscribe({
+    this.classLevelService.getAll().subscribe({
       next: (classLevels) => classLevels.forEach((cl) => {
-        this.classLevelSubService.getAllClassLevelSubsByClassLevelId(cl.id).subscribe({
+        this.classLevelSubService.getAllByClassLevelId(cl.id).subscribe({
           next: (classLevelSubs) => classLevelSubs.forEach((cls) => {
             this.classLevels.push({id: cl.id, name: `${cl.name} ${cls.name}`, cl: cl, cls: cls});
           })
