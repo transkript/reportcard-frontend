@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SchoolSettings} from "../../../../models/dto/schoolsettings.model";
+import {SchoolSettings} from "../../../../models/dto/school-settings.model";
 import {SchoolSettingsService} from "../../../../services/school-settings.service";
 import {addToMessageService} from "../../../../utils/message-service.util";
 import {MessageService} from "primeng/api";
@@ -44,12 +44,14 @@ export class RcSettingsComponent implements OnInit {
     private academicYearService: AcademicYearService
   ) {
     this.defaultSettings = {
-      id: -1, curr_seq_id: -1, curr_year_id: -1, curr_term: '',
+      id: -1, school_name: '',
+      curr_seq_id: -1, curr_year_id: -1, curr_term: '',
       application_is_open: false, min_grade: 0, max_grade: 0,
     };
     this.schoolSettings = this.defaultSettings;
     this.settingsForm = this.fb.group({
       applicationsOpen: [this.schoolSettings.application_is_open, Validators.required],
+      schoolName: ['', Validators.required],
       year: [0, Validators.required],
       term: [0, Validators.required],
       sequence: [0, Validators.required],
@@ -61,7 +63,6 @@ export class RcSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSettings();
-
   }
 
   private updateSchoolSettingsValid = (): void => {
@@ -106,6 +107,7 @@ export class RcSettingsComponent implements OnInit {
     }
     this.settingsForm.patchValue({
       "applicationsOpen": schoolSettings.application_is_open,
+      "schoolName": schoolSettings.school_name,
       "year": schoolSettings.curr_year_id,
       "sequence": schoolSettings.curr_seq_id,
       "minGrade": schoolSettings.min_grade,
@@ -141,6 +143,7 @@ export class RcSettingsComponent implements OnInit {
   saveSettingsAction() {
     const settings: SchoolSettings = {
       id: this.schoolSettings ? this.schoolSettings.id: -1,
+      school_name: this.settingsForm.get('schoolName')?.value,
       application_is_open: this.settingsForm.get('applicationsOpen')?.value,
       min_grade: this.settingsForm.get('minGrade')?.value,
       max_grade: this.settingsForm.get('maxGrade')?.value,
