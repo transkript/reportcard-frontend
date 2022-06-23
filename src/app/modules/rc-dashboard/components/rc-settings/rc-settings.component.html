@@ -11,8 +11,14 @@
     <div class="text-danger fst-italic" *ngIf="!schoolSettingsValid">
       School settings have not been added
     </div>
-    <div class="">
+    <div class="container-fluid">
       <form [formGroup]="settingsForm" (submit)="saveSettingsAction()">
+        <div class="row pb-3">
+          <div class="col-12 py-2">
+            <label class="form-label">School Name</label>
+            <input class="form-control" [value]="schoolSettings.school_name" [formControlName]="'schoolName'">
+          </div>
+        </div>
         <div class="row pb-3">
           <div class="col-md-6 py-2">
             <label class="form-label">Applications Open</label>

@@ -76,7 +76,7 @@
 
         <tr *ngFor="let sg of classListResponse.student_grades">
           <td>{{sg.student.name}}</td>
-          <td>{{sg.student.registration_number}}</td>
+          <td>{{sg.student.regno}}</td>
           <td>
             <input #gradeInput [disabled]="true" [max]="20" [min]="0" (change)="gradeInput.value"
                    [value]="sg.grade.score != null ? sg.grade.score: '-'" class="form-control" type="number">

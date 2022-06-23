@@ -17,10 +17,7 @@ export class SaveStudentComponent implements OnInit {
   @Input() student: Student;
   genders: string[] = Object.keys(Gender);
   studentForm: FormGroup = new FormGroup({});
-  private readonly defaultStudent: Student = {
-    id: -1, name: "", gender: "M", date_of_birth: '',
-    place_of_birth: "", registration_number: "", number_of_applications: 0
-  };
+  private readonly defaultStudent: Student = {id: -1, name: "", gender: "M", dob: '', pob: "", regno: "",};
 
   constructor(
     private activeModal: NgbActiveModal,
@@ -42,10 +39,9 @@ export class SaveStudentComponent implements OnInit {
   setUpStudentForm(): void {
     this.studentForm = new FormGroup({
       name: new FormControl(this.student.name, Validators.required),
-      regNum: new FormControl(this.student.registration_number, Validators.required),
       gender: new FormControl(this.student.gender, Validators.required),
-      dob: new FormControl(DateUtil.fromRcDate(this.student.date_of_birth), Validators.required),
-      pob: new FormControl(this.student.place_of_birth, Validators.required),
+      dob: new FormControl(DateUtil.fromRcDate(this.student.dob), Validators.required),
+      pob: new FormControl(this.student.pob, Validators.required),
     });
   }
 
@@ -53,11 +49,10 @@ export class SaveStudentComponent implements OnInit {
     const studentToSave: Student = {
       id: -1,
       name: this.studentForm.get('name')?.value,
-      registration_number: this.studentForm.get('regNum')?.value,
+      regno: this.studentForm.get('regNum')?.value,
       gender: this.studentForm.get('gender')?.value,
-      date_of_birth: DateUtil.setToRcDateString(this.studentForm.get('dob')?.value),
-      place_of_birth: this.studentForm.get('pob')?.value,
-      number_of_applications: 0,
+      dob: DateUtil.setToRcDateString(this.studentForm.get('dob')?.value),
+      pob: this.studentForm.get('pob')?.value,
     };
 
     if (this.student.id < 0) {

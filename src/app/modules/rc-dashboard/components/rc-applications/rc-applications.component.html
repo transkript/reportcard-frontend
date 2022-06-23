@@ -58,7 +58,7 @@
 
         <tr *ngFor="let a of applications">
           <td>{{a.student.name}}</td>
-          <td>{{a.student.registration_number}}</td>
+          <td>{{a.student.regno}}</td>
           <td *ngIf="applicationRequest.class_id < 0">{{a.class_name}}</td>
           <td>{{a.application.created_at}}</td>
           <td>{{a.application.number_of_subjects}}</td>
