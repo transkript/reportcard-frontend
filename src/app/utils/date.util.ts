@@ -2,11 +2,11 @@ export module DateUtil {
   export const toRcDate = (date: Date): string => {
     // return format yyyy-MM-dd HH:mm:ss
     const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const hour = date.getHours();
-    const minute = date.getMinutes();
-    const second = date.getSeconds();
+    const month = addZero(date.getMonth() + 1);
+    const day = addZero(date.getDate());
+    const hour = addZero(date.getHours());
+    const minute = addZero(date.getMinutes());
+    const second = addZero(date.getSeconds());
     return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
   }
 
@@ -14,14 +14,6 @@ export module DateUtil {
     // rc format: yyyy-MM-dd HH:mm:ss
     // return format: yyyy-mm-dd
     return date.split(' ')[0];
-  }
-
-  export const setToRcDateObj = (date: string): Date => {
-    const dateAsNum = Date.parse(date);
-    if (isNaN(dateAsNum)) {
-      return new Date();
-    }
-    return new Date(dateAsNum)
   }
   export const setToRcDateString = (date: string): string => {
     // input format: yyyy-mm-dd
