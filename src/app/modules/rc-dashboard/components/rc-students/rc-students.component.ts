@@ -46,8 +46,8 @@ export class RcStudentsComponent implements OnInit {
     modalRef.result.then((result) => {
       if (result) {
         // TODO this should be removed from here
-        this.loadStudents();
       }
+      this.loadStudents();
     });
   }
 
