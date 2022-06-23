@@ -11,7 +11,7 @@ import {injectables} from "./app.injectables";
 import {MessageService} from "primeng/api";
 import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RcWelcomeComponent } from './components/rc-welcome/rc-welcome.component';
-import {HttpErrorInterceptor} from "./interceptors/http-error.interceptor";
+import {HttpResponseInterceptor} from "./interceptors/http-response.interceptor";
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import {HttpErrorInterceptor} from "./interceptors/http-error.interceptor";
   ],
   providers: [
     injectables,
-    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpResponseInterceptor, multi: true},
     {provide: MessageService, useClass: MessageService},
     {provide: NgbActiveModal, useClass: NgbActiveModal}
   ],
